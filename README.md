@@ -32,8 +32,8 @@ A rough walkthrough of the automation process:
 * Generate relative paths to metric markdown files in various WGs
 * Pull all the metrics in base folder
 * Make a common images directory
-* Convert metrics markdown to tex
 * Decrease heading levels (only in metric markdowns) by appending `##`
+* Convert metrics markdown to tex
 * Generate focus areas tables in tex (2 level hierarchy)
 * Generate WG markdowns tex files for headings (3 level hierarchy)
 * Add front and end matter
