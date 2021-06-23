@@ -1,0 +1,53 @@
+
+% Packages
+\usepackage{amsmath}
+\usepackage{helvet}
+\usepackage{fontspec}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{amsfonts}
+
+\setmainfont{Arial}
+\setsansfont{Arial}
+
+
+\hypersetup{
+  pdftitle={Sample Report},
+  pdfauthor={yash2002109},
+  pdfsubject={pypandoc},
+  pdfkeywords={pypandoc,pdf,xelatex}
+}
+% set bullets for nested lists
+\setlist[itemize,1]{label=$\bullet$}
+\setlist[itemize,2]{label=$\circ$}
+\setlist[itemize,3]{label=$\diamond$}
+
+%Begin each new markdown from new page
+% \usepackage{sectsty}
+% \sectionfont{\clearpage}
+
+\let\originalparagraph\paragraph
+\let\originalsubparagraph\subparagraph
+
+\renewcommand{\paragraph}[1]%
+{\originalparagraph{#1}\hfill}
+
+\renewcommand{\subparagraph}[1]%
+{\originalsubparagraph{#1}\hfill}
+
+
+\definecolor{sec}{RGB}{1, 57, 89}
+\definecolor{subsec}{RGB}{0,73,114}
+\definecolor{subsubsec}{RGB}{14,91,135}
+\definecolor{para}{RGB}{24,101,125}
+\definecolor{subpara}{RGB}{24,101,125}
+
+
+
+% \sectionfont{\underline\Huge\bfseries\clearpage}
+% remove underline
+\sectionfont{\color{sec}\Huge\bfseries\underline\clearpage}
+\subsectionfont{\color{subsec}\LARGE\underline\clearpage}
+\subsubsectionfont{\color{subsubsec}\Large\clearpage}
+\paragraphfont{\color{para}\large}
+\subparagraphfont{\color{subpara}\large}
