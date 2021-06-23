@@ -1,6 +1,6 @@
 # YML configuration file
 
-This README serves as a guide for the dynamic yml config file located in this directory. It defines the repository structure for various Working Groups that are to be included in the metrics release report. The working groups would cloned and parsed for relative links according to the structure defined here. It server as the only input for the automation process.
+This README serves as a guide for the dynamic yml config file located in this directory. It defines the repository structure for various Working Groups that are to be included in the metrics release report. The working groups would be cloned and parsed for relative links according to the structure defined here. It serves as the only input for the automation process.
 
 ## File Structure
 
@@ -40,7 +40,7 @@ Note: Empty focus-areas (focus-areas with no metrics) will work as well.
 # WG Common
 
 wg-common:
-  include-wg-flag: True
+  include-wg: True
   wg-fullname: Common Metrics WG
   github-link: https://github.com/chaoss/wg-common
   github-branch: master
