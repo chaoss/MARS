@@ -1,0 +1,75 @@
+# This is a dynamic yml configuration file
+# It defines the repository structure for various Working Groups
+# it serves as the only input for PDF-out.py
+#
+# Template for defining WG:
+# 
+# WG-NAME:
+#   include-wg-flag: bool
+#   wg-name: repo-name
+#   github-link: git-link
+#   github-branch: git-branch
+#   focus-areas:
+#     focus-area1:
+#     - metric1: metric1-name
+#     - metric2: metric2-name
+#     focus-area2:
+#     - metric1: metric1-name
+#     - metric2: metric2-name
+#
+
+# WG-COMMON
+
+wg-common:
+  include-wg-flag: True
+  wg-name: wg-common
+  github-link: https://github.com/ritik-malik/wg-common
+  github-branch: abs-to-rel
+  focus-areas:
+    what:
+    - technical-fork.md
+    - types-of-contributions.md
+    when:
+    - activity-dates-and-times.md
+    - burstiness.md
+    - review-cycle-duration-with-in-a-change-request.md
+    - time-to-close.md
+    - time-to-first-response.md
+    where:
+    who:
+    - contributor-location.md
+    - contributors.md
+    - organizational-diversity.md
+
+
+# WG-VALUE
+
+wg-value:
+  include-wg-flag: True
+  wg-name: wg-value
+  github-link: https://github.com/ritik-malik/wg-value
+  github-branch: master
+  focus-areas:
+    communal-value:
+    - project-popularity.md
+    - project-velocity.md
+    - social-listening.md
+    individual-value:
+    - job-opportunities.md
+    - organizational-project-skill-demand.md
+    organizational-value:
+    - labor-investment.md
+    social-value:
+
+
+# WG-RISK and so on...
+
+focus-areas:
+  metrics-common.md: https://raw.githubusercontent.com/chaoss/website/master/release/metrics-tables/metrics-common.md
+  metrics-value.md: https://raw.githubusercontent.com/chaoss/website/master/release/metrics-tables/metrics-value.md
+
+  #metrics-di.md: https://raw.githubusercontent.com/chaoss/website/master/release/metrics-tables/metrics-di.md
+  #metrics-evo.md: https://raw.githubusercontent.com/chaoss/website/master/release/metrics-tables/metrics-evo.md
+  #metrics-risk.md: https://raw.githubusercontent.com/chaoss/website/master/release/metrics-tables/metrics-risk.md
+
+

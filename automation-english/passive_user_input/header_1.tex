@@ -1,0 +1,78 @@
+
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{sectsty, fancyhdr}
+\usepackage{enumitem}
+\usepackage{amsfonts}
+\usepackage{hyperref}
+\usepackage{fancyvrb,newverbs,xcolor}
+
+\usepackage[margin=0.8in,a4paper]{geometry}
+
+% \usepackage{titlesec}
+% \setcounter{secnumdepth}{5}
+
+% https://stackoverflow.com/questions/25037357/pandoc-long-tablerows-in-markdown-pdf-documents-do-not-get-linewrap
+
+% For space after level 4 heading - paragraphs
+% https://github.com/jgm/pandoc/wiki/Pandoc-Tricks#level-4-and-5-headings-on-their-own-line-in-latex
+\let\originalparagraph\paragraph
+\let\originalsubparagraph\subparagraph
+
+\renewcommand{\paragraph}[1]%
+{\originalparagraph{#1}\hfill}
+
+\renewcommand{\subparagraph}[1]%
+{\originalsubparagraph{#1}\hfill}
+
+
+\definecolor{sec}{RGB}{1, 57, 89}
+\definecolor{subsec}{RGB}{0,73,114}
+\definecolor{subsubsec}{RGB}{14,91,135}
+\definecolor{para}{RGB}{24,101,125}
+\definecolor{subpara}{RGB}{24,101,125}
+
+
+\setmainfont{Arial}
+\setsansfont{Arial}
+% \setmonofont{}
+% \setmathfont{}
+
+% \sectionfont{\underline\Huge\bfseries\clearpage}
+% remove underline
+\sectionfont{\color{sec}\Huge\bfseries\underline\clearpage}
+\subsectionfont{\color{subsec}\LARGE\underline\clearpage}
+\subsubsectionfont{\color{subsubsec}\Large\clearpage}
+\paragraphfont{\color{para}\large}
+\subparagraphfont{\color{subpara}\large}
+
+\definecolor{Light}{HTML}{F4F4F4}
+
+\let\oldtexttt\texttt
+\renewcommand{\texttt}[1]{
+  \colorbox{Light}{\oldtexttt{#1}}
+}
+
+
+% Set bullets
+\setlist[itemize,1]{label=$\bullet$}
+\setlist[itemize,2]{label=$\bullet$}
+\setlist[itemize,3]{label=$\circ$}
+\setlist[itemize,4]{label=$\circ$}
+
+\hypersetup{
+	pdftitle={Automated Metrics Release},
+	pdfauthor={CHAOSS},
+	pdfsubject={Metrics Release MM-YY},
+	pdfkeywords={CHAOSS, pandoc,automation,metrics}
+}
+
+\pagestyle{fancy}
+
+% to remove UPPERCASE from header
+\makeatletter
+\renewcommand{\sectionmark}[1]{%
+  \markboth{\ifnum \c@secnumdepth>\z@
+      \thesection\hskip 1em\relax
+    \fi #1}{}}
+\makeatother
