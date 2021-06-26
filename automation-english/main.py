@@ -137,7 +137,7 @@ def decrease_level(metric_path):
 if __name__ == "__main__":
 
     included_wgs = []
-    yml_filename = "WG_conf.yml"
+    yml_filename = "working-groups-config.yml"
     master_file_path = "master.tex"
     test_dir = "test_env"
     current_dir = "./"
@@ -163,7 +163,7 @@ if __name__ == "__main__":
         del yaml_data["focus-areas"]
 
     for wg_name in yaml_data.keys():
-        if yaml_data[wg_name]['include-wg-flag']:
+        if yaml_data[wg_name]['include-wg']:
 
             # clone repo with specified branch in yaml data
             ## TODO: Create new function for cloning repo
@@ -221,7 +221,7 @@ if __name__ == "__main__":
             wg_tex_file_path=os.path.join(current_dir, wg_name+".tex")
             with open(wg_tex_file_path, "w") as wg_tex_file:
                 wg_tex_file.write("\n")
-                wg_tex_file.write(f"\section{{{yaml_data[wg_name]['wg-name']}}}\n\clearpage\n")
+                wg_tex_file.write(f"\section{{{yaml_data[wg_name]['wg-fullname']}}}\n\clearpage\n")
                 ## TODO: Add content for WG.tex file here
                 for fa in included_focus_areas:
                     wg_tex_file.write(f"\input{{{fa}}} \n")
