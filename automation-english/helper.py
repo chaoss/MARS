@@ -21,12 +21,15 @@ def extract_goal(focus_area_README):
         data = f.readlines()
     data = [x.strip() for x in data]
 
-    # data[2] = '**Goal:** The goal to be extracted...'
-    # 1) Remove punctuations
-    # 2) Split into list
-    # 3) Remove the first word
-    # 4) Join the list and return
-    return ' '.join(data[2].translate(str.maketrans('', '', punctuation)).split()[1:])
+    # filter out empty strings
+    data = list(filter(None, data))
+
+    # data[1] = '**Goal:** The goal to be extracted...'
+    # 1) Split into list
+    # 2) Remove the first word
+    # 3) Join the list and return
+    return ' '.join(data[1].split()[1:])
+
 
 def extract_question(metric):
 
@@ -41,7 +44,7 @@ def extract_question(metric):
     metric_name = ' '.join(data[0].split()[1:])
 
     # data[1] = 'Question: question part of the metric'
-    metric_question = data[1].split(':')[1][1:]
+    metric_question = ' '.join(data[1].split()[1:])
 
     return metric_name, metric_question
 
