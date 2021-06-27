@@ -1,33 +1,14 @@
 # This is a dynamic yml configuration file
 # It defines the repository structure for various Working Groups
-# It serves as the only input for the automation process.
-#
-# Update this file if one of following occurs:
-# 1) A new metrics is added
-# 2) An existing metrics is removed
-# 3) A reorder of metrics is required
-#
-# Template for defining WG:
-#
-# WG-NAME:
-#   include-wg-flag: boolean
-#   wg-name: repo-name
-#   github-link: git-link
-#   github-branch: git-branch
-#   focus-areas:
-#     focus-area1:
-#     - metric1: metric1-name
-#     - metric2: metric2-name
-#     focus-area2:
-#     - metric1: metric1-name
-#     - metric2: metric2-name
-#
+# It serves as the only input for the automation process
+# For documentation, refer to the README in this directory
+
 
 # WG-COMMON
 
 wg-common:
-  include-wg-flag: True
-  wg-name: Common Metrics WG
+  include-wg: True
+  wg-fullname: Common Metrics WG
   github-link: https://github.com/chaoss/wg-common
   github-branch: master
   focus-areas:
@@ -50,8 +31,8 @@ wg-common:
 # WG-VALUE
 
 wg-value:
-  include-wg-flag: True
-  wg-name: Value WG
+  include-wg: True
+  wg-fullname: Value WG
   github-link: https://github.com/ritik-malik/wg-value
   github-branch: master
   focus-areas:

@@ -6,11 +6,7 @@ import yaml, subprocess
 from pprint import pprint
 import helper
 
-# def check_subarray(subarr, arr):
-#     for element in subarr:
-#         if element not in arr:
-#             return False
-#     return True
+# TODO: Implement error handling & check shutil.copy functions
 
 def copy_file(source_filepath, dest_path):
 
@@ -49,6 +45,7 @@ def copy_dir_files(source_folder_path, dest_folder_path):
                 print("Error occurred while copying file.")
 
 def convert_md2tex(md_filename, latex_filename):
+
     try:
         print(f"Converting {md_filename} file to LaTeX")
         output = pypandoc.convert_file(md_filename, 'latex', outputfile=latex_filename, extra_args=['-f', 'gfm'])
@@ -78,6 +75,7 @@ def convert_tex2pdf(tex_filename, pdf_filename):
     print(f"Conversion process successful: {pdf_filename}")
 
 def delete_files(file_path_arr):
+
     for file_path in file_path_arr:
         try:
             if os.path.isfile(file_path):
@@ -88,6 +86,7 @@ def delete_files(file_path_arr):
             print(f"Unable to delete {file_path}")
 
 def delete_folder(folder_path):
+
     try:
         if os.path.isdir(folder_path):
             print(f"Deleting folder: {folder_path}")
@@ -105,28 +104,6 @@ def load_yaml(file_path):
             return data
     except yaml.YAMLError as exc:
         print(exc)
-
-
-# def copy_images(yaml_data):
-#     # try using os.walk() to reduce time complexity
-# if "focus-areas" in yaml_data:
-#     del yaml_data["focus-areas"]
-#
-#     common_img_dir=os.path.join("images")
-#
-#     if not os.path.isdir(common_img_dir):
-#         os.makedirs(common_img_dir)
-#
-#     for wg_name in yaml_data.keys():
-#         if yaml_data[wg_name]['include-wg-flag']:
-#             for focus_area in yaml_data[wg_name]["focus-areas"].keys():
-#                 fa_image_dir = os.path.join(wg_name, "focus-areas", focus_area, "images")
-#                 if os.path.isdir(fa_image_dir):
-#                     for image in os.listdir(fa_image_dir):
-#                         src_image_path=os.path.join(fa_image_dir, image)
-#                         des_image_path=os.path.join(common_img_dir, image)
-#                         # print(image_path)
-#                         copy_file(src_image_path, des_image_path)
 
 def decrease_level(metric_path):
 
@@ -147,13 +124,6 @@ if __name__ == "__main__":
         os.chdir(test_dir)
     else:
         os.chdir(test_dir)
-
-    # copy WG specifically (only for testing purposes)
-    # copy_file(os.path.join("..", yml_filename), yml_filename)
-    # if not os.path.isdir("wg-common"):
-    #     shutil.copytree("../wg-common", "wg-common")
-    # if not os.path.isdir("wg-value"):
-    #     shutil.copytree("../wg-value", "wg-value")
 
     copy_dir_files("../active_user_input", current_dir)
     copy_dir_files("../passive_user_input", current_dir)
@@ -176,35 +146,30 @@ if __name__ == "__main__":
                 if metrics is not None:
                     for metric in metrics:
                         metric_path = os.path.join(wg_name, "focus-areas", focus_area, metric)
-                        # While copying the file
-                        # if we specify metric path then file doesn't get replaced
-                        # specifying only the dir replaces the file automatically
-                        # needs more investigation
+                        '''
+                        While copying the file
+                        if we specify metric path then file doesn't get replaced
+                        specifying only the dir replaces the file automatically
+                        needs more investigation
+                        '''
                         # copy_file(metric_path, os.path.join(current_dir,metric))
                         copy_file(metric_path, current_dir)
 
-                        # Decrease the heading levels by 2
                         decrease_level(metric)
-
                         tex_filename = re.sub(".md", ".tex",metric)
                         tex_file_path = os.path.join(current_dir, tex_filename)
                         convert_md2tex(metric, tex_file_path)
-                        # print(os.path.join(test_dir,tex_filename))
                         converted_tex_files.append(tex_filename)
-
                     included_focus_areas.append(focus_area)
                     print(converted_tex_files)
                     focus_area_tex_file_path = os.path.join(current_dir, focus_area+".tex")
-                    # print(focus_area_tex_file_path)
 
                     # copy images of particular focus-area
                     if not os.path.isdir("images"):
                         os.makedirs("images")
                     copy_dir_files(os.path.join(wg_name, "focus-areas", focus_area, "images"), os.path.join(current_dir, "images"))
 
-
                     focus_area_README = os.path.join(wg_name, "focus-areas", focus_area, "README.md")
-
                     # create focus_area.tex file and add table
                     helper.generate_focus_areas(focus_area, focus_area_README, metrics)
 
@@ -214,8 +179,6 @@ if __name__ == "__main__":
                         for metric_tex_file in converted_tex_files:
                             metric_file_inclusion = re.sub(".tex", "", metric_tex_file)
                             fa_tex_file.write(f"\input{{{metric_file_inclusion}}} \n")
-
-                # print(focus_areas)
 
             # create WG.tex file
             wg_tex_file_path=os.path.join(current_dir, wg_name+".tex")
@@ -232,9 +195,5 @@ if __name__ == "__main__":
         for wg in included_wgs:
             master_file.write(f"\include{{{wg}}} \n")
         master_file.write("\n\end{document}")
-    # os.chdir("test-env-prev/")
     convert_tex2pdf(master_file_path, "Output.pdf")
     copy_file("Output.pdf", "../")
-    # os.chdir("../")
-    # delete_folder(test_dir)
-
