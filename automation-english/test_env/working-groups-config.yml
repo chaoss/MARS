@@ -46,6 +46,36 @@ wg-value:
     organizational-value:
     - labor-investment.md
     social-value:
+    
+# WG-EVOLUTION
 
+wg-evolution:
+  include-wg: False
+  wg-fullname: Evolution WG
+  github-link: https://github.com/chaoss/wg-evolution
+  github-branch: master
+  focus-areas:
+    code-development-activity:
+    - branch-lifecycle.md
+    - code-changes-lines.md
+    - code-changes.md
+    code-development-efficiency:
+    - change-request-acceptance-ratio.md
+    - change-requests-accepted.md
+    - change-requests-declined.md
+    - change-requests-duration.md
+    code-development-process-quality:
+    - change-requests.md
+    community-growth:
+    - contribution-attribution.md
+    - inactive-contributors.md
+    - new-contributor-closing-issues.md
+    - new-contributors.md
+    issue-resolution:
+    - issue-age.md
+    - issue-resolution-duration.md
+    - issue-response-time.md
+    - issues-active.md
+    - issues-closed.md
+    - issues-new.md
 
-# WG-RISK and so on...
