@@ -26,7 +26,6 @@ Time to first response of an activity = time first response was posted to the ac
 
 
 ##### Visualizations
-<<<<<<< HEAD
 
 ![GrimoireLab Panel: Efficiency Timing Overview](images/time-to-first-response_efficiency-timing-overview.png)
 
@@ -39,14 +38,6 @@ Time to first response of an activity = time first response was posted to the ac
 ![Augur Visualization: Mean Response Times](images/time-to-first-response_augur-ttc-2.png)
 
 
-=======
-![GrimoireLab Panel: Efficiency Timing Overview](images/time-to-first-response_efficiency-timing-overview.png)
----------
-![Augur Visualization: Time to First Response Heat Map ](images/time-to-first-response_augur-ttc-1.png)
----------
-![Augur Visualization: Mean Response Times](images/time-to-first-response_augur-ttc-2.png)
-
->>>>>>> main
 ##### Tools Providing the Metric
 
 * GrimoireLab Panel: [Efficiency Timing Overview](https://chaoss.github.io/grimoirelab-sigils/panels/efficiency-timing-overview/)
