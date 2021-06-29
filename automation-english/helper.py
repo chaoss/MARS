@@ -49,14 +49,14 @@ def extract_question(metric):
     return metric_name, metric_question
 
 
-def generate_focus_areas(focus_area_name, focus_area_README, metrics):
+def generate_focus_areas(focus_area_name, focus_area_filename, focus_area_README, metrics):
 
     table_head = template_start
     table_tail = template_end
 
     focus_area_goal = extract_goal(focus_area_README)
 
-    table_head = table_head.replace("$FOCUS_AREA_NAME$", focus_area_name.title())
+    table_head = table_head.replace("$FOCUS_AREA_NAME$", focus_area_name.title().replace('-', ' '))
     table_head = table_head.replace("$FOCUS_AREA_GOAL$", focus_area_goal)
 
     for metric in metrics:
@@ -69,15 +69,10 @@ def generate_focus_areas(focus_area_name, focus_area_README, metrics):
     # \input{techical-fork} 
     # .... metrics...
 
-    file_name = focus_area_name + '.tex'
-    with open(file_name, 'w') as f:
+    # file_name = focus_area_name + '.tex'
+    with open(focus_area_filename, 'w') as f:
         f.write(table_head)
 
-    print(f"Written data to file = {file_name}")
-
-
-
-
-
+    print(f"Written data to file = {focus_area_filename}")
 
 
