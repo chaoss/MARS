@@ -179,8 +179,7 @@ if __name__ == "__main__":
                     with open(focus_area_filename, "a") as fa_tex_file:
                         fa_tex_file.write("\n")
                         for metric_tex_file in converted_tex_files:
-                            metric_file_inclusion = re.sub(".tex", "", metric_tex_file)
-                            fa_tex_file.write(f"\input{{{metric_file_inclusion}}} \n")
+                            fa_tex_file.write(f"\input{{{os.path.splitext(metric_tex_file)[0]}}} \n")
 
             # create WG.tex file
             wg_tex_file_path=os.path.join(current_dir, wg_name+".tex")
@@ -189,7 +188,6 @@ if __name__ == "__main__":
                 wg_tex_file.write(f"\section{{{yaml_data[wg_name]['wg-fullname']}}}\n\clearpage\n")
                 ## TODO: Add content for WG.tex file here
                 for fa in included_focus_areas:
-                    print(included_focus_areas)
                     wg_tex_file.write(f"\input{{{os.path.splitext(fa)[0]}}} \n")
 
     # create master file to include WG.tex files
