@@ -1,10 +1,17 @@
-import os
-import shutil
-import pypandoc
-import re
-import yaml, subprocess
+import re, os, shutil
+import pypandoc, yaml, subprocess
 from pprint import pprint
+from sys import exit
 import helper
+
+##### Global Vars #####
+
+included_wgs = []
+yml_filename = "working-groups-config.yml"
+master_file_path = "master.tex"
+test_dir = "test_env"
+current_dir = "./"
+
 
 # TODO: Implement error handling & check shutil.copy functions
 
@@ -14,7 +21,7 @@ def copy_file(source_filepath, dest_path):
     if os.path.isfile(dest_path):
         print(f"File with same name already exists at destination: {source_filepath}")
     else:
-        print(f"Copying: {source_filepath}")
+        print(f"\nCopying: {source_filepath}")
         shutil.copy2(source_filepath, dest_path)
         print(f"Copied Successfully")
 
@@ -29,12 +36,12 @@ def copy_dir_files(source_folder_path, dest_folder_path):
         print(f"Unable to list files in :{source_folder_path}")
 
     for fname in files:
-        print(os.path.join(dest_folder_path, fname))
+        # print(os.path.join(dest_folder_path, fname))  # might not need this
         if os.path.isfile(os.path.join(dest_folder_path,fname)):
             print(f"File with same name already exists at destination: {os.path.join(source_folder_path, fname)}")
         else:
             try:
-                print(f"Copying: {os.path.join(source_folder_path, fname)}")
+                print(f"\nCopying: {os.path.join(source_folder_path, fname)}")
                 shutil.copy2(os.path.join(source_folder_path, fname), dest_folder_path)
                 print(f"Copied Successfully")
             except shutil.SameFileError:
@@ -43,6 +50,7 @@ def copy_dir_files(source_folder_path, dest_folder_path):
                 print("Permission denied.")
             except:
                 print("Error occurred while copying file.")
+                exit(0)
 
 def convert_md2tex(md_filename, latex_filename):
 
@@ -56,7 +64,7 @@ def convert_md2tex(md_filename, latex_filename):
 
 def convert_tex2pdf(tex_filename, pdf_filename):
 
-    print(f"Converting {tex_filename} file to PDF")
+    print(f"\nConverting {tex_filename} file to PDF")
     output = pypandoc.convert_file(tex_filename, 'pdf', outputfile=pdf_filename, extra_args=['-f', 'latex',
                                                                                                 '--pdf-engine=xelatex',
                                                                                                  '-H', 'header_1.tex',
@@ -85,15 +93,14 @@ def delete_files(file_path_arr):
         except:
             print(f"Unable to delete {file_path}")
 
-def delete_folder(folder_path):
-
+def clean_directory(folder_path):
     try:
         if os.path.isdir(folder_path):
-            print(f"Deleting folder: {folder_path}")
+            print(f"\nCleaning directory: {folder_path}")
             shutil.rmtree(folder_path)
-            print("Deleted Successfully")
+            print("Directory cleaned Successfully")
     except:
-        print(f"Unable to delete folder: {folder_path}")
+        print(f"\nUnable to clean directory: {folder_path}")
 
 def load_yaml(file_path):
 
@@ -107,43 +114,58 @@ def load_yaml(file_path):
 
 def decrease_level(metric_path):
 
-    print(f"Decreasing heading levels by 2 in metric: {metric_path}")
+    print(f"\nDecreasing heading levels by 2 in metric: {metric_path}")
     cmd = 'sed -i "s/^\#/###/g" ' + metric_path
     os.system(cmd)
 
-if __name__ == "__main__":
+def main():
 
-    included_wgs = []
-    yml_filename = "working-groups-config.yml"
-    master_file_path = "master.tex"
-    test_dir = "test_env"
-    current_dir = "./"
-    delete_folder(test_dir)
+    global included_wgs
+    global yml_filename
+    global master_file_path
+    global test_dir
+    global current_dir
+
+    # Clean the test_dir for residual files
+    clean_directory(test_dir)
+
     if not os.path.isdir(test_dir):
         os.makedirs(test_dir)
         os.chdir(test_dir)
     else:
         os.chdir(test_dir)
+    
+    print(f"\nSwitching to {test_dir}")
 
+    # Copy the scripts
     copy_dir_files("../active_user_input", current_dir)
     copy_dir_files("../passive_user_input", current_dir)
 
-    yaml_data = load_yaml(yml_filename)
-    if "focus-areas" in yaml_data:
-        del yaml_data["focus-areas"]
 
+    # Read the yml file
+    print("\nReading the YML file:\n")
+
+    yaml_data = load_yaml(yml_filename)
+
+    # LOOP #1: For Working Groups
     for wg_name in yaml_data.keys():
         if yaml_data[wg_name]['include-wg']:
 
             # clone repo with specified branch in yaml data
             ## TODO: Create new function for cloning repo
+            print(f"\nCloning from URL: {yaml_data[wg_name]['github-link']}\nBranch: {yaml_data[wg_name]['github-branch']}\n")
             subprocess.check_call(['git', 'clone', '-b', yaml_data[wg_name]['github-branch'], yaml_data[wg_name]['github-link'], wg_name])
 
             included_wgs.append(wg_name)
             included_focus_areas = []
+            focus_area_list = []
+
+            # LOOP #2: For Focus Areas
             for focus_area, metrics in yaml_data[wg_name]["focus-areas"].items():
                 converted_tex_files = []
                 if metrics is not None:
+
+                    # LOOP #3: For Metrics
                     for metric in metrics:
                         metric_path = os.path.join(wg_name, "focus-areas", focus_area, metric)
                         '''
@@ -156,20 +178,26 @@ if __name__ == "__main__":
                         copy_file(metric_path, current_dir)
 
                         decrease_level(metric)
-                        tex_filename = re.sub(".md", ".tex",metric)
+                        tex_filename = re.sub(".md", ".tex", metric)
                         
                         tex_file_path = os.path.join(current_dir, tex_filename)
                         convert_md2tex(metric, tex_file_path)
                         converted_tex_files.append(tex_filename)
-                    print(converted_tex_files)
+
+                    # print(converted_tex_files)
                     # focus_area_tex_file_path = os.path.join(current_dir, focus_area+".tex")
 
                     # copy images of particular focus-area
                     if not os.path.isdir("images"):
+                        print(f"\nMaking images directory")
                         os.makedirs("images")
                     copy_dir_files(os.path.join(wg_name, "focus-areas", focus_area, "images"), os.path.join(current_dir, "images"))
 
                     focus_area_README = os.path.join(wg_name, "focus-areas", focus_area, "README.md")
+
+                    # to be used in focus-areas table for WG.tex
+                    focus_area_list.append([focus_area, focus_area_README])
+
                     # create focus_area.tex file and add table
                     focus_area_filename= wg_name+"_"+focus_area+".tex"
                     helper.generate_focus_areas(focus_area, focus_area_filename,focus_area_README, metrics)
@@ -183,18 +211,33 @@ if __name__ == "__main__":
 
             # create WG.tex file
             wg_tex_file_path=os.path.join(current_dir, wg_name+".tex")
+
             with open(wg_tex_file_path, "w") as wg_tex_file:
                 wg_tex_file.write("\n")
-                wg_tex_file.write(f"\section{{{yaml_data[wg_name]['wg-fullname']}}}\n\clearpage\n")
-                ## TODO: Add content for WG.tex file here
+
+                # add focus areas table to WG.tex
+                helper.focus_areas_table(wg_tex_file, yaml_data[wg_name]['wg-fullname'], focus_area_list)
+
+                # wg_tex_file.write(f"\section{{{yaml_data[wg_name]['wg-fullname']}}}\n\clearpage\n")
+                wg_tex_file.write("\n\clearpage\n")
+
+
                 for fa in included_focus_areas:
                     wg_tex_file.write(f"\input{{{os.path.splitext(fa)[0]}}} \n")
 
     # create master file to include WG.tex files
     with open(master_file_path, "a") as master_file:
         master_file.write("\n")
+
         for wg in included_wgs:
             master_file.write(f"\include{{{wg}}} \n")
+        
         master_file.write("\n\end{document}")
+    
     convert_tex2pdf(master_file_path, "Output.pdf")
     copy_file("Output.pdf", "../")
+
+
+
+if __name__ == "__main__":
+    main()

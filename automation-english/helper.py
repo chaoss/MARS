@@ -1,6 +1,16 @@
 from string import punctuation
 
-template_start = r'''
+template_working_group = r'''
+\section{$SECTION_NAME$}
+\begin{table}[ht!]
+    \centering
+    \begin{tabular}{|p{0.35\linewidth} | p{0.6\linewidth}|}
+        \hline
+        \hfil \textbf{Focus Area}  & \hfil \textbf{Goal} \\
+        \hline
+'''
+
+template_focus_areas = r'''
 \subsection{Focus Area - $FOCUS_AREA_NAME$}
 \textbf{Goal:} $FOCUS_AREA_GOAL$
 \begin{table}[ht!]
@@ -51,7 +61,7 @@ def extract_question(metric):
 
 def generate_focus_areas(focus_area_name, focus_area_filename, focus_area_README, metrics):
 
-    table_head = template_start
+    table_head = template_focus_areas
     table_tail = template_end
 
     focus_area_goal = extract_goal(focus_area_README)
@@ -73,6 +83,23 @@ def generate_focus_areas(focus_area_name, focus_area_filename, focus_area_README
     with open(focus_area_filename, 'w') as f:
         f.write(table_head)
 
-    print(f"Written data to file = {focus_area_filename}")
+    print(f"\nGenerating focus-area file = {focus_area_filename}")
 
 
+def focus_areas_table(wg_tex_file, section_name, focus_areas_list):
+
+    table_head = template_working_group
+    table_tail = template_end
+
+    table_head = table_head.replace("$SECTION_NAME$", section_name)
+
+    for FA in focus_areas_list:
+
+        # FA[0] = focus_area_name
+        # FA[1] = focus_area_README.md
+        focus_area_goal = extract_goal(FA[1])
+
+        table_head += '\t\t' + FA[0].title().replace('-', ' ') + ' & ' + focus_area_goal + ' \\\\ \n\t\t\hline\n'
+
+    table_head += table_tail
+    wg_tex_file.write(table_head)
