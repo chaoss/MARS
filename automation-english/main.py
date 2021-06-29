@@ -157,18 +157,13 @@ if __name__ == "__main__":
 
                         decrease_level(metric)
                         tex_filename = re.sub(".md", ".tex",metric)
-<<<<<<< HEAD
-                        convert_md2tex(metric, tex_filename)
-                        converted_tex_files.append(tex_filename)
-                    print(converted_tex_files)
-=======
+                        
                         tex_file_path = os.path.join(current_dir, tex_filename)
                         convert_md2tex(metric, tex_file_path)
                         converted_tex_files.append(tex_filename)
                     included_focus_areas.append(focus_area)
                     print(converted_tex_files)
                     focus_area_tex_file_path = os.path.join(current_dir, focus_area+".tex")
->>>>>>> main
 
                     # copy images of particular focus-area
                     if not os.path.isdir("images"):
@@ -176,21 +171,10 @@ if __name__ == "__main__":
                     copy_dir_files(os.path.join(wg_name, "focus-areas", focus_area, "images"), os.path.join(current_dir, "images"))
 
                     focus_area_README = os.path.join(wg_name, "focus-areas", focus_area, "README.md")
-<<<<<<< HEAD
-
                     # create focus_area.tex file and add table
                     focus_area_filename= wg_name+"_"+focus_area+".tex"
-                    helper.generate_focus_areas(focus_area, focus_area_filename, focus_area_README, metrics)
-                    included_focus_areas.append(focus_area_filename)
-
-                    # Add inclusion commands for metrics
-                    with open(focus_area_filename, "a") as fa_tex_file:
-                        fa_tex_file.write("\n")
-                        for metric_tex_file in converted_tex_files:
-                            fa_tex_file.write(f"\input{{{os.path.splitext(metric_tex_file)[0]}}} \n")
-=======
-                    # create focus_area.tex file and add table
                     helper.generate_focus_areas(focus_area, focus_area_README, metrics)
+                    included_focus_areas.append(focus_area_filename)
 
                     # Add inclusion commands for metrics
                     with open(focus_area_tex_file_path, "a") as fa_tex_file:
@@ -198,7 +182,6 @@ if __name__ == "__main__":
                         for metric_tex_file in converted_tex_files:
                             metric_file_inclusion = re.sub(".tex", "", metric_tex_file)
                             fa_tex_file.write(f"\input{{{metric_file_inclusion}}} \n")
->>>>>>> main
 
             # create WG.tex file
             wg_tex_file_path=os.path.join(current_dir, wg_name+".tex")
@@ -206,14 +189,9 @@ if __name__ == "__main__":
                 wg_tex_file.write("\n")
                 wg_tex_file.write(f"\section{{{yaml_data[wg_name]['wg-fullname']}}}\n\clearpage\n")
                 ## TODO: Add content for WG.tex file here
-<<<<<<< HEAD
 
                 for fa in included_focus_areas:
                     wg_tex_file.write(f"\input{{{os.path.splitext(fa)[0]}}} \n")
-=======
-                for fa in included_focus_areas:
-                    wg_tex_file.write(f"\input{{{fa}}} \n")
->>>>>>> main
 
     # create master file to include WG.tex files
     with open(master_file_path, "a") as master_file:
