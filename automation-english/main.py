@@ -31,27 +31,25 @@ def copy_dir_files(source_folder_path, dest_folder_path):
     # TODO: provide support for optional replace flag
     try:
         files = os.listdir(source_folder_path)
+        for fname in files:
+            # print(os.path.join(dest_folder_path, fname))  # might not need this
+            if os.path.isfile(os.path.join(dest_folder_path, fname)):
+                print(f"File with same name already exists at destination: {os.path.join(source_folder_path, fname)}")
+            else:
+                try:
+                    print(f"\nCopying: {os.path.join(source_folder_path, fname)}")
+                    shutil.copy2(os.path.join(source_folder_path, fname), dest_folder_path)
+                    print(f"Copied Successfully")
+                except shutil.SameFileError:
+                    print("Source and destination represents the same file.")
+                except PermissionError:
+                    print("Permission denied.")
+                except:
+                    print("Error occurred while copying file.")
     except NotADirectoryError:
         print(f"Source path is not a directory :{source_folder_path}")
     except:
         print(f"Unable to list files in :{source_folder_path}")
-
-    for fname in files:
-        # print(os.path.join(dest_folder_path, fname))  # might not need this
-        if os.path.isfile(os.path.join(dest_folder_path,fname)):
-            print(f"File with same name already exists at destination: {os.path.join(source_folder_path, fname)}")
-        else:
-            try:
-                print(f"\nCopying: {os.path.join(source_folder_path, fname)}")
-                shutil.copy2(os.path.join(source_folder_path, fname), dest_folder_path)
-                print(f"Copied Successfully")
-            except shutil.SameFileError:
-                print("Source and destination represents the same file.")
-            except PermissionError:
-                print("Permission denied.")
-            except:
-                print("Error occurred while copying file.")
-                exit(0)
 
 def convert_md2tex(md_filename, latex_filename):
 
