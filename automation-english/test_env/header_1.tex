@@ -8,6 +8,7 @@
 \usepackage{fancyvrb,newverbs,xcolor}
 
 \usepackage[margin=0.8in,a4paper]{geometry}
+\usepackage{amssymb}
 
 % \usepackage{titlesec}
 % \setcounter{secnumdepth}{5}
@@ -55,10 +56,19 @@
 
 
 % Set bullets
+\setlistdepth{9}
+
 \setlist[itemize,1]{label=$\bullet$}
-\setlist[itemize,2]{label=$\bullet$}
-\setlist[itemize,3]{label=$\circ$}
-\setlist[itemize,4]{label=$\circ$}
+\setlist[itemize,2]{label=$\circ$}
+\setlist[itemize,3]{label=$\blacksquare$}
+\setlist[itemize,4]{label=$\bullet$}
+\setlist[itemize,5]{label=$\circ$}
+\setlist[itemize,6]{label=$\blacksquare$}
+\setlist[itemize,7]{label=$\bullet$}
+\setlist[itemize,8]{label=$\circ$}
+\setlist[itemize,9]{label=$\blacksquare$}
+
+\renewlist{itemize}{itemize}{9}
 
 \hypersetup{
 	pdftitle={Automated Metrics Release},
