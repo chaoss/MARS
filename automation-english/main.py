@@ -1,6 +1,7 @@
 import re, os, shutil
 import pypandoc, yaml, subprocess
 from pprint import pprint
+from datetime import datetime
 from sys import exit
 import helper
 
@@ -234,8 +235,11 @@ def main():
         
         master_file.write("\n\end{document}")
     
-    convert_tex2pdf(master_file_path, "Output.pdf")
-    copy_file("Output.pdf", "../")
+    # PDF name = output-YYYY-MM-DD.pdf
+    output_filename = "Output-" + datetime.today().strftime('%Y-%m-%d') + ".pdf"
+
+    convert_tex2pdf(master_file_path, output_filename)
+    copy_file(output_filename, "../output")
 
 
 
