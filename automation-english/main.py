@@ -4,6 +4,7 @@ from pprint import pprint
 from datetime import datetime
 from sys import exit
 import helper
+import validators
 
 ##### Global Vars #####
 
@@ -76,7 +77,8 @@ def convert_tex2pdf(tex_filename, pdf_filename):
                                                                                                  '-V', 'linkcolour:blue',
                                                                                                  '-V', 'fontsize=12pt',
                                                                                                  '--toc', '--toc-depth= 3',
-                                                                                                 '--include-before-body', 'cover.tex'
+                                                                                                 '--include-before-body', 'cover.tex',
+                                                                                                 '--include-after-body', 'end-matter.tex'
                                                                                                 ])
     assert output == ""
     print(f"Conversion process successful: {pdf_filename}")
@@ -117,6 +119,18 @@ def decrease_level(metric_path):
     cmd = 'sed -i "s/^\#/###/g" ' + metric_path
     os.system(cmd)
 
+def delete_dictkey(key, dictionary):
+    if key in dictionary:
+        del dictionary[key]
+    else:
+        print(f"Key: {key} not found in dictionary: {dictionary}")
+
+def is_url(string):
+    if validators.url(string):
+        return True
+    else:
+        return False
+
 def main():
 
     global included_wgs
@@ -143,8 +157,66 @@ def main():
 
     # Read the yml file
     print("\nReading the YML file:\n")
-
     yaml_data = load_yaml(yml_filename)
+
+    # Create front matter and include files to add just after TOC
+    with open("front-matter.tex", "w") as fm:
+        for page in yaml_data["front-matter"]:
+            if is_url(page):
+                os.system(f"wget {page}")
+                filename = os.path.basename(page)
+                name, extension = os.path.splitext(filename)
+                if extension == ".md":
+                    convert_md2tex(filename, name+".tex")
+                    fm.write(f"\input{{{name}}} \n")
+                elif extension == ".tex":
+                    fm.write(f"\input{{{name}}} \n")
+                else:
+                    print(f"Could not incorporate: {page}")
+            elif os.path.splitext(page)[1] == ".md":
+                convert_md2tex(page, os.path.splitext(page)[0]+".tex")
+                fm.write(f"\input{{{os.path.splitext(page)[0]}}} \n")
+            elif os.path.splitext(page)[1] == ".tex":
+                fm.write(f"\input{{{os.path.splitext(page)[0]}}}"+"\n")
+            else:
+                print(f"Could not incorporate: {page}")
+
+    with open(master_file_path, "a") as master_file:
+        master_file.write("\n \include{front-matter}")
+
+    # create and include pages to included at end of report
+    with open("end-matter.tex", "w") as em:
+        for page in yaml_data["end-matter"]:
+            if is_url(page):
+                os.system(f"wget {page}")
+                filename= os.path.basename(page)
+                name, extension = os.path.splitext(filename)
+                if name == "LICENSE":
+                    os.rename("LICENSE", "LICENSE.md")
+                    convert_md2tex("LICENSE.md", "LICENSE.tex")
+                    em.write("\clearpage\n\section{LICENSE}\n\input{LICENSE}\n")
+                if extension == ".md":
+                    convert_md2tex(filename, name+".tex")
+                    em.write(f"\input{{{name}}} \n")
+                elif extension == ".tex":
+                    em.write(f"\input{{{name}}} \n")
+                else:
+                    print(f"Could not incorporate: {page}")
+            elif os.path.splitext(page)[1] == ".md":
+                convert_md2tex(page, os.path.splitext(page)[0]+".tex")
+                fm.write(f"\input{{{os.path.splitext(page)[0]}}} \n")
+            elif os.path.splitext(page)[1] == ".tex":
+                fm.write(f"\input{{{os.path.splitext(page)[0]}}}"+"\n")
+            elif os.path.splitext(page)[0] == "LICENSE" and os.path.splitext(page)[1] == "":
+                os.rename("LICENSE", "LICENSE.md")
+                convert_md2tex("LICENSE.md", "LICENSE.tex")
+                fm.write("\clearpage\n\section{LICENSE}\n\input{LICENSE}\n")
+            else:
+                print(f"Could not incorporate: {page}")
+
+    delete_dictkey("front-matter", yaml_data)
+    delete_dictkey("end-matter", yaml_data)
+
 
     # LOOP #1: For Working Groups
     for wg_name in yaml_data.keys():
@@ -167,15 +239,8 @@ def main():
                     # LOOP #3: For Metrics
                     for metric in metrics:
                         metric_path = os.path.join(wg_name, "focus-areas", focus_area, metric)
-                        '''
-                        While copying the file
-                        if we specify metric path then file doesn't get replaced
-                        specifying only the dir replaces the file automatically
-                        needs more investigation
-                        '''
-                        # copy_file(metric_path, os.path.join(current_dir,metric))
-                        copy_file(metric_path, current_dir)
 
+                        copy_file(metric_path, current_dir)
                         decrease_level(metric)
                         tex_filename = re.sub(".md", ".tex", metric)
                         
@@ -230,7 +295,7 @@ def main():
 
         for wg in included_wgs:
             master_file.write(f"\include{{{wg}}} \n")
-        
+
         master_file.write("\n\end{document}")
     
     # PDF name = output-YYYY-MM-DD.pdf
@@ -238,8 +303,6 @@ def main():
 
     convert_tex2pdf(master_file_path, output_filename)
     copy_file(output_filename, "../output")
-
-
 
 if __name__ == "__main__":
     main()
