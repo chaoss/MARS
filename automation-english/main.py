@@ -161,58 +161,67 @@ def main():
 
     # Create front matter and include files to add just after TOC
     with open("front-matter.tex", "w") as fm:
-        for page in yaml_data["front-matter"]:
-            if is_url(page):
-                os.system(f"wget {page}")
-                filename = os.path.basename(page)
-                name, extension = os.path.splitext(filename)
-                if extension == ".md":
-                    convert_md2tex(filename, name+".tex")
-                    fm.write(f"\input{{{name}}} \n")
-                elif extension == ".tex":
-                    fm.write(f"\input{{{name}}} \n")
+        if yaml_data["front-matter"] is not None:
+            for page in yaml_data["front-matter"]:
+                if is_url(page):
+                    os.system(f"wget {page}")
+                    filename = os.path.basename(page)
+                    name, extension = os.path.splitext(filename)
+                    if extension == ".md":
+                        convert_md2tex(filename, name+".tex")
+                        fm.write(f"\input{{{name}}} \n")
+                    elif extension == ".tex":
+                        fm.write(f"\input{{{name}}} \n")
+                    else:
+                        print(f"Could not incorporate: {page}")
+                elif os.path.splitext(page)[1] == ".md":
+                    convert_md2tex(page, os.path.splitext(page)[0]+".tex")
+                    fm.write(f"\input{{{os.path.splitext(page)[0]}}} \n")
+                elif os.path.splitext(page)[1] == ".tex":
+                    fm.write(f"\input{{{os.path.splitext(page)[0]}}}"+"\n")
                 else:
                     print(f"Could not incorporate: {page}")
-            elif os.path.splitext(page)[1] == ".md":
-                convert_md2tex(page, os.path.splitext(page)[0]+".tex")
-                fm.write(f"\input{{{os.path.splitext(page)[0]}}} \n")
-            elif os.path.splitext(page)[1] == ".tex":
-                fm.write(f"\input{{{os.path.splitext(page)[0]}}}"+"\n")
-            else:
-                print(f"Could not incorporate: {page}")
+        else:
+            print("No documents detected for the front-matter")
+
+
+
 
     with open(master_file_path, "a") as master_file:
         master_file.write("\n \include{front-matter}")
 
     # create and include pages to included at end of report
     with open("end-matter.tex", "w") as em:
-        for page in yaml_data["end-matter"]:
-            if is_url(page):
-                os.system(f"wget {page}")
-                filename= os.path.basename(page)
-                name, extension = os.path.splitext(filename)
-                if name == "LICENSE":
+        if yaml_data["end-matter"] is not None:
+            for page in yaml_data["end-matter"]:
+                if is_url(page):
+                    os.system(f"wget {page}")
+                    filename= os.path.basename(page)
+                    name, extension = os.path.splitext(filename)
+                    if name == "LICENSE":
+                        os.rename("LICENSE", "LICENSE.md")
+                        convert_md2tex("LICENSE.md", "LICENSE.tex")
+                        em.write("\clearpage\n\section{LICENSE}\n\input{LICENSE}\n")
+                    if extension == ".md":
+                        convert_md2tex(filename, name+".tex")
+                        em.write(f"\input{{{name}}} \n")
+                    elif extension == ".tex":
+                        em.write(f"\input{{{name}}} \n")
+                    else:
+                        print(f"Could not incorporate: {page}")
+                elif os.path.splitext(page)[1] == ".md":
+                    convert_md2tex(page, os.path.splitext(page)[0]+".tex")
+                    fm.write(f"\input{{{os.path.splitext(page)[0]}}} \n")
+                elif os.path.splitext(page)[1] == ".tex":
+                    fm.write(f"\input{{{os.path.splitext(page)[0]}}}"+"\n")
+                elif os.path.splitext(page)[0] == "LICENSE" and os.path.splitext(page)[1] == "":
                     os.rename("LICENSE", "LICENSE.md")
                     convert_md2tex("LICENSE.md", "LICENSE.tex")
-                    em.write("\clearpage\n\section{LICENSE}\n\input{LICENSE}\n")
-                if extension == ".md":
-                    convert_md2tex(filename, name+".tex")
-                    em.write(f"\input{{{name}}} \n")
-                elif extension == ".tex":
-                    em.write(f"\input{{{name}}} \n")
+                    fm.write("\clearpage\n\section{LICENSE}\n\input{LICENSE}\n")
                 else:
                     print(f"Could not incorporate: {page}")
-            elif os.path.splitext(page)[1] == ".md":
-                convert_md2tex(page, os.path.splitext(page)[0]+".tex")
-                fm.write(f"\input{{{os.path.splitext(page)[0]}}} \n")
-            elif os.path.splitext(page)[1] == ".tex":
-                fm.write(f"\input{{{os.path.splitext(page)[0]}}}"+"\n")
-            elif os.path.splitext(page)[0] == "LICENSE" and os.path.splitext(page)[1] == "":
-                os.rename("LICENSE", "LICENSE.md")
-                convert_md2tex("LICENSE.md", "LICENSE.tex")
-                fm.write("\clearpage\n\section{LICENSE}\n\input{LICENSE}\n")
-            else:
-                print(f"Could not incorporate: {page}")
+        else:
+            print("No documents detected for the end-matter")
 
     delete_dictkey("front-matter", yaml_data)
     delete_dictkey("end-matter", yaml_data)
