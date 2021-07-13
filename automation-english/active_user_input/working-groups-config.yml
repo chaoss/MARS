@@ -3,11 +3,18 @@
 # It serves as the only input for the automation process
 # For documentation, refer to the README in this directory
 
+front-matter:
+- https://raw.githubusercontent.com/chaoss/website/master/release/contributors.md
+
+
+end-matter:
+- https://raw.githubusercontent.com/chaoss/website/master/release/release-notes.md
+- https://raw.githubusercontent.com/chaoss/website/master/LICENSE
 
 # WG-COMMON
 
 wg-common:
-  include-wg: True
+  include-wg: False
   wg-fullname: Common Metrics WG
   github-link: https://github.com/chaoss/wg-common
   github-branch: master
