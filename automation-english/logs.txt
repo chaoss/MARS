@@ -27,7 +27,10 @@ Copied Successfully
 
 Reading the YML file:
 
-{'wg-common': {'focus-areas': {'what': ['technical-fork.md',
+{'end-matter': ['https://raw.githubusercontent.com/chaoss/website/master/release/release-notes.md',
+                'https://raw.githubusercontent.com/chaoss/website/master/LICENSE'],
+ 'front-matter': ['https://raw.githubusercontent.com/chaoss/website/master/release/contributors.md'],
+ 'wg-common': {'focus-areas': {'what': ['technical-fork.md',
                                         'types-of-contributions.md'],
                                'when': ['activity-dates-and-times.md',
                                         'burstiness.md',
@@ -40,7 +43,7 @@ Reading the YML file:
                                        'organizational-diversity.md']},
                'github-branch': 'master',
                'github-link': 'https://github.com/chaoss/wg-common',
-               'include-wg': True,
+               'include-wg': False,
                'wg-fullname': 'Common Metrics WG'},
  'wg-evolution': {'focus-areas': {'code-development-activity': ['branch-lifecycle.md',
                                                                 'code-changes-lines.md',
@@ -75,148 +78,13 @@ Reading the YML file:
               'github-link': 'https://github.com/ritik-malik/wg-value',
               'include-wg': True,
               'wg-fullname': 'Value WG'}}
-
-Cloning from URL: https://github.com/chaoss/wg-common
-Branch: master
-
-
-Copying: wg-common/focus-areas/what/technical-fork.md
-Copied Successfully
-
-Decreasing heading levels by 2 in metric: technical-fork.md
-Converting technical-fork.md file to LaTeX
-Created successfully: ./technical-fork.tex
-
-Copying: wg-common/focus-areas/what/types-of-contributions.md
-Copied Successfully
-
-Decreasing heading levels by 2 in metric: types-of-contributions.md
-Converting types-of-contributions.md file to LaTeX
-Created successfully: ./types-of-contributions.tex
-
-Making images directory
-
-Copying: wg-common/focus-areas/what/images/technical-fork_grimoirelab-fork.png
-Copied Successfully
-
-Copying: wg-common/focus-areas/what/images/technical-fork_augur-fork.png
-Copied Successfully
-
-Generating focus-area file = wg-common_what.tex
-
-Copying: wg-common/focus-areas/when/activity-dates-and-times.md
-Copied Successfully
-
-Decreasing heading levels by 2 in metric: activity-dates-and-times.md
-Converting activity-dates-and-times.md file to LaTeX
-Created successfully: ./activity-dates-and-times.tex
-
-Copying: wg-common/focus-areas/when/burstiness.md
-Copied Successfully
-
-Decreasing heading levels by 2 in metric: burstiness.md
-Converting burstiness.md file to LaTeX
-Created successfully: ./burstiness.tex
-
-Copying: wg-common/focus-areas/when/review-cycle-duration-within-a-change-request.md
-Copied Successfully
-
-Decreasing heading levels by 2 in metric: review-cycle-duration-within-a-change-request.md
-Converting review-cycle-duration-within-a-change-request.md file to LaTeX
-Created successfully: ./review-cycle-duration-within-a-change-request.tex
-
-Copying: wg-common/focus-areas/when/time-to-close.md
-Copied Successfully
-
-Decreasing heading levels by 2 in metric: time-to-close.md
-Converting time-to-close.md file to LaTeX
-Created successfully: ./time-to-close.tex
-
-Copying: wg-common/focus-areas/when/time-to-first-response.md
-Copied Successfully
-
-Decreasing heading levels by 2 in metric: time-to-first-response.md
-Converting time-to-first-response.md file to LaTeX
-Created successfully: ./time-to-first-response.tex
-
-Copying: wg-common/focus-areas/when/images/time-to-first-response_efficiency-timing-overview.png
-Copied Successfully
-
-Copying: wg-common/focus-areas/when/images/time-to-first-response_augur-ttc-2.png
-Copied Successfully
-
-Copying: wg-common/focus-areas/when/images/time-to-close_1.png
-Copied Successfully
-
-Copying: wg-common/focus-areas/when/images/activity-dates-and-times_4.png
-Copied Successfully
-
-Copying: wg-common/focus-areas/when/images/time-to-first-response_augur-ttc-1.png
-Copied Successfully
-
-Copying: wg-common/focus-areas/when/images/burstiness_augur.png
-Copied Successfully
-
-Copying: wg-common/focus-areas/when/images/activity-dates-and-times_2.png
-Copied Successfully
-
-Copying: wg-common/focus-areas/when/images/burstiness_gl.png
-Copied Successfully
-
-Copying: wg-common/focus-areas/when/images/activity-dates-and-times_3.png
-Copied Successfully
-
-Copying: wg-common/focus-areas/when/images/activity-dates-and-times_1.png
-Copied Successfully
-
-Generating focus-area file = wg-common_when.tex
-
-Copying: wg-common/focus-areas/who/contributor-location.md
-Copied Successfully
-
-Decreasing heading levels by 2 in metric: contributor-location.md
-Converting contributor-location.md file to LaTeX
-Created successfully: ./contributor-location.tex
-
-Copying: wg-common/focus-areas/who/contributors.md
-Copied Successfully
-
-Decreasing heading levels by 2 in metric: contributors.md
 Converting contributors.md file to LaTeX
-Created successfully: ./contributors.tex
-
-Copying: wg-common/focus-areas/who/organizational-diversity.md
-Copied Successfully
-
-Decreasing heading levels by 2 in metric: organizational-diversity.md
-Converting organizational-diversity.md file to LaTeX
-Created successfully: ./organizational-diversity.tex
-
-Copying: wg-common/focus-areas/who/images/organizational-diversity_piechart.png
-Copied Successfully
-
-Copying: wg-common/focus-areas/who/images/contributor-location_heatmap.png
-Copied Successfully
-
-Copying: wg-common/focus-areas/who/images/contributors_growth.png
-Copied Successfully
-
-Copying: wg-common/focus-areas/who/images/contributors_summary-contributor-number.png
-Copied Successfully
-
-Copying: wg-common/focus-areas/who/images/contributor-location_dot-density-map.png
-Copied Successfully
-
-Copying: wg-common/focus-areas/who/images/organizational-diversity_lfanalytics-orgdiversity.png
-Copied Successfully
-
-Copying: wg-common/focus-areas/who/images/contributors_first-commit-date.png
-Copied Successfully
-
-Copying: wg-common/focus-areas/who/images/contributors_top-contributor-info.png
-Copied Successfully
-
-Generating focus-area file = wg-common_who.tex
+Created successfully: contributors.tex
+Converting release-notes.md file to LaTeX
+Created successfully: release-notes.tex
+Converting LICENSE.md file to LaTeX
+Created successfully: LICENSE.tex
+Could not incorporate: https://raw.githubusercontent.com/chaoss/website/master/LICENSE
 
 Cloning from URL: https://github.com/ritik-malik/wg-value
 Branch: master
@@ -242,6 +110,8 @@ Copied Successfully
 Decreasing heading levels by 2 in metric: social-listening.md
 Converting social-listening.md file to LaTeX
 Created successfully: ./social-listening.tex
+
+Making images directory
 
 Copying: wg-value/focus-areas/communal-value/images/project-popularity_kubernetes.png
 Copied Successfully
@@ -310,7 +180,7 @@ Copied Successfully
 Generating focus-area file = wg-value_organizational-value.tex
 
 Converting master.tex file to PDF
-Conversion process successful: Output-2021-07-06.pdf
+Conversion process successful: Output-2021-07-16.pdf
 
-Copying: Output-2021-07-06.pdf
+Copying: Output-2021-07-16.pdf
 Copied Successfully

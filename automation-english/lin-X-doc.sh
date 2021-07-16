@@ -1,14 +1,12 @@
 #!/bin/bash
-# This script is to automate the Docker instance for M.A.R.S. on Linux/Windows
-# Run it as ROOT
+# This script is to automate the Docker instance for M.A.R.S. on Linux(debian-based) & Max OS/X
 
-### Global Vars ###
-MARS_link='https://github.com/chaoss/MARS'
-cur_dir='automation-english'
-docker_hub_image_name='ritikmalik/mars-image:beta'
-docker_image_name='chaoss-mars'
-
-docker_container_name='mars-container'
+# GLOBAL VARS
+MARS_LINK='https://github.com/chaoss/MARS'
+CUR_DIR='automation-english'
+DOCKERHUB_IMG_NAME='ritikmalik/mars-image:beta'
+DOCKER_IMG_NAME='chaoss-mars'
+DOCKER_CONTAINER_NAME='mars-container'
 
 # Define colors
 RED='\033[0;31m'
@@ -21,33 +19,36 @@ NC='\033[0m' # No Color
 greetings(){
   echo -e "${YELLOW}"
   echo -e "------------------------------"
-  echo -e "CHAOSS M.A.R.S. on Linux"
-  echo -e "${MARS_link}" 
-  echo -e "------------------------------\n"
+  echo -e "CHAOSS M.A.R.S. on Linux/Mac"
+  echo -e "${MARS_LINK}" 
+  echo -e "------------------------------"
+  echo
 }
 
 check_1(){
-  # check if root
-  if [ "$EUID" = 0 ]; then
-    echo -e "${CYAN}[Check 1/5]: Checking for root permission...${GREEN}Yes"
+  # Check if Docker is installed
+  if [[ $(which docker) && $(docker --version) ]]; then
+    echo -e "${CYAN}[Check 1/5]: Checking if Docker is installed...${GREEN}Yes"
   else
-    echo -e "${RED}[Error]: Please run as root\n${NC}"
+    echo -e "${RED}[Error]: Docker not found, please install Docker."
+    echo
+    echo -e "${CYAN}Refer to official doc: https://docs.docker.com/engine/install/${NC}"
+    echo
     exit 1
   fi
 }
 
 check_2(){
-  # Check if Docker is installed
-  if [[ $(which docker) && $(docker --version) ]]; then
-    echo -e "${CYAN}[Check 2/5]: Checking if Docker is installed...${GREEN}Yes"
+  # check if user is in Docker group
+  if [ $(grep /etc/group -e "docker" | awk -F ':' '{ print $4 }') = $USER ]; then
+    echo -e "${CYAN}[Check 2/5]: Checking if ${USER} is in Docker group...${GREEN}Yes"
   else
-    echo -e "${RED}[Error]: Docker not found, please install Docker.\n"
-    echo -e "${CYAN}Run the following 3 commands to install Docker on Linux:\n"
-    echo -e '1. curl -fsSL https://get.docker.com -o get-docker.sh'
-    echo -e '2. chmod +x get-docker.sh'
-    echo -e '3. sudo sh get-docker.sh'
-    echo -e
-    echo -e "Or refer to official doc: https://docs.docker.com/engine/install/ \n${NC}"
+    echo -e "${RED}[Error]: Please add your user to Docker group${NC}"
+    echo
+    echo -e "Run the following commands:\n"
+    echo -e "$ sudo usermod -a -G docker $USER"
+    echo -e "$ reboot"
+    echo
     exit 1
   fi
 }
@@ -57,18 +58,19 @@ check_3(){
 if docker info >/dev/null 2>&1; then
     echo -e "${CYAN}[Check 3/5]: Checking if Docker is running...${GREEN}Yes"
 else
-    echo -e "${RED}[Error]: Docker does not seem to be running, run it first and retry\n${NC}"
+    echo -e "${RED}[Error]: Docker does not seem to be running, run it first and retry${NC}"
+    echo
     exit 1
 fi
-
 }
 
 check_4(){
-  # check if current directory == ${cur_dir}
-  if [ "$(pwd | awk -F '/' '{ print $NF }')" = "${cur_dir}" ]; then
+  # check if current directory == ${CUR_DIR}
+  if [ "$(pwd | awk -F '/' '{ print $NF }')" = "${CUR_DIR}" ]; then
     echo -e "${CYAN}[Check 4/5]: Checking for correct directory...${GREEN}Yes"
   else
-    echo -e "${RED}[Error]: Please run this script in '${cur_dir}' directory\n${NC}"
+    echo -e "${RED}[Error]: Please run this script in '${CUR_DIR}' directory${NC}"
+    echo
     exit 1
   fi
 }
@@ -80,16 +82,19 @@ check_5(){
     echo -e "${CYAN}[Check 5/5]: Checking for Dockerfile...${GREEN}Yes"
   else
     echo -e "${RED}[Error]: $FILE not found in $(pwd)${NC}"
+    echo
     exit 1
   fi
 }
 
 check_exit(){
-  # check exit code of command
+  # check exit code of command, exit if non 0
+  echo
   if [ $1 -eq 0 ]; then
-    echo -e "\n${GREEN}[+] Command executed with exit code $1"
+    echo -e "${GREEN}[+] Command executed with exit code $1"
   else
-    echo -e "\n${RED}[Error]: Process stopped with exit code $1\n${NC}"
+    echo -e "${RED}[Error]: Process stopped with exit code $1${NC}"
+    echo
     exit 1
   fi
 }
@@ -104,52 +109,70 @@ check_3
 check_4
 check_5
 
-echo -e "\n${GREEN}Passed all checks successfully..."
+echo
+echo -e "${GREEN}Passed all checks successfully..."
+echo
 
 # Checks over, start main stuff
-# build the docker image -> ${docker_image_name}
-echo -e "\n${CYAN}Building the '${docker_image_name}' image"
-echo -e "--------------------------------${NC}\n"
-docker build . -t ${docker_image_name}
+
+# build the docker image -> ${DOCKER_IMG_NAME}, pass the UID and GID of system
+echo -e "${CYAN}Building the '${DOCKER_IMG_NAME}' image"
+echo -e "--------------------------------${NC}"
+echo
+
+docker build -t ${DOCKER_IMG_NAME} \
+--build-arg USER_ID=$(id -u) --build-arg GROUP_ID=$(id -g) .
 
 check_exit $?
 
 # remove dangling images (if any)
-echo -e "\n${CYAN}Removing dangling images (if any)"
-echo -e "---------------------------------${NC}\n"
+echo
+echo -e "${CYAN}Removing dangling images (if any)"
+echo -e "---------------------------------${NC}"
+echo
 docker rmi $(docker images | grep none | awk '{  print $3 }') 2> /dev/null
 
-echo -e "\n${GREEN}Done"
+echo
+echo -e "${GREEN}Done"
+echo
 
 # remove mars-container if already exist
-echo -e "\n${CYAN}Removing ${docker_container_name} (if already exist)...${NC}"
-docker rm -f ${docker_container_name} &>/dev/null && echo 'Removed old container'
+echo -e "${CYAN}Removing ${DOCKER_CONTAINER_NAME} (if already exist)...${NC}"
+docker rm -f ${DOCKER_CONTAINER_NAME} &>/dev/null && echo 'Removed old container'
 
-echo -e "\n${GREEN}Done"
+echo
+echo -e "${GREEN}Done"
+echo
 
 # run docker image with bind mount
-echo -e "\n${CYAN}Running the ${docker_container_name}"
-echo -e "--------------------------${NC}\n"
+echo
+echo -e "${CYAN}Running the ${DOCKER_CONTAINER_NAME}"
+echo -e "--------------------------${NC}"
+echo
 
-docker run --name ${docker_container_name} -it --mount type=bind,source=`pwd`,target=/MARS ${docker_image_name}
-
-check_exit $?
+docker run --name ${DOCKER_CONTAINER_NAME} -it \
+--mount type=bind,source=`pwd`,target=/MARS ${DOCKER_IMG_NAME}
 
 # remove container
-echo -e "\n${CYAN}Removing the ${docker_container_name}"
-echo -e "---------------------------${NC}\n"
+echo
+echo -e "${CYAN}Removing the ${DOCKER_CONTAINER_NAME}"
+echo -e "---------------------------${NC}"
+echo
 
-docker rm ${docker_container_name}
-
-check_exit $?
-
-echo -e "\n${CYAN}Changing permissions from root user to ${YELLOW}${SUDO_USER}"
-chown -R ${SUDO_USER}:${SUDO_USER} .
+docker rm ${DOCKER_CONTAINER_NAME}
 
 check_exit $?
-echo -e "\n${GREEN}Done!\nIf you are seeing this message it means the script ran successfully!"
+
+# echo -e "\n${CYAN}Changing permissions from root user to ${YELLOW}${SUDO_USER}"
+# chown -R ${SUDO_USER}:${SUDO_USER} .
 
 # Display output
-echo -e "\n${YELLOW}Unless you plan to rerun the script in future, you can safetly delete the images -> ${docker_image_name} and ${docker_hub_image_name}"
-echo -e "\n${GREEN}Logs are saved in ${YELLOW}logs.txt"
+echo
+echo -e "${YELLOW}Unless you plan to rerun the script in future, you can safetly delete the images by using the commands:${CYAN}"
+echo
+echo -e "$ docker rmi ${DOCKER_IMG_NAME}"
+echo -e "$ docker rmi ${DOCKERHUB_IMG_NAME}"
+echo
+
+echo -e "${GREEN}Logs are saved in ${YELLOW}logs.txt"
 echo -e "${GREEN}Ouput PDF is saved in ${YELLOW}output/${GREEN} directory with format: ${YELLOW}'Output-YYYY-MM-DD.pdf'\n"
