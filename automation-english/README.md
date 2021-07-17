@@ -2,7 +2,7 @@
 
 Currently, M.A.R.S. supports Linux (Debian based) and Mac/OS X based systems. It has been tried and tested for the above mentioned platforms.
 
-All the commands listed below for Linux systems are assuming an installation of debian based system like Ubuntu, Mint, MX, AntiX, etc. However the same commands can used for different package managers and different falvours of linux like `yum`, `pacman` instead of `apt`; just be sure to select the right package name accordingly.
+All the commands listed below for Linux systems are assuming an installation of debian based system like Ubuntu, Mint, MX, AntiX, etc. However the same commands can used for different package managers and different flavours of linux like `yum`, `pacman` instead of `apt`; just be sure to select the right package name accordingly.
 
 It is assumed that where ever we use the term Linux in the tutorial below, we are referring to a Debain based distro, more specifically **Ubuntu**, which was the actual system used.
 
@@ -23,7 +23,7 @@ Our docker image on docker hub can be found [here](https://hub.docker.com/r/riti
 
 #### Step 1: Cloning MARS
 
-This simple step requires you to ~~colonize~~ clone MARS and move to apropriate directory:
+This simple step requires you to ~~colonize~~ clone MARS and move to appropriate directory:
 ```bash
 git clone https://github.com/chaoss/MARS
 cd MARS/automation-english
@@ -106,7 +106,7 @@ In this process, you are supposed to install packages and run the scripts manual
 
 We'll be using the `xelatex` engine and `pandoc` for converting the markdowns to PDF, so you need to install them along with other packages:
 
-* For linux:
+* For Linux:
     ```bash
     sudo apt install -y git wget texlive-xetex pandoc python3-pip python3-venv ttf-mscorefonts-installer
     ```
