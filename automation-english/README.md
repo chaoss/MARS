@@ -14,7 +14,7 @@ There are 2 ways to run M.A.R.S.
 
 Each method has been described below in detail. You can choose according to your needs.
 
-### The easy way - Docker image
+### Method 1: The easy way - Docker image
 
 This is an easy and recommended way to run MARS on your system. Some theory: \
 We've already uploaded an image of MARS on docker hub, which contains an installation of all the required packges. We also have an automation script to pull that image, run the container instance and clean it afterwards. You just have to install docker in your system, confirm the structure of `yml` config file and run the automated script.
@@ -98,7 +98,7 @@ The script creates a new user with your userID and groupID so there is no permis
 
 The log file will be stored in current directory as `logs.txt` while the output PDF can be found in the [`output`](output/) directory with the format - `Output-YYYY-MM-DD.pdf`.
 
-### The not so easy way - Python virtual env
+### Method 2: The not so easy way - Python virtual env
 
 In this process, you are supposed to install packages and run the scripts manually in a python virtual environment.
 
