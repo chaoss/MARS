@@ -26,7 +26,7 @@ greetings(){
 }
 
 check_1(){
-  # Check if Docker is installed
+  # check if Docker is installed
   if [[ $(which docker) && $(docker --version) ]]; then
     echo -e "${CYAN}[Check 1/5]: Checking if Docker is installed...${GREEN}Yes"
   else
@@ -54,7 +54,7 @@ check_2(){
 }
 
 check_3(){
-  # Check if docker is running
+  # check if docker is running
 if docker info >/dev/null 2>&1; then
     echo -e "${CYAN}[Check 3/5]: Checking if Docker is running...${GREEN}Yes"
 else

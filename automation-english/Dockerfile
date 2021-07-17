@@ -2,9 +2,6 @@
 # The mars-image is hosted here: https://hub.docker.com/repository/docker/ritikmalik/mars-image
 # pull size = 437 MB
 # size after uncompression = 1.32 GB
-#
-# This Dockerfile file pulls the mars-image from above url,
-# set a non-root user, set Working Dir, copy scripts and command
 
 # pull the beta image
 FROM ritikmalik/mars-image:beta
