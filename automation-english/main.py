@@ -17,9 +17,6 @@ master_file_path = "master.tex"
 test_dir = "test_env"
 current_dir = "./"
 
-
-
-
 def copy_file(source_filepath, dest_path):
 
     if os.path.isfile(dest_path):
@@ -35,7 +32,6 @@ def copy_file(source_filepath, dest_path):
         except:
             print("Error: Unable to copy file.")
             sys.exit(1)
-
 
 def copy_dir_files(source_folder_path, dest_folder_path):
 
@@ -53,15 +49,12 @@ def copy_dir_files(source_folder_path, dest_folder_path):
         print(f"Error: Unable to list files in :{source_folder_path}")
         sys.exit(1)
 
-
-
 def convert_md2tex(md_filename, latex_filename):
 
     print(f"Converting {md_filename} file to LaTeX")
     output = pypandoc.convert_file(md_filename, 'latex', outputfile=latex_filename, extra_args=['-f', 'gfm'])
     assert output == ""
     print(f"Created successfully: {latex_filename}")
-
 
 def convert_tex2pdf(tex_filename, pdf_filename):
 
@@ -166,7 +159,7 @@ def main():
     print("\nReading the YML file:\n")
     yaml_data = load_yaml(yml_filename)
 
-    # Create front matter files
+    # Create and include front matter files
     with open("front-matter.tex", "w") as front_matter:
         if yaml_data["front-matter"] is not None:
             for page in yaml_data["front-matter"]:
@@ -187,17 +180,15 @@ def main():
                 elif os.path.splitext(page)[1] == ".tex":
                     front_matter.write(f"\input{{{os.path.splitext(page)[0]}}}"+"\n")
                 else:
-                    print(f"Error: Could not incorporate {page}.\nPlease make sure that the URL / filename is valid.")
+                    print(f"Error: Could not incorporate {page} in front-matter.\nPlease make sure that the URL/filename is valid.")
+                    sys.exit(1)
         else:
             print("Warning: No documents detected for the front-matter")
-
-
-
 
     with open(master_file_path, "a") as master_file:
         master_file.write("\n \include{front-matter}")
 
-    # create and include pages to included at end of report
+    # Create and include end-matter pages
     with open("end-matter.tex", "w") as end_matter:
         if yaml_data["end-matter"] is not None:
             for page in yaml_data["end-matter"]:
@@ -209,13 +200,15 @@ def main():
                         os.rename("LICENSE", "LICENSE.md")
                         convert_md2tex("LICENSE.md", "LICENSE.tex")
                         end_matter.write("\clearpage\n\section{LICENSE}\n\input{LICENSE}\n")
-                    if extension == ".md":
+                    elif extension == ".md":
                         convert_md2tex(filename, name+".tex")
                         end_matter.write(f"\input{{{name}}} \n")
                     elif extension == ".tex":
                         end_matter.write(f"\input{{{name}}} \n")
                     else:
-                        print(f"Could not incorporate: {page}")
+                        print(f"Error: Could not incorporate {page} in end matter.\nPlease make sure that the URL is valid.")
+                        sys.exit(1)
+
                 elif os.path.splitext(page)[1] == ".md":
                     convert_md2tex(page, os.path.splitext(page)[0]+".tex")
                     end_matter.write(f"\input{{{os.path.splitext(page)[0]}}} \n")
@@ -226,7 +219,9 @@ def main():
                     convert_md2tex("LICENSE.md", "LICENSE.tex")
                     end_matter.write("\clearpage\n\section{LICENSE}\n\input{LICENSE}\n")
                 else:
-                    print(f"Error: Could not incorporate {page}. Please make sure that the URL / filename is valid.")
+                    print(f"Error: Could not incorporate {page} in end matter.\nPlease make sure that the filename is valid.")
+                    sys.exit(1)
+
         else:
             print("Warning: No documents detected for the end-matter")
 
@@ -263,9 +258,6 @@ def main():
                         convert_md2tex(metric, tex_file_path)
                         converted_tex_files.append(tex_filename)
 
-                    # print(converted_tex_files)
-                    # focus_area_tex_file_path = os.path.join(current_dir, focus_area+".tex")
-
                     # copy images of particular focus-area
                     if not os.path.isdir("images"):
                         print(f"\nMaking images directory")
@@ -273,6 +265,7 @@ def main():
                     copy_dir_files(os.path.join(wg_name, "focus-areas", focus_area, "images"), os.path.join(current_dir, "images"))
 
                     focus_area_README = os.path.join(wg_name, "focus-areas", focus_area, "README.md")
+
                     # to be used in focus-areas table for WG.tex
                     focus_area_list.append([focus_area, focus_area_README])
 
