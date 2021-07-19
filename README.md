@@ -13,7 +13,20 @@ M.A.R.S. (Metrics Automated Release System) aim is to automate & improve the met
 
 The final outcome is generation of reports for the metrics and their translations counterparts respectively.
 
-**_to be updated_**
+## Usage
+
+M.A.R.S. supports Linux (Debian based) and MacOS based systems only. 
+
+Currently, it can be used to generate the report of English version of metrics that exist in the working group repositories. 
+
+There are two ways to run M.A.R.S:
+
+- Using Docker
+- Using Python virtual environment
+
+Refer to this [README](automation-english/README.md) to know more details about its usage.
+
+**_Note: - M.A.R.S for translations is still under development_**
 
 ## Workflow
 
@@ -32,7 +45,7 @@ A rough walkthrough of the automation process:
 * Generate relative paths to metric markdown files in various WGs
 * Pull all the metrics in base folder
 * Make a common images directory
-* Decrease heading levels (only in metric markdowns) by appending `##`
+* Decrease heading levels (only in metric markdowns) by prepending `##`
 * Convert metrics markdown to tex
 * Generate focus areas tables in tex (2 level hierarchy)
 * Generate WG markdowns tex files for headings (3 level hierarchy)
@@ -40,17 +53,9 @@ A rough walkthrough of the automation process:
 * Call pandoc to generate the final PDF
 * Move the final PDF to the output directory
 
-## Requirements
+## Contributing
 
-* LaTeX :
-  * Debian-based : `sudo apt-get install texlive-full`
-  * MacOS : [here](https://tug.org/mactex/)
-  * Windows : [here](https://miktex.org/download/#collapse264)
-* pyyaml : `pip3 install pyyaml`
-
-## Usage
-
-_to be added after pushing the scripts_
+The M.A.R.S project welcomes all kinds of contributions and suggestions. See [CONTRIBUTING.md](CONTRIBUTING.md) for more information.  
 
 ## Mentors
 
@@ -67,7 +72,6 @@ _to be added after pushing the scripts_
 <div align="center">
     <img src="assets/gsoc_logo.png" width="400" alt="GSoC logo"><br>
 </div>
-
 
 ## License
 
