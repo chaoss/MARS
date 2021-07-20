@@ -40,8 +40,8 @@ wg-common:
 wg-diversity-inclusion:
   include-wg: False
   wg-fullname: Diversity, Equity and Inclusion WG
-  github-link: https://github.com/yash2002109/wg-diversity-inclusion
-  github-branch: yash-metric-check
+  github-link: https://github.com/chaoss/wg-diversity-inclusion
+  github-branch: master
   focus-areas:
 #    communication-inclusivity:
 #    - alternatives.md
@@ -126,8 +126,8 @@ wg-evolution:
 wg-risk:
   include-wg: False
   wg-fullname: Risk WG
-  github-link: https://github.com/yash2002109/wg-risk
-  github-branch: yash-metric-check
+  github-link: https://github.com/chaoss/wg-risk
+  github-branch: master
   focus-areas:
     business-risk:
 #    - average-issue-resolution-time.md
@@ -160,7 +160,7 @@ wg-risk:
 wg-value:
   include-wg: True
   wg-fullname: Value WG
-  github-link: https://github.com/ritik-malik/wg-value
+  github-link: https://github.com/chaoss/wg-value
   github-branch: master
   focus-areas:
     communal-value:
