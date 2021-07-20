@@ -35,24 +35,58 @@ wg-common:
     - organizational-diversity.md
 
 
-# WG-VALUE
+# WG DEI
 
-wg-value:
-  include-wg: True
-  wg-fullname: Value WG
-  github-link: https://github.com/ritik-malik/wg-value
+wg-diversity-inclusion:
+  include-wg: False
+  wg-fullname: Diversity, Equity and Inclusion WG
+  github-link: https://github.com/chaoss/wg-diversity-inclusion
   github-branch: master
   focus-areas:
-    communal-value:
-    - project-popularity.md
-    - project-velocity.md
-    - social-listening.md
-    individual-value:
-    - job-opportunities.md
-    - organizational-project-skill-demand.md
-    organizational-value:
-    - labor-investment.md
-    social-value:
+#    communication-inclusivity:
+#    - alternatives.md
+#    - captioning.md
+#    - listening.md
+#    - mode-alternatives.md
+#    - speaking.md
+#    - technical-jargon.md
+#    contributor-community-diversity:
+#    - collaboration-style.md
+#    - contribution-sentiment.md
+#    - contribution-type.md
+#    - perceived-value.md
+    event-diversity:
+    - attendee-demographics.md
+    - diversity-access-tickets.md    
+    - event-code-of-conduct.md
+    - family-friendly.md
+#    - quick-links.md
+    - speaker-demographics.md
+    governance:
+    - board-council-diversity.md
+#    - code-of-conduct-enforcement.md
+    - code-of-conduct.md
+#    - foundation-staff-diversity.md
+#    - team-module-ownership-diversity.md
+    leadership:
+    - inclusive-leadership.md
+    - mentorship.md
+    - sponsorship.md
+    project-and-community:
+#    - channels.md
+    - chat-platform-inclusivity.md
+    - documentation-accessibility.md
+#    - documentation_discoverability.md
+    - documentation-usability.md
+    - issue-label-inclusivity.md
+    - project-burnout.md
+#    - response-time-quality.md
+#    - sentiment.md
+#    recognition-of-good-work:
+#    - contribution-type.md
+#    - contribution-volume.md
+#    - recognition-type.md
+#    - recognition-value.md 
     
 # WG-EVOLUTION
 
@@ -85,4 +119,59 @@ wg-evolution:
     - issues-active.md
     - issues-closed.md
     - issues-new.md
+    
 
+# WG-Risk
+
+wg-risk:
+  include-wg: False
+  wg-fullname: Risk WG
+  github-link: https://github.com/chaoss/wg-risk
+  github-branch: master
+  focus-areas:
+    business-risk:
+#    - average-issue-resolution-time.md
+    - bus-factor.md
+    - committers.md
+    - elephant-factor.md
+#    - issues-open-age.md
+#    - issues-volume.md
+#    - lines-of-code.md
+    code-quality:
+#    - code-complexity.md
+#    - pull-request-process.md    
+    - test-coverage.md
+    licensing:
+#    - license-count.md
+    - license-coverage.md
+    - license-declared.md
+    - osi-approved-licenses.md
+    - spdx-document.md
+    security:
+    - cii-best-practices.md
+#    - language-declaration-readme.md
+#    - language-source-proportion.md
+    transparency:
+#    - software-bill-of-materials.md
+    
+
+# WG-VALUE
+
+wg-value:
+  include-wg: True
+  wg-fullname: Value WG
+  github-link: https://github.com/chaoss/wg-value
+  github-branch: master
+  focus-areas:
+    communal-value:
+    - project-popularity.md
+    - project-velocity.md
+    - social-listening.md
+    individual-value:
+    - job-opportunities.md
+    - organizational-project-skill-demand.md
+    organizational-value:
+    - labor-investment.md
+    social-value:
+    
+ 
