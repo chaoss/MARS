@@ -1,10 +1,13 @@
-import re, os, shutil
-import pypandoc, yaml, subprocess
+import os
+import shutil
+import sys
+import subprocess
 from pprint import pprint
 from datetime import datetime
-from sys import exit
-import helper
+import pypandoc
+import yaml
 import validators
+import helper
 
 ##### Global Vars #####
 
@@ -14,60 +17,51 @@ master_file_path = "master.tex"
 test_dir = "test_env"
 current_dir = "./"
 
-
-# TODO: Implement error handling & check shutil.copy functions
-
 def copy_file(source_filepath, dest_path):
 
-    # TODO: provide support for optional replace flag
     if os.path.isfile(dest_path):
-        print(f"File with same name already exists at destination: {source_filepath}")
+        print(f"Warning: File with same name already exists at destination: {source_filepath}")
     else:
-        print(f"\nCopying: {source_filepath}")
-        shutil.copy2(source_filepath, dest_path)
-        print(f"Copied Successfully")
+        try:
+            print(f"\nCopying: {source_filepath}")
+            shutil.copy2(source_filepath, dest_path)
+            print(f"Copied Successfully")
+        except PermissionError:
+            print("Error: Permission denied.")
+            sys.exit(1)
+        except:
+            print("Error: Unable to copy file.")
+            sys.exit(1)
 
 def copy_dir_files(source_folder_path, dest_folder_path):
 
-    # TODO: provide support for optional replace flag
     try:
         files = os.listdir(source_folder_path)
         for fname in files:
-            # print(os.path.join(dest_folder_path, fname))  # might not need this
             if os.path.isfile(os.path.join(dest_folder_path, fname)):
                 print(f"File with same name already exists at destination: {os.path.join(source_folder_path, fname)}")
             else:
-                try:
-                    print(f"\nCopying: {os.path.join(source_folder_path, fname)}")
-                    shutil.copy2(os.path.join(source_folder_path, fname), dest_folder_path)
-                    print(f"Copied Successfully")
-                except shutil.SameFileError:
-                    print("Source and destination represents the same file.")
-                except PermissionError:
-                    print("Permission denied.")
-                except:
-                    print("Error occurred while copying file.")
+                copy_file(os.path.join(source_folder_path, fname), dest_folder_path)
     except NotADirectoryError:
-        print(f"Source path is not a directory :{source_folder_path}")
+        print(f"Error: Source path is not a directory :{source_folder_path}")
+        sys.exit(1)
     except:
-        print(f"Unable to list files in :{source_folder_path}")
+        print(f"Error: Unable to list files in :{source_folder_path}")
+        sys.exit(1)
 
 def convert_md2tex(md_filename, latex_filename):
 
-    try:
-        print(f"Converting {md_filename} file to LaTeX")
-        output = pypandoc.convert_file(md_filename, 'latex', outputfile=latex_filename, extra_args=['-f', 'gfm'])
-        assert output == ""
-        print(f"Created successfully: {latex_filename}")
-    except:
-        print(f"Unable to convert to LaTeX: {md_filename}")
+    print(f"Converting {md_filename} file to LaTeX")
+    output = pypandoc.convert_file(md_filename, 'latex', outputfile=latex_filename, extra_args=['-f', 'gfm'])
+    assert output == ""
+    print(f"Created successfully: {latex_filename}")
 
 def convert_tex2pdf(tex_filename, pdf_filename):
 
     print(f"\nConverting {tex_filename} file to PDF")
     output = pypandoc.convert_file(tex_filename, 'pdf', outputfile=pdf_filename, extra_args=['-f', 'latex',
-                                                                                                '--pdf-engine=xelatex',
-                                                                                                 '-H', 'header_1.tex',
+                                                                                                 '--pdf-engine=xelatex',
+                                                                                                 '--include-in-header', 'header_1.tex',
                                                                                                  '--highlight-style', 'zenburn',
                                                                                                  '-V', 'geometry:margin=0.8in',
                                                                                                  '-V', 'monofont:DejaVuSansMono.ttf',
@@ -78,21 +72,9 @@ def convert_tex2pdf(tex_filename, pdf_filename):
                                                                                                  '-V', 'fontsize=12pt',
                                                                                                  '--toc', '--toc-depth= 3',
                                                                                                  '--include-before-body', 'cover.tex',
-                                                                                                 '--include-after-body', 'end-matter.tex'
-                                                                                                ])
+                                                                                                 '--include-after-body', 'end-matter.tex'])
     assert output == ""
     print(f"Conversion process successful: {pdf_filename}")
-
-def delete_files(file_path_arr):
-
-    for file_path in file_path_arr:
-        try:
-            if os.path.isfile(file_path):
-                print(f"Deleting: {file_path}")
-                os.remove(file_path)
-                print(f"Deleted Successfully")
-        except:
-            print(f"Unable to delete {file_path}")
 
 def clean_directory(folder_path):
     try:
@@ -101,7 +83,7 @@ def clean_directory(folder_path):
             shutil.rmtree(folder_path)
             print("Directory cleaned Successfully")
     except:
-        print(f"\nUnable to clean directory: {folder_path}")
+        print(f"\nWarning: Unable to clean directory: {folder_path}")
 
 def load_yaml(file_path):
 
@@ -112,24 +94,42 @@ def load_yaml(file_path):
             return data
     except yaml.YAMLError as exc:
         print(exc)
+        print("Error: Unable to load data from YAML file.")
+        sys.exit(1)
 
 def decrease_level(metric_path):
 
-    print(f"\nDecreasing heading levels by 2 in metric: {metric_path}")
-    cmd = 'sed -i "s/^\#/###/g" ' + metric_path
-    os.system(cmd)
+    try:
+        print(f"\nDecreasing heading levels by 2 in metric: {metric_path}")
+        cmd = 'sed -i "s/^\#/###/g" ' + metric_path
+        os.system(cmd)
+    except:
+        print(f"Error: Unable to decrease heading levels in metric: {metric_path}.\nMake sure the metric follows the template.")
+        sys.exit(1)
 
 def delete_dictkey(key, dictionary):
+
     if key in dictionary:
         del dictionary[key]
     else:
-        print(f"Key: {key} not found in dictionary: {dictionary}")
+        print(f"Warning: Key- {key} not found in {dictionary}")
 
 def is_url(string):
+
     if validators.url(string):
         return True
     else:
         return False
+
+def clone_repo(url, name, branch):
+
+    try:
+        subprocess.check_call(['git', 'clone', '-b', branch, url, name])
+    except:
+        print(f"Error: Unable to clone/checkout repository from {url}")
+        print("Verify the repository details specified in YAML file.")
+        sys.exit(1)
+
 
 def main():
 
@@ -138,6 +138,9 @@ def main():
     global master_file_path
     global test_dir
     global current_dir
+
+    focus_area_count = 0
+    metric_count = 0
 
     # Clean the test_dir for residual files
     clean_directory(test_dir)
@@ -159,69 +162,74 @@ def main():
     print("\nReading the YML file:\n")
     yaml_data = load_yaml(yml_filename)
 
-    # Create front matter and include files to add just after TOC
-    with open("front-matter.tex", "w") as fm:
+    # Create and include front matter files
+    with open("front-matter.tex", "w") as front_matter:
         if yaml_data["front-matter"] is not None:
             for page in yaml_data["front-matter"]:
                 if is_url(page):
+                    print(f"\nDownloading file: {page}")
                     os.system(f"wget {page}")
                     filename = os.path.basename(page)
                     name, extension = os.path.splitext(filename)
                     if extension == ".md":
                         convert_md2tex(filename, name+".tex")
-                        fm.write(f"\input{{{name}}} \n")
+                        front_matter.write(f"\input{{{name}}} \n")
                     elif extension == ".tex":
-                        fm.write(f"\input{{{name}}} \n")
+                        front_matter.write(f"\input{{{name}}} \n")
                     else:
-                        print(f"Could not incorporate: {page}")
+                        print(f"Error: Could not incorporate {page} in front-matter.\nPlease make sure that the URL is valid. Only Markdown/LaTeX file format is supported.")
+                        sys.exit(1)
                 elif os.path.splitext(page)[1] == ".md":
                     convert_md2tex(page, os.path.splitext(page)[0]+".tex")
-                    fm.write(f"\input{{{os.path.splitext(page)[0]}}} \n")
+                    front_matter.write(f"\input{{{os.path.splitext(page)[0]}}} \n")
                 elif os.path.splitext(page)[1] == ".tex":
-                    fm.write(f"\input{{{os.path.splitext(page)[0]}}}"+"\n")
+                    front_matter.write(f"\input{{{os.path.splitext(page)[0]}}}"+"\n")
                 else:
-                    print(f"Could not incorporate: {page}")
+                    print(f"Error: Could not incorporate {page} in front-matter.\nPlease make sure that the filename is valid. Only Markdown/LaTeX file format is supported.")
+                    sys.exit(1)
         else:
-            print("No documents detected for the front-matter")
-
-
-
+            print("Warning: No documents detected for the front-matter")
 
     with open(master_file_path, "a") as master_file:
         master_file.write("\n \include{front-matter}")
 
-    # create and include pages to included at end of report
-    with open("end-matter.tex", "w") as em:
+    # Create and include end-matter pages
+    with open("end-matter.tex", "w") as end_matter:
         if yaml_data["end-matter"] is not None:
             for page in yaml_data["end-matter"]:
                 if is_url(page):
+                    print(f"\nDownloading file: {page}")
                     os.system(f"wget {page}")
-                    filename= os.path.basename(page)
+                    filename = os.path.basename(page)
                     name, extension = os.path.splitext(filename)
                     if name == "LICENSE":
                         os.rename("LICENSE", "LICENSE.md")
                         convert_md2tex("LICENSE.md", "LICENSE.tex")
-                        em.write("\clearpage\n\section{LICENSE}\n\input{LICENSE}\n")
-                    if extension == ".md":
+                        end_matter.write("\clearpage\n\section{LICENSE}\n\input{LICENSE}\n")
+                    elif extension == ".md":
                         convert_md2tex(filename, name+".tex")
-                        em.write(f"\input{{{name}}} \n")
+                        end_matter.write(f"\input{{{name}}} \n")
                     elif extension == ".tex":
-                        em.write(f"\input{{{name}}} \n")
+                        end_matter.write(f"\input{{{name}}} \n")
                     else:
-                        print(f"Could not incorporate: {page}")
+                        print(f"Error: Could not incorporate {page} in end matter.\nPlease make sure that the URL is valid. Only Markdown/LaTeX file format is supported.")
+                        sys.exit(1)
+
                 elif os.path.splitext(page)[1] == ".md":
                     convert_md2tex(page, os.path.splitext(page)[0]+".tex")
-                    fm.write(f"\input{{{os.path.splitext(page)[0]}}} \n")
+                    end_matter.write(f"\input{{{os.path.splitext(page)[0]}}} \n")
                 elif os.path.splitext(page)[1] == ".tex":
-                    fm.write(f"\input{{{os.path.splitext(page)[0]}}}"+"\n")
+                    end_matter.write(f"\input{{{os.path.splitext(page)[0]}}}"+"\n")
                 elif os.path.splitext(page)[0] == "LICENSE" and os.path.splitext(page)[1] == "":
                     os.rename("LICENSE", "LICENSE.md")
                     convert_md2tex("LICENSE.md", "LICENSE.tex")
-                    fm.write("\clearpage\n\section{LICENSE}\n\input{LICENSE}\n")
+                    end_matter.write("\clearpage\n\section{LICENSE}\n\input{LICENSE}\n")
                 else:
-                    print(f"Could not incorporate: {page}")
+                    print(f"Error: Could not incorporate {page} in end matter.\nPlease make sure that the filename is valid. Only Markdown/LaTeX file format is supported.")
+                    sys.exit(1)
+
         else:
-            print("No documents detected for the end-matter")
+            print("Warning: No documents detected for the end-matter")
 
     delete_dictkey("front-matter", yaml_data)
     delete_dictkey("end-matter", yaml_data)
@@ -232,9 +240,8 @@ def main():
         if yaml_data[wg_name]['include-wg']:
 
             # clone repo with specified branch in yaml data
-            ## TODO: Create new function for cloning repo
             print(f"\nCloning from URL: {yaml_data[wg_name]['github-link']}\nBranch: {yaml_data[wg_name]['github-branch']}\n")
-            subprocess.check_call(['git', 'clone', '-b', yaml_data[wg_name]['github-branch'], yaml_data[wg_name]['github-link'], wg_name])
+            clone_repo(yaml_data[wg_name]['github-link'], wg_name, yaml_data[wg_name]['github-branch'])
 
             included_wgs.append(wg_name)
             included_focus_areas = []
@@ -251,14 +258,10 @@ def main():
 
                         copy_file(metric_path, current_dir)
                         decrease_level(metric)
-                        tex_filename = re.sub(".md", ".tex", metric)
+                        tex_filename = os.path.splitext((metric))[0] + ".tex"                        
                         
-                        tex_file_path = os.path.join(current_dir, tex_filename)
-                        convert_md2tex(metric, tex_file_path)
+                        convert_md2tex(metric, tex_filename)
                         converted_tex_files.append(tex_filename)
-
-                    # print(converted_tex_files)
-                    # focus_area_tex_file_path = os.path.join(current_dir, focus_area+".tex")
 
                     # copy images of particular focus-area
                     if not os.path.isdir("images"):
@@ -272,8 +275,8 @@ def main():
                     focus_area_list.append([focus_area, focus_area_README])
 
                     # create focus_area.tex file and add table
-                    focus_area_filename= wg_name+"_"+focus_area+".tex"
-                    helper.generate_focus_areas(focus_area, focus_area_filename,focus_area_README, metrics)
+                    focus_area_filename = wg_name+"_"+focus_area+".tex"
+                    helper.generate_focus_areas(focus_area, focus_area_filename, focus_area_README, metrics)
                     included_focus_areas.append(focus_area_filename)
 
                     # Add inclusion commands for metrics
@@ -282,21 +285,23 @@ def main():
                         for metric_tex_file in converted_tex_files:
                             fa_tex_file.write(f"\input{{{os.path.splitext(metric_tex_file)[0]}}} \n")
 
+                        metric_count += len(converted_tex_files)
+
             # create WG.tex file
-            wg_tex_file_path=os.path.join(current_dir, wg_name+".tex")
+            wg_tex_file_path = os.path.join(current_dir, wg_name+".tex")
 
             with open(wg_tex_file_path, "w") as wg_tex_file:
                 wg_tex_file.write("\n")
 
                 # add focus areas table to WG.tex
                 helper.focus_areas_table(wg_tex_file, yaml_data[wg_name]['wg-fullname'], focus_area_list)
-
-                # wg_tex_file.write(f"\section{{{yaml_data[wg_name]['wg-fullname']}}}\n\clearpage\n")
                 wg_tex_file.write("\n\clearpage\n")
-
 
                 for fa in included_focus_areas:
                     wg_tex_file.write(f"\input{{{os.path.splitext(fa)[0]}}} \n")
+
+                focus_area_count += len(included_focus_areas)
+
 
     # create master file to include WG.tex files
     with open(master_file_path, "a") as master_file:
@@ -312,6 +317,8 @@ def main():
 
     convert_tex2pdf(master_file_path, output_filename)
     copy_file(output_filename, "../output")
+
+    helper.print_summary(len(included_wgs), focus_area_count, metric_count)
 
 if __name__ == "__main__":
     main()
