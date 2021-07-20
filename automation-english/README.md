@@ -52,7 +52,7 @@ sudo usermod -a -G docker $USER
 reboot
 ```
 
-_NOTE: a reboot is preferred over log out and log in, in order to re-elevate the previlages_
+_NOTE: a reboot is preferred over log out and log in, in order to re-elevate the privileges_
 
 You can confirm that your user is added to the docker group by running:
 ```bash
@@ -61,11 +61,13 @@ grep docker /etc/group
 
 You should see your username in the output along with docker.
 
-#### Step 4: Configuring the yml config file
+#### Step 4: Configuring the yml config file & Updating the cover page
 
 The yml config is the most important piece of MARS as it describes the outline of working groups and metrics that need to be included and in which order. The yml file has it own separate README to avoid congestion here. Refer to this [yml README](active_user_input) for configuring it.
 
-Once you have confirmed the yml structure you can proceed to the next and the final step.
+Make sure to also update the release month and year as well as the copyright year in the  [`cover page`](active_user_input/cover.tex) 
+
+Once you have confirmed the above changes you can proceed to the next and the final step.
 
 #### Step 5: Docker Automation Script
 
