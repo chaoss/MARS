@@ -36,12 +36,15 @@ def copy_file(source_filepath, dest_path):
 def copy_dir_files(source_folder_path, dest_folder_path):
 
     try:
-        files = os.listdir(source_folder_path)
-        for fname in files:
-            if os.path.isfile(os.path.join(dest_folder_path, fname)):
-                print(f"File with same name already exists at destination: {os.path.join(source_folder_path, fname)}")
-            else:
-                copy_file(os.path.join(source_folder_path, fname), dest_folder_path)
+        if os.path.isdir(source_folder_path):
+            files = os.listdir(source_folder_path)
+            for fname in files:
+                if os.path.isfile(os.path.join(dest_folder_path, fname)):
+                    print(f"File with same name already exists at destination: {os.path.join(source_folder_path, fname)}")
+                else:
+                    copy_file(os.path.join(source_folder_path, fname), dest_folder_path)
+        else:
+            print(f"Warning: Source directory does not exist: {source_folder_path}")
     except NotADirectoryError:
         print(f"Error: Source path is not a directory :{source_folder_path}")
         sys.exit(1)
