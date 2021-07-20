@@ -60,8 +60,8 @@ def convert_tex2pdf(tex_filename, pdf_filename):
 
     print(f"\nConverting {tex_filename} file to PDF")
     output = pypandoc.convert_file(tex_filename, 'pdf', outputfile=pdf_filename, extra_args=['-f', 'latex',
-                                                                                                '--pdf-engine=xelatex',
-                                                                                                 '-H', 'header_1.tex',
+                                                                                                 '--pdf-engine=xelatex',
+                                                                                                 '--include-in-header', 'header_1.tex',
                                                                                                  '--highlight-style', 'zenburn',
                                                                                                  '-V', 'geometry:margin=0.8in',
                                                                                                  '-V', 'monofont:DejaVuSansMono.ttf',
@@ -72,8 +72,7 @@ def convert_tex2pdf(tex_filename, pdf_filename):
                                                                                                  '-V', 'fontsize=12pt',
                                                                                                  '--toc', '--toc-depth= 3',
                                                                                                  '--include-before-body', 'cover.tex',
-                                                                                                 '--include-after-body', 'end-matter.tex'
-                                                                                                ])
+                                                                                                 '--include-after-body', 'end-matter.tex'])
     assert output == ""
     print(f"Conversion process successful: {pdf_filename}")
 
@@ -95,7 +94,8 @@ def load_yaml(file_path):
             return data
     except yaml.YAMLError as exc:
         print(exc)
-        sys.exit("Error: Unable to load data from YAML file.")
+        print("Error: Unable to load data from YAML file.")
+        sys.exit(1)
 
 def decrease_level(metric_path):
 
@@ -164,6 +164,7 @@ def main():
         if yaml_data["front-matter"] is not None:
             for page in yaml_data["front-matter"]:
                 if is_url(page):
+                    print(f"\nDownloading file: {page}")
                     os.system(f"wget {page}")
                     filename = os.path.basename(page)
                     name, extension = os.path.splitext(filename)
@@ -173,14 +174,15 @@ def main():
                     elif extension == ".tex":
                         front_matter.write(f"\input{{{name}}} \n")
                     else:
-                        print(f"Could not incorporate: {page}")
+                        print(f"Error: Could not incorporate {page} in front-matter.\nPlease make sure that the URL is valid. Only Markdown/LaTeX file format is supported.")
+                        sys.exit(1)
                 elif os.path.splitext(page)[1] == ".md":
                     convert_md2tex(page, os.path.splitext(page)[0]+".tex")
                     front_matter.write(f"\input{{{os.path.splitext(page)[0]}}} \n")
                 elif os.path.splitext(page)[1] == ".tex":
                     front_matter.write(f"\input{{{os.path.splitext(page)[0]}}}"+"\n")
                 else:
-                    print(f"Error: Could not incorporate {page} in front-matter.\nPlease make sure that the URL/filename is valid.")
+                    print(f"Error: Could not incorporate {page} in front-matter.\nPlease make sure that the filename is valid. Only Markdown/LaTeX file format is supported.")
                     sys.exit(1)
         else:
             print("Warning: No documents detected for the front-matter")
@@ -193,6 +195,7 @@ def main():
         if yaml_data["end-matter"] is not None:
             for page in yaml_data["end-matter"]:
                 if is_url(page):
+                    print(f"\nDownloading file: {page}")
                     os.system(f"wget {page}")
                     filename = os.path.basename(page)
                     name, extension = os.path.splitext(filename)
@@ -206,7 +209,7 @@ def main():
                     elif extension == ".tex":
                         end_matter.write(f"\input{{{name}}} \n")
                     else:
-                        print(f"Error: Could not incorporate {page} in end matter.\nPlease make sure that the URL is valid.")
+                        print(f"Error: Could not incorporate {page} in end matter.\nPlease make sure that the URL is valid. Only Markdown/LaTeX file format is supported.")
                         sys.exit(1)
 
                 elif os.path.splitext(page)[1] == ".md":
@@ -219,7 +222,7 @@ def main():
                     convert_md2tex("LICENSE.md", "LICENSE.tex")
                     end_matter.write("\clearpage\n\section{LICENSE}\n\input{LICENSE}\n")
                 else:
-                    print(f"Error: Could not incorporate {page} in end matter.\nPlease make sure that the filename is valid.")
+                    print(f"Error: Could not incorporate {page} in end matter.\nPlease make sure that the filename is valid. Only Markdown/LaTeX file format is supported.")
                     sys.exit(1)
 
         else:
@@ -252,10 +255,9 @@ def main():
 
                         copy_file(metric_path, current_dir)
                         decrease_level(metric)
-                        tex_filename = os.path.splitext((metric))[0] + ".tex"
+                        tex_filename = os.path.splitext((metric))[0] + ".tex"                        
                         
-                        tex_file_path = os.path.join(current_dir, tex_filename)
-                        convert_md2tex(metric, tex_file_path)
+                        convert_md2tex(metric, tex_filename)
                         converted_tex_files.append(tex_filename)
 
                     # copy images of particular focus-area
