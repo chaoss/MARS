@@ -1,5 +1,6 @@
 from string import punctuation
 
+
 template_working_group = r'''
 \section{$SECTION_NAME$}
 \begin{table}[ht!]
@@ -103,3 +104,12 @@ def focus_areas_table(wg_tex_file, section_name, focus_areas_list):
 
     table_head += table_tail
     wg_tex_file.write(table_head)
+
+def print_summary(wg_count, focus_area_count, metric_count):
+
+    print("\n" + "="*10 + " SUMMARY " + "="*10)
+    print(f"Total working groups: {wg_count}")
+    print(f"Total focus areas: {focus_area_count}")
+    print(f"Total metrics: {metric_count}")
+    print("="*29 + "\n")
+

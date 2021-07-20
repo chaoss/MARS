@@ -139,6 +139,9 @@ def main():
     global test_dir
     global current_dir
 
+    focus_area_count = 0
+    metric_count = 0
+
     # Clean the test_dir for residual files
     clean_directory(test_dir)
 
@@ -282,6 +285,8 @@ def main():
                         for metric_tex_file in converted_tex_files:
                             fa_tex_file.write(f"\input{{{os.path.splitext(metric_tex_file)[0]}}} \n")
 
+                        metric_count += len(converted_tex_files)
+
             # create WG.tex file
             wg_tex_file_path = os.path.join(current_dir, wg_name+".tex")
 
@@ -294,6 +299,9 @@ def main():
 
                 for fa in included_focus_areas:
                     wg_tex_file.write(f"\input{{{os.path.splitext(fa)[0]}}} \n")
+
+                focus_area_count += len(included_focus_areas)
+
 
     # create master file to include WG.tex files
     with open(master_file_path, "a") as master_file:
@@ -309,6 +317,8 @@ def main():
 
     convert_tex2pdf(master_file_path, output_filename)
     copy_file(output_filename, "../output")
+
+    helper.print_summary(len(included_wgs), focus_area_count, metric_count)
 
 if __name__ == "__main__":
     main()
