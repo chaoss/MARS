@@ -149,9 +149,9 @@ You need to install the python packages listed in [`requirements.txt`](requireme
 pip3 install -r requirements.txt
 ```
 
-#### Step 5: Configuring the yml config file
+#### Step 5: Configuring the yml config file & Updating the cover page
 
-This step is same as [Step 4](#step-4-configuring-the-yml-config-file) in the Docker approach.
+This step is same as [Step 4](#step-4-configuring-the-yml-config-file--updating-the-cover-page) in the Docker approach.
 
 #### Step 6: Running the final scripts
 
