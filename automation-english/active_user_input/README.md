@@ -1,14 +1,22 @@
-# YML configuration file
+# Active User Input
 
-This README serves as a guide for the dynamic yml config file located in this directory. It defines the repository structure for various Working Groups that are to be included in the metrics release report. The working groups would be cloned and parsed for relative links according to the structure defined here. It serves as the only input for the automation process.
+These 2 are the only input files you'll need to configure before launching to MARS:
+* [YML configuration file](#yml-configuration-file)
+* [cover.tex file](#covertex-file)
 
-## File Structure
+## YML configuration file
+
+This section serves as a guide for the dynamic [yml config file](working-groups-config.yml) located in this directory. It defines the repository structure for various Working Groups that are to be included in the metrics release report. The working groups would be cloned and parsed for relative links according to the structure defined here.
+
+### File Structure
 
 This file follows a simple yet strict structure, make sure you follow it to avoid unnecessary errors.
 
 * The following is a template for the same, with explanation:
 
-```
+```yml
+# WG-Name
+
 wg-name:
   include-wg: boolean
   wg-fullname: WG-name
@@ -36,8 +44,8 @@ Note: Empty focus-areas (focus-areas with no metrics) will work as well.
 
 * A sample structure for [wg-common](https://github.com/chaoss/wg-common) would look like this:
 
-```
-# WG Common
+```yml
+# WG-Common
 
 wg-common:
   include-wg: True
@@ -45,30 +53,31 @@ wg-common:
   github-link: https://github.com/chaoss/wg-common
   github-branch: master
   focus-areas:
-    what:
+    contributions:
     - technical-fork.md
     - types-of-contributions.md
-    when:
+    time:
     - activity-dates-and-times.md
     - burstiness.md
     - review-cycle-duration-within-a-change-request.md
     - time-to-close.md
     - time-to-first-response.md
-    where:
-    who:
+    place:
+    people:
     - contributor-location.md
     - contributors.md
     - organizational-diversity.md
 ```
 
-## Usage
+Apart from this you might also find `front-matter` and `end-matter` in the beginning of the file. It corresponds to the static input of contributors, release-notes and the LICENSE - to be pulled from the website repository. You might not need to change it since any modification in these files in the website repo would be anyways reflected here. So you can safetly ignore those terms.
 
-Now that you are familiar with the structure of the file, it is important to note that this file also determines in which order the working groups, focus-areas and metrics would be displayed in the release report. The order is from top to bottom, and is applicable for WG, focus-areas and their respective metrics.
+### Usage
+
+Now that you are familiar with the structure of the file, it is important to note that this file also determines in which order the working groups, focus-areas and metrics would be displayed in the release report. The order is from top to bottom, and is applicable for WG, focus-areas and their respective metrics. (this doesn't apply to front and end matter since they have fixed position at the beginning and the end of the PDF respectively)
 
 This file is expected to be altered during each metrics release process.
 
 A series of steps to be performed during the release process:
-* Before making any changes, make sure a copy of the previous release PDF and this yml file for THAT release exist in the website repo here (add link)
 * Update this file - perform the following operations, if applicable:
     * Add new metrics to their respective focus-areas (mind the order)
     * Remove outdated/retired metrics
@@ -76,4 +85,8 @@ A series of steps to be performed during the release process:
 * Save changes to the new finalized file
 * Refer to main [README](../README.md), to continue with the release process
 
+## `cover.tex` file
 
+This tex file acts as the standard cover page for the PDF release. Here, you need to set 2 parameters in this file:
+1. Release year and month - at line 13
+2. Copyright year - at line 24

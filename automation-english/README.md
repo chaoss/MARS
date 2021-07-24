@@ -63,9 +63,14 @@ You should see your username in the output along with docker.
 
 #### Step 4: Configuring the yml config file & Updating the cover page
 
-The yml config is the most important piece of MARS as it describes the outline of working groups and metrics that need to be included and in which order. The yml file has it own separate README to avoid congestion here. Refer to this [yml README](active_user_input) for configuring it.
+The only input you are supposed to configure is the [`yml`](active_user_input/working-groups-config.yml) config file and the [`cover.tex`](active_user_input/cover.tex) file.
+Both of them can be found in the [`active_user_input`](active_user_input) directory.
 
-Make sure to also update the release month and year as well as the copyright year in the [cover page](active_user_input/cover.tex) 
+The `yml` config is the most important piece of MARS as it describes the outline of all the working groups and metrics that need to be included and in which order.
+
+The `cover.tex` file is used to update the release month and year as well as the copyright year.
+
+Both the files has it own separate README to avoid congestion here. Refer to this [README](active_user_input) for configuring it.
 
 Once you have confirmed the above changes you can proceed to the next and the final step.
 
