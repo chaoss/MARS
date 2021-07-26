@@ -12,7 +12,7 @@ import helper
 ##### Global Vars #####
 
 included_wgs = []
-yml_filename = "working-groups-config.yml"
+yml_filename = "english_working-groups-config.yml"
 master_file_path = "master.tex"
 test_dir = "test_env"
 current_dir = "./"
@@ -74,7 +74,7 @@ def convert_tex2pdf(tex_filename, pdf_filename):
                                                                                                  '-V', 'linkcolour:blue',
                                                                                                  '-V', 'fontsize=12pt',
                                                                                                  '--toc', '--toc-depth= 3',
-                                                                                                 '--include-before-body', 'cover.tex',
+                                                                                                 '--include-before-body', 'english_cover.tex',
                                                                                                  '--include-after-body', 'end-matter.tex'])
     assert output == ""
     print(f"Conversion process successful: {pdf_filename}")
