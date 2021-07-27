@@ -1,31 +1,3 @@
-from string import punctuation
-
-
-template_working_group = r'''
-\section{$SECTION_NAME$}
-\begin{table}[ht!]
-    \centering
-    \begin{tabular}{|p{0.35\linewidth} | p{0.6\linewidth}|}
-        \hline
-        \hfil \textbf{Focus Area}  & \hfil \textbf{Goal} \\
-        \hline
-'''
-
-template_focus_areas = r'''
-\subsection{Focus Area - $FOCUS_AREA_NAME$}
-\textbf{Goal:} $FOCUS_AREA_GOAL$
-\begin{table}[ht!]
-    \centering
-    \begin{tabular}{|p{0.35\linewidth} | p{0.6\linewidth}|}
-        \hline
-        \hfil \textbf{Metric}  & \hfil \textbf{Question} \\
-        \hline
-'''
-
-template_end = r'''    \end{tabular}
-\end{table}
-'''
-
 def extract_goal(focus_area_README):
 
     with open(focus_area_README) as f:
@@ -40,7 +12,6 @@ def extract_goal(focus_area_README):
     # 2) Remove the first word
     # 3) Join the list and return
     return ' '.join(data[1].split()[1:])
-
 
 def extract_question(metric):
 
@@ -59,11 +30,10 @@ def extract_question(metric):
 
     return metric_name, metric_question
 
+def generate_focus_areas(focus_area_name, focus_area_filename, focus_area_README, metrics, english_template):
 
-def generate_focus_areas(focus_area_name, focus_area_filename, focus_area_README, metrics):
-
-    table_head = template_focus_areas
-    table_tail = template_end
+    table_head = english_template.template_focus_areas
+    table_tail = english_template.template_end
 
     focus_area_goal = extract_goal(focus_area_README)
 
@@ -86,11 +56,10 @@ def generate_focus_areas(focus_area_name, focus_area_filename, focus_area_README
 
     print(f"\nGenerating focus-area file = {focus_area_filename}")
 
+def focus_areas_table(wg_tex_file, section_name, focus_areas_list, english_template):
 
-def focus_areas_table(wg_tex_file, section_name, focus_areas_list):
-
-    table_head = template_working_group
-    table_tail = template_end
+    table_head = english_template.template_working_group
+    table_tail = english_template.template_end
 
     table_head = table_head.replace("$SECTION_NAME$", section_name)
 

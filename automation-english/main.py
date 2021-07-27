@@ -7,15 +7,18 @@ from datetime import datetime
 import pypandoc
 import yaml
 import validators
-import helper
+import english_release
+# import helper
 
 ##### Global Vars #####
 
-included_wgs = []
-yml_filename = "english_working-groups-config.yml"
+english_yml_filename = "english_working-groups-config.yml"
+spanish_yml_filename = "spanish_working-groups-config.yml"
+chinese_yml_filename = "chinese_working-groups-config.yml"
 master_file_path = "master.tex"
 test_dir = "test_env"
 current_dir = "./"
+included_wgs = []
 
 def copy_file(source_filepath, dest_path):
 
@@ -58,26 +61,6 @@ def convert_md2tex(md_filename, latex_filename):
     output = pypandoc.convert_file(md_filename, 'latex', outputfile=latex_filename, extra_args=['-f', 'gfm'])
     assert output == ""
     print(f"Created successfully: {latex_filename}")
-
-def convert_tex2pdf(tex_filename, pdf_filename):
-
-    print(f"\nConverting {tex_filename} file to PDF")
-    output = pypandoc.convert_file(tex_filename, 'pdf', outputfile=pdf_filename, extra_args=['-f', 'latex',
-                                                                                                 '--pdf-engine=xelatex',
-                                                                                                 '--include-in-header', 'header_1.tex',
-                                                                                                 '--highlight-style', 'zenburn',
-                                                                                                 '-V', 'geometry:margin=0.8in',
-                                                                                                 '-V', 'monofont:DejaVuSansMono.ttf',
-                                                                                                 '-V', 'mathfont:texgyredejavu-math.otf',
-                                                                                                 '-V', 'geometry:a4paper',
-                                                                                                 '-V', 'colorlinks=true',
-                                                                                                 '-V', 'linkcolour:blue',
-                                                                                                 '-V', 'fontsize=12pt',
-                                                                                                 '--toc', '--toc-depth= 3',
-                                                                                                 '--include-before-body', 'english_cover.tex',
-                                                                                                 '--include-after-body', 'end-matter.tex'])
-    assert output == ""
-    print(f"Conversion process successful: {pdf_filename}")
 
 def clean_directory(folder_path):
     try:
@@ -133,17 +116,103 @@ def clone_repo(url, name, branch):
         print("Verify the repository details specified in YAML file.")
         sys.exit(1)
 
+def language_input():
+
+    print()
+    print("="*60)
+    print('''\nPlease select your language preference for M.A.R.S. :
+    PRESS 1 for English
+    PRESS 2 for other languages
+    ''')
+
+    choice = input("Your preference (1/2): ")
+
+    while choice != '1' and choice != '2':
+        print("Invalid choice! Please select again...\n")
+        choice = input("Your preference (1/2): ")
+
+    return choice
+
+def add_front_matter(yaml_data):
+
+    # Create and include front matter files
+    with open("front-matter.tex", "w") as front_matter:
+        if yaml_data["front-matter"] is not None:
+            for page in yaml_data["front-matter"]:
+                if is_url(page):
+                    print(f"\nDownloading file: {page}")
+                    os.system(f"wget {page}")
+                    filename = os.path.basename(page)
+                    name, extension = os.path.splitext(filename)
+                    if extension == ".md":
+                        convert_md2tex(filename, name+".tex")
+                        front_matter.write(f"\input{{{name}}} \n")
+                    elif extension == ".tex":
+                        front_matter.write(f"\input{{{name}}} \n")
+                    else:
+                        print(f"Error: Could not incorporate {page} in front-matter.\nPlease make sure that the URL is valid. Only Markdown/LaTeX file format is supported.")
+                        sys.exit(1)
+                elif os.path.splitext(page)[1] == ".md":
+                    convert_md2tex(page, os.path.splitext(page)[0]+".tex")
+                    front_matter.write(f"\input{{{os.path.splitext(page)[0]}}} \n")
+                elif os.path.splitext(page)[1] == ".tex":
+                    front_matter.write(f"\input{{{os.path.splitext(page)[0]}}}"+"\n")
+                else:
+                    print(f"Error: Could not incorporate {page} in front-matter.\nPlease make sure that the filename is valid. Only Markdown/LaTeX file format is supported.")
+                    sys.exit(1)
+        else:
+            print("Warning: No documents detected for the front-matter")
+
+    with open(master_file_path, "a") as master_file:
+        master_file.write("\n\include{front-matter}")
+
+def add_end_matter(yaml_data):
+
+    # Create and include end matter files
+    with open("end-matter.tex", "w") as end_matter:
+        if yaml_data["end-matter"] is not None:
+            for page in yaml_data["end-matter"]:
+                if is_url(page):
+                    print(f"\nDownloading file: {page}")
+                    os.system(f"wget {page}")
+                    filename = os.path.basename(page)
+                    name, extension = os.path.splitext(filename)
+                    if name == "LICENSE":
+                        os.rename("LICENSE", "LICENSE.md")
+                        convert_md2tex("LICENSE.md", "LICENSE.tex")
+                        end_matter.write("\clearpage\n\section{LICENSE}\n\input{LICENSE}\n")
+                    elif extension == ".md":
+                        convert_md2tex(filename, name+".tex")
+                        end_matter.write(f"\input{{{name}}} \n")
+                    elif extension == ".tex":
+                        end_matter.write(f"\input{{{name}}} \n")
+                    else:
+                        print(f"Error: Could not incorporate {page} in end matter.\nPlease make sure that the URL is valid. Only Markdown/LaTeX file format is supported.")
+                        sys.exit(1)
+
+                elif os.path.splitext(page)[1] == ".md":
+                    convert_md2tex(page, os.path.splitext(page)[0]+".tex")
+                    end_matter.write(f"\input{{{os.path.splitext(page)[0]}}} \n")
+                elif os.path.splitext(page)[1] == ".tex":
+                    end_matter.write(f"\input{{{os.path.splitext(page)[0]}}}"+"\n")
+                elif os.path.splitext(page)[0] == "LICENSE" and os.path.splitext(page)[1] == "":
+                    os.rename("LICENSE", "LICENSE.md")
+                    convert_md2tex("LICENSE.md", "LICENSE.tex")
+                    end_matter.write("\clearpage\n\section{LICENSE}\n\input{LICENSE}\n")
+                else:
+                    print(f"Error: Could not incorporate {page} in end matter.\nPlease make sure that the filename is valid. Only Markdown/LaTeX file format is supported.")
+                    sys.exit(1)
+
+        else:
+            print("Warning: No documents detected for the end-matter")
 
 def main():
 
     global included_wgs
-    global yml_filename
+    global english_yml_filename
     global master_file_path
     global test_dir
     global current_dir
-
-    focus_area_count = 0
-    metric_count = 0
 
     # Clean the test_dir for residual files
     clean_directory(test_dir)
@@ -160,10 +229,28 @@ def main():
     copy_dir_files("../active_user_input", current_dir)
     copy_dir_files("../passive_user_input", current_dir)
 
+    # select language
+    language = language_input()
+
+    if language == '1':
+        print("English selected!")
+        print("Moving on to the next phase...")
+
+        # main over - switch to new script
+        english_release.english_main(english_yml_filename)
+
+    else:
+        print("Work in progress")
+
+    sys.exit()
+
+    # --->
+    focus_area_count = 0
+    metric_count = 0
 
     # Read the yml file
     print("\nReading the YML file:\n")
-    yaml_data = load_yaml(yml_filename)
+    yaml_data = load_yaml(english_yml_filename)
 
     # Create and include front matter files
     with open("front-matter.tex", "w") as front_matter:
@@ -237,7 +324,6 @@ def main():
     delete_dictkey("front-matter", yaml_data)
     delete_dictkey("end-matter", yaml_data)
 
-
     # LOOP #1: For Working Groups
     for wg_name in yaml_data.keys():
         if yaml_data[wg_name]['include-wg']:
@@ -305,7 +391,6 @@ def main():
 
                 focus_area_count += len(included_focus_areas)
 
-
     # create master file to include WG.tex files
     with open(master_file_path, "a") as master_file:
         master_file.write("\n")
@@ -322,6 +407,10 @@ def main():
     copy_file(output_filename, "../output")
 
     helper.print_summary(len(included_wgs), focus_area_count, metric_count)
+
+
+  # <---
+
 
 if __name__ == "__main__":
     main()
