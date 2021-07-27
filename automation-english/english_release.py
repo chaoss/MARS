@@ -10,15 +10,15 @@ def english_main(english_yml_filename):
 
     # Read the yml file
     print("\nReading the YML file:\n")
-    yaml_data = main.load_yaml(english_yml_filename)
+    yaml_data = helper.load_yaml(english_yml_filename)
 
     # add front and end matter
-    main.add_front_matter(yaml_data)
-    main.add_end_matter(yaml_data)
+    helper.add_front_matter(yaml_data)
+    helper.add_end_matter(yaml_data)
 
     # delete front and end matter from yml
-    main.delete_dictkey("front-matter", yaml_data)
-    main.delete_dictkey("end-matter", yaml_data)
+    helper.delete_dictkey("front-matter", yaml_data)
+    helper.delete_dictkey("end-matter", yaml_data)
 
     # create object of english class from table templates
     # to be used for:
@@ -33,7 +33,7 @@ def english_main(english_yml_filename):
 
             # clone repo with specified branch in yaml data
             print(f"\nCloning from URL: {yaml_data[wg_name]['github-link']}\nBranch: {yaml_data[wg_name]['github-branch']}\n")
-            main.clone_repo(yaml_data[wg_name]['github-link'], wg_name, yaml_data[wg_name]['github-branch'])
+            helper.clone_repo(yaml_data[wg_name]['github-link'], wg_name, yaml_data[wg_name]['github-branch'])
 
             main.included_wgs.append(wg_name)
             included_focus_areas = []
@@ -48,18 +48,18 @@ def english_main(english_yml_filename):
                     for metric in metrics:
                         metric_path = os.path.join(wg_name, "focus-areas", focus_area, metric)
 
-                        main.copy_file(metric_path, main.current_dir)
-                        main.decrease_level(metric)
+                        helper.copy_file(metric_path, main.current_dir)
+                        helper.decrease_level(metric)
                         tex_filename = os.path.splitext((metric))[0] + ".tex"                        
                         
-                        main.convert_md2tex(metric, tex_filename)
+                        helper.convert_md2tex(metric, tex_filename)
                         converted_tex_files.append(tex_filename)
 
                     # copy images of particular focus-area
                     if not os.path.isdir("images"):
                         print(f"\nMaking images directory")
                         os.makedirs("images")
-                    main.copy_dir_files(os.path.join(wg_name, "focus-areas", focus_area, "images"), os.path.join(main.current_dir, "images"))
+                    helper.copy_dir_files(os.path.join(wg_name, "focus-areas", focus_area, "images"), os.path.join(main.current_dir, "images"))
 
                     focus_area_README = os.path.join(wg_name, "focus-areas", focus_area, "README.md")
 
@@ -105,7 +105,7 @@ def english_main(english_yml_filename):
 
     # create final PDF
     pdf_filename = english_template.convert_tex2pdf(main.master_file_path)
-    main.copy_file(pdf_filename, "../output")
+    helper.copy_file(pdf_filename, "../output")
 
     helper.print_summary(len(main.included_wgs), focus_area_count, metric_count)
 
