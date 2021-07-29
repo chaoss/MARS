@@ -1,48 +1,45 @@
-### Job Opportunities
+### 就业机会
 
-Question: How many job postings request skills with technologies from a project?
-
-
-#### Description
-
-A common way for open source contributors to earn a living wage is to be employed by a company or be a self-employed or freelance developer. Skills in a specific project may improve a job applicant’s prospects of getting a job. The most obvious indicator for demand related to a skill learned in a specific open source project is when that project or its technology is included in job postings.
+问题：有多少招聘信息要求项目技术与技能？
 
 
-#### Objectives
+#### 描述
 
-The metric gives contributors a sense of how much skills learned in a specific open source project are valued by companies.
-
-
-#### Implementation
-
-To obtain this metric on a job search platform (e.g., LinkedIn, Indeed, or Dice), go to the job search and type in the name of the open source project. The number of returned job postings is the metric. Periodically collecting the metric through an API of a job search platform and storing the results allows to see trends.
+开源贡献者赚取生活费的一种常见方式是受雇于公司或成为自雇或自由开发者。 特定项目中的技能可能会改善求职者获得工作的前景。 与特定开源项目中所学技能相关的最明显需求指标是该项目或其技术纳入招聘信息中的时间。
 
 
-##### Filters
+#### 目标
 
-* Age of job posting; postings get stale and may not be removed when filled
-
-
-##### Visualizations
-
-The metric can be extended by looking at:
-
-* Salary ranges for jobs returned
-* Level of seniority for jobs returned
-* Availability of jobs like on-site or off-site
-* Location of job
-* Geography
+该指标可以让贡献者了解在特定开源项目中所学技能被公司重视的程度。
 
 
-#### References
+#### 实现
 
-* LinkedIn Job Search API: https://developer.linkedin.com/docs/v1/jobs/job-search-api#
-* Indeed Job Search API: https://opensource.indeedeng.io/api-documentation/docs/job-search/ 
-* Dice.com Job Search API: http://www.dice.com/external/content/documentation/api.html
-* Monster Job Search API: https://partner.monster.com/job-search
-* Ziprecruiter API (Requires Partnership): https://www.ziprecruiter.com/zipsearch
+要在求职平台（如 LinkedIn、Indeed 或 Dice）上获得这一指标，前往职位搜索并输入开源项目的名称。 返回的招聘信息数量即为指标。 通过求职平台的 API 定期收集指标并存储结果，即可查看趋势。
 
-_Note:_ This metric is limited to individual projects but engagement in open source can be 
-beneficial for other reasons. This metric could be tweaked to look beyond a single project 
-and instead use related skills such as programming languages, processes, open source 
-experience, or frameworks as search parameters for jobs.
+
+##### 筛选条件
+
+* 招聘信息时长；信息会过时，填写后可能不会被移除
+
+
+##### 可视化效果
+
+可以查看以下内容扩展指标：
+
+* 返回的职位的薪资范围
+* 返回的职位的资历水平
+* 现场或非现场职位的可用性
+* 工作地点
+* 地理位置
+
+
+#### 参考资料
+
+* LinkedIn 职位搜索 API：https://developer.linkedin.com/docs/v1/jobs/job-search-api#
+* Indeed 职位搜索 API：https://opensource.indeedeng.io/api-documentation/docs/job-search/
+* Dice.com 职位搜索 API：http://www.dice.com/external/content/documentation/api.html
+* Monster 职位搜索 API：https://partner.monster.com/job-search
+* Ziprecruiter API（需要合作）：https://www.ziprecruiter.com/zipsearch
+
+_注意：_此指标仅限于单个项目，但参与开源也可由其他原因获益。 这一指标可以超越单一项目，改为使用编程语言、进程、开源经验或框架等相关技能作为职位的搜索参数。

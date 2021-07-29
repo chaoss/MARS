@@ -1,0 +1,73 @@
+\hypertarget{ux6280ux672fux5206ux652f}{%
+\subsubsection{技术分支}\label{ux6280ux672fux5206ux652f}}
+
+问题: 在代码开发平台一个开源项目有多少技术分支？
+
+\hypertarget{ux63cfux8ff0}{%
+\paragraph{描述}\label{ux63cfux8ff0}}
+
+一个技术分支是一个项目分布式版本控制的拷贝。技术分支数表示在同一代码开发平台上该项目的拷贝数。
+
+\hypertarget{ux76eeux6807}{%
+\paragraph{目标}\label{ux76eeux6807}}
+
+技术分支度量的目标是确定在代码开发平台上存在的该项目的拷贝数。对技术分支的分析可以提供对分支意图的深入了解
+(建立分支的不同意图，如对上游有贡献的分支和没有贡献的分支)。
+
+\hypertarget{ux5b9eux73b0}{%
+\paragraph{实现}\label{ux5b9eux73b0}}
+
+\hypertarget{ux7b5bux9009ux6761ux4ef6}{%
+\subparagraph{筛选条件}\label{ux7b5bux9009ux6761ux4ef6}}
+
+\begin{itemize}
+\tightlist
+\item
+  时间周期 (例如，每周，每月，每年)
+\item
+  贡献分支与总分支的比率
+  (贡献分支是指对上游代码仓库建立更改请求的分支。)
+\item
+  非贡献分支与总分支的比率
+  (贡献分支是指从未对上游代码仓库建立更改请求的分支。)
+\end{itemize}
+
+\hypertarget{ux53efux89c6ux5316ux6548ux679c}{%
+\subparagraph{可视化效果}\label{ux53efux89c6ux5316ux6548ux679c}}
+
+\textbf{Augur 实现}
+
+\includegraphics{images/technical-fork_augur-fork.png}
+
+\textbf{GrimoireLab 实现}
+
+\includegraphics{images/technical-fork_grimoirelab-fork.png}
+
+\hypertarget{ux63d0ux4f9bux5ea6ux91cfux7684ux5de5ux5177}{%
+\subparagraph{提供度量的工具}\label{ux63d0ux4f9bux5ea6ux91cfux7684ux5de5ux5177}}
+
+\begin{itemize}
+\tightlist
+\item
+  Augur
+\item
+  GrimoireLab
+\end{itemize}
+
+\hypertarget{ux6570ux636eux6536ux96c6ux7b56ux7565}{%
+\subparagraph{数据收集策略}\label{ux6570ux636eux6536ux96c6ux7b56ux7565}}
+
+\textbf{Github API}\\
+\href{https://developer.github.com/v3/repos/forks/\#list-forks}{https://developer.github.com/v3/repos/forks/\#list-forks}
+
+\textbf{GitLab API}\\
+\href{https://docs.gitlab.com/ee/api/projects.html\#list-forks-of-a-project}{https://docs.gitlab.com/ee/api/projects.html\#list-forks-of-a-project}
+
+\textbf{Bitbucket API}\\
+\href{https://developer.atlassian.com/bitbucket/api/2/reference/resource/repositories/\%7Bworkspace\%7D/\%7Brepo_slug\%7D/forks}{https://developer.atlassian.com/bitbucket/api/2/reference/resource/repositories/\%7Bworkspace\%7D/\%7Brepo\_slug\%7D/forks}
+
+\hypertarget{ux53c2ux8003ux8d44ux6599}{%
+\paragraph{参考资料}\label{ux53c2ux8003ux8d44ux6599}}
+
+\href{https://help.github.com/en/enterprise/2.13/user/articles/fork-a-repo}{https://help.github.com/en/enterprise/2.13/user/articles/fork-a-repo}
+\href{https://opensource.com/article/17/12/fork-clone-difference}{https://opensource.com/article/17/12/fork-clone-difference}

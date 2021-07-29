@@ -1,57 +1,52 @@
-### Labor Investment
+### 人力投资
 
-Question: What was the cost of an organization for its employees to create the counted contributions (e.g., commits, issues, and pull requests)?
+问题：组织投入人力对社区所做的贡献（例如：代码提交，议题和更改请求）花费的成本是多少
 
-#### Description
+#### 描述
 
-Open source projects are often supported by organizations through labor investment. This metric tracks the monetary investment of organizations (as evident in labor costs) to individual projects.
+开源项目通常由组织的人力投入来支撑。该指标跟踪组织对单个项目的经济投入（体现在人力成本）。
 
-#### Objectives 
+#### 目标
 
-As organizational engagement with open source projects becomes increasingly important, it is important for organization to clearly understand their labor investment. The objective of this metric is to improve transparency in labor costs for organizations engaged with open source projects. This metric gives an Open Source Program Office (OSPO) manager a way to compare contributed labor costs across a portfolio of projects. For example, the Labor Investment metric can be used to prioritize investment or determine return on investment such as:
+随着组织参与度对开源项目变得越来越重要，组织必须清楚了解其人力投资。该指标的目的是为从事开源项目的组织提高人力成本的透明度。该指标给开源项目办公室（OSPO）经理提供了一种通过项目投资组合比较人力成本的方法。比如：人力投资指标能用在确定投资的优先顺序或者确定投资回报。例如：
 
-  * Labor Investment as a means of evaluating OSPO priorities and justifying budgets
-  * Labor Investment as a way to explain product/program management priority
-  * Labor Investment as an argument for the value of continued investing in OSPOs
-  * Labor Investment to report and compare labor costs of contributed vs in-house work
-  * Labor Investment to compare project effectiveness across a portfolio of projects
 
-#### Implementation
+  * 以人力投资评估 OSPO 事务的优先级和证明预算合理性
+  * 以人力投资解释产品、项目管理事项的优先级
+  * 以人力投资论证继续投资 OSPO 的价值
+  * 以人力投资反应和比较开源贡献与内部工作的人力成本
+  * 以人力投资比较项目组合的项目效益
 
-Base metrics include:
+#### 实现
 
-- Number of contributions
-- Number of contributions broken out by contributor types (internal / external)
-- Number of contributions broken out by contribution types (e.g., commits, issues, pull requests)
+基础指标包括：
 
-Parameters include:
+- 贡献数量
+- 按贡献者类型（内部/外部）划分的贡献数量
+- 按贡献类型（如代码提交，议题和更改请求）划分的贡献数量
 
-- Hourly labor rate
-- Average labor hours to create contribution (by contribution type)
+参数包括：
 
-Labor Investment = For each contribution type, sum (Number of contributions * Average labor hours to create contribution * Average hourly rate)
+- 每小时劳动率
+- 创建贡献的平均劳动时间（按照贡献类型分类）
 
-##### Filters
+人力投资 = 每一种贡献类型的总和（贡献数量 * 创造贡献的平均工时 * 平均每小时劳动率）
 
-* Internal vs external contributors
-* Issue tags
-* Project sources (e.g., internal, open-source repos, competitor open-source repos)
+##### 筛选条件
 
-##### Visualizations
+* 内部与外部贡献者
+* 问题标签
+* 项目来源（如内部、开源仓库、竞争对手的开源仓库）
+
+##### 可视化效果
 
 ![csv](images/labor-investment_csv.png)
 
-Our first visualization of parameterized metrics rely on CSV exports that can be made available from Augur. Spreadsheets are used for metric parameters and calculation formulas.  Future implementations may add features for parameter manipulation directly in the webapp.
+我们的第一个参数化指标的可视化效果依赖于可以用Augur导出的CSV。电子表格用于指标参数和计算公式。未来的实现可能会在 webapp 中直接添加参数操作的功能。
 
 
-#### References
+#### 参考资料
 
-- [Starting an Open Source Program Office][l1]
-- [Creating an Open Source Program Office][l2]
-- [Open Source in the Enterprise][l3]
-
-[l1]: https://www.slideshare.net/caniszczyk/starting-an-open-source-program-office-ospo
-
-[l2]: https://events19.linuxfoundation.org/wp-content/uploads/2018/07/OSLS_2019-untold-story-of-OSPO.pdf
-
-[l3]: https://d1.awsstatic.com/Open%20Source/enterprise-oss-book.pdf
+- [启动开源项目办公室](https://www.slideshare.net/caniszczyk/starting-an-open-source-program-office-ospo)
+- [创办开源项目办公室](https://events19.linuxfoundation.org/wp-content/uploads/2018/07/OSLS_2019-untold-story-of-OSPO.pdf)
+- [企业开源](https://d1.awsstatic.com/Open%20Source/enterprise-oss-book.pdf)
