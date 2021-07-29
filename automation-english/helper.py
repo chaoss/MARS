@@ -1,6 +1,7 @@
 # General helping functions used throughout the project
 import os
 import shutil
+import re
 import sys
 import subprocess
 from pprint import pprint
@@ -181,23 +182,21 @@ def add_end_matter(yaml_data):
             print("Warning: No documents detected for the end-matter")
 
 
+def spilt_by_colon(string):
 
-
-
-def extract_goal(focus_area_README):
-
-    with open(focus_area_README) as f:
-        data = f.readlines()
-    data = [x.strip() for x in data]
-
-    # filter out empty strings
-    data = list(filter(None, data))
-
-    # data[1] = '**Goal:** The goal to be extracted...'
-    # 1) Split into list
-    # 2) Remove the first word
-    # 3) Join the list and return
-    return ' '.join(data[1].split()[1:])
+    colon_list = [":**", ":","：", "ː", "˸", "᠄", "⍠", "꞉", "︓", " "]
+    i=0
+    while (i<len(colon_list)):
+        try:
+            a, b = string.split(colon_list[i], maxsplit=1)
+            return b.strip()
+        except ValueError:
+            i+=1
+        except:
+            print(f"Error: Unexpected error while extracting data from string - {string}")
+            break
+    print("Error: No colon delimiter found. Please make sure that metric/focus_area README follow the template.")
+    sys.exit(1)
 
 def extract_question(metric):
 
@@ -209,21 +208,36 @@ def extract_question(metric):
     data = list(filter(None, data))
 
     # data[0] = '# Technical Fork'
-    metric_name = ' '.join(data[0].split()[1:])
+    metric_name = data[0].split(maxsplit=1)[1]
 
     # data[1] = 'Question: question part of the metric'
-    metric_question = ' '.join(data[1].split()[1:])
+    metric_question = spilt_by_colon(data[1])
 
     return metric_name, metric_question
 
-def generate_focus_areas(focus_area_name, focus_area_filename, focus_area_README, metrics, english_template):
+def extract_goal(focus_area_README):
+
+    with open(focus_area_README) as f:
+        data = f.readlines()
+    data = [x.strip() for x in data]
+
+    # filter out empty strings
+    data = list(filter(None, data))
+
+    focus_area_name = data[0].split(maxsplit=1)[1]
+    focus_area_goal = spilt_by_colon(data[1])
+
+    return focus_area_name, focus_area_goal
+
+def generate_focus_areas(focus_area_filename, focus_area_README, metrics, english_template):
 
     table_head = english_template.template_focus_areas
     table_tail = english_template.template_end
 
-    focus_area_goal = extract_goal(focus_area_README)
+    focus_area_name, focus_area_goal = extract_goal(focus_area_README)
 
-    table_head = table_head.replace("$FOCUS_AREA_NAME$", focus_area_name.title().replace('-', ' '))
+    # table_head = table_head.replace("$FOCUS_AREA_NAME$", focus_area_name.title().replace('-', ' '))
+    table_head = table_head.replace("$FOCUS_AREA_NAME$", focus_area_name)
     table_head = table_head.replace("$FOCUS_AREA_GOAL$", focus_area_goal)
 
     for metric in metrics:
@@ -253,9 +267,9 @@ def focus_areas_table(wg_tex_file, section_name, focus_areas_list, english_templ
 
         # FA[0] = focus_area_name
         # FA[1] = focus_area_README.md
-        focus_area_goal = extract_goal(FA[1])
 
-        table_head += '\t\t' + FA[0].title().replace('-', ' ') + ' & ' + focus_area_goal + ' \\\\ \n\t\t\hline\n'
+        focus_area_name, focus_area_goal = extract_goal(FA[1])
+        table_head += '\t\t' + focus_area_name + ' & ' + focus_area_goal + ' \\\\ \n\t\t\hline\n'
 
     table_head += table_tail
     wg_tex_file.write(table_head)
@@ -268,3 +282,6 @@ def print_summary(wg_count, focus_area_count, metric_count):
     print(f"Total metrics: {metric_count}")
     print("="*29 + "\n")
 
+# if __name__ == "__main__":
+#
+#     print(spilt_by_colon("**目标:** 了解组织和个人正在做出哪些贡献。"))

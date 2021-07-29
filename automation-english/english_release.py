@@ -68,7 +68,7 @@ def english_main(english_yml_filename):
 
                     # create focus_area.tex file and add table
                     focus_area_filename = wg_name+"_"+focus_area+".tex"
-                    helper.generate_focus_areas(focus_area, focus_area_filename, focus_area_README, metrics, english_template)
+                    helper.generate_focus_areas(focus_area_filename, focus_area_README, metrics, english_template)
                     included_focus_areas.append(focus_area_filename)
 
                     # Add inclusion commands for metrics
