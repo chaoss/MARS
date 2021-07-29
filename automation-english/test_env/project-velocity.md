@@ -1,68 +1,58 @@
-### Project Velocity
+### 项目发展速度
 
-Question: What is the development speed for an organization?
+问题：如何衡量组织的发展速度？
 
-#### Description
+#### 描述
 
-Project velocity is the number of issues, the number of pull requests, volume
-of commits, and number of contributors as an indicator of 'innovation'.
+项目的发展速度是指议题数量、代码提交数量、更改请求数量和贡献者个数，作为“创新”的指标。
 
-#### Objectives
+#### 目标
 
-Gives an Open Source Program Office (OSPO) manager a way to compare the project
-velocity across a portfolio of projects.
+给开源项目办公室 (OSPO) 经理提供一种通过比较项目组合去衡量项目发展速度的方法。
 
-The OSPO manager can use the Project Velocity metric to:
+OSPO 经理可以使用以下项目发展速度指标来：
 
-- Report project velocity of open source projects vs in-house projects
-- Compare project velocity across a portfolio of projects
-- Identify which projects grow beyond internal contributors (when filtering internal vs. external contributors)
-- Identify promising areas in which to get involved
-- Highlight areas likely to be the successful platforms over the next several years
+- 比较开源项目与内部项目的发展速度
+- 比较项目组合中的项目发展速度
+- 找出哪些项目外部贡献者的发展超出了内部贡献者（在筛选内部贡献者与外部贡献者时）
+- 找出值得投入的有前途的领域
+- 找出未来几年可能成功的领域
 
-[See Example](https://www.cncf.io/blog/2017/06/05/30-highest-velocity-open-source-projects)
+[参见示例](https://www.cncf.io/blog/2017/06/05/30-highest-velocity-open-source-projects)
 
-#### Implementation
+#### 实现
 
-Base metrics include:
+基本指标包括：
 
-- [issues closed](https://github.com/chaoss/wg-evolution/blob/master/metrics/Issues_Closed.md)
-- [number of reviews](https://github.com/chaoss/wg-evolution/blob/master/metrics/Reviews.md)
-- [# of code changes](https://github.com/chaoss/wg-evolution/blob/master/metrics/Code_Changes.md)
-- [# of committers](https://github.com/chaoss/wg-risk/blob/master/metrics/Committers.md)
+- [关闭的问题个数](https://github.com/chaoss/wg-evolution/blob/master/metrics/Issues_Closed.md)
+- [评论个数](https://github.com/chaoss/wg-evolution/blob/master/metrics/Reviews.md)
+- [修改代码的人数](https://github.com/chaoss/wg-evolution/blob/master/metrics/Code_Changes.md)
+- [代码提交人数](https://github.com/chaoss/wg-risk/blob/master/metrics/Committers.md)
 
-##### Filters
+##### 筛选条件
 
-* Internal vs external contributors
-* Project sources (e.g., internal repositories, open-source repositories, and competitor open-source repositories)
-* Time
+* 内部与外部贡献者
+* 项目来源（例如，内部仓库、开源仓库和竞争对手的开源仓库）
+* 时间
 
-##### Visualizations
+##### 可视化效果
 
-* X-Axis: Logarithmic scale for Code Changes
-* Y-Axis: Logarithmic scale of Sum of Number of Issues and Number of Reviews
-* Dot-size: Committers
-* Dots are projects
+* X 轴：代码提交的总次数的对数
+* Y 轴：提交问题总个数和评论总个数之和的对数。
+* 点大小：代码提交人数
+* 点为某个项目
 
 ![cncf](images/project-velocity_visualization.png)
 
-[From CNCF](https://www.cncf.io/blog/2017/06/05/30-highest-velocity-open-source-projects/)
+[来自 CNCF](https://www.cncf.io/blog/2017/06/05/30-highest-velocity-open-source-projects/)
 
-##### Tools providing the Metric
+##### 提供指标的工具
 
 * CNCF - https://github.com/cncf/velocity
 
-#### References
+#### 参考资料
 
-- [Can Open Source Innovation work in the Enterprise?][l1]
-- [Open Innovation for a High Performance Culture][l2]
-- [Open Source for the Digital Enterprise][l3]
-- [Highest Velocity Open Source Projects][l4]
-
-[l1]: https://www.threefivetwo.com/blog/can-open-source-innovation-work-in-the-enterprise
-
-[l2]: https://www.nearform.com/blog/want-a-high-performing-culture-make-way-for-open-innovation
-
-[l3]: https://www.cio.com/article/3213146/open-source-is-powering-the-digital-enterprise.html
-
-[l4]: https://www.cncf.io/blog/2017/06/05/30-highest-velocity-open-source-projects
+- [开源创新能在企业中发挥作用吗?](https://www.threefivetwo.com/blog/can-open-source-innovation-work-in-the-enterprise)
+- [高绩效文化的开放式创新](https://www.nearform.com/blog/want-a-high-performing-culture-make-way-for-open-innovation)
+- [数字企业的开源](https://www.cio.com/article/3213146/open-source-is-powering-the-digital-enterprise.html)
+- [发展最快的开源项目](https://www.cncf.io/blog/2017/06/05/30-highest-velocity-open-source-projects)

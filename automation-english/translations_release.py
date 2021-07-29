@@ -12,7 +12,7 @@ def check_1(language, yml_filename):
 
     print("Check[1/3]: Searching for YML file")
     if os.path.isfile(yml_filename):
-        print(f"Found YML file successfully: {yml_filename}")
+        print(f"Found YML file successfully: {yml_filename}\n")
     else:
         print(f"Error: Unable to detect YML file for {language}.")
         print(f"Specify/check if the filename is: {yml_filename}")
@@ -22,7 +22,7 @@ def check_2(language, cover_filename):
 
     print("Check[2/3]: Searching for cover page file")
     if os.path.isfile(cover_filename):
-        print(f"Found cover page file successfully: {cover_filename}")
+        print(f"Found cover page file successfully: {cover_filename}\n")
     else:
         print(f"Error: Unable to detect cover page file for {language}.")
         print(f"Specify/check if the filename is: {cover_filename}")
@@ -33,7 +33,7 @@ def check_3(language, class_name):
     print("Check[3/3]: Finding language class in templates")
 
     if bool(class_name in [class_tuple[0] for class_tuple in inspect.getmembers(table_templates)]):
-        print(f"Class found successfully: {class_name}")
+        print(f"Class found successfully: {class_name}\n")
     else:
         print(f"Error: Unable to detect language class - '{class_name}' for language {language}")
         print("Make sure that class for language exists or create one in 'table_templates.py' ")
@@ -48,6 +48,7 @@ def translations_main(language):
     cover_filename = language + "_cover.tex"
     class_name = language.capitalize()
 
+    print()
     check_1(language, yml_filename)
     check_2(language, cover_filename)
     check_3(language, class_name)

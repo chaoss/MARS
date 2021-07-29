@@ -1,101 +1,84 @@
-\hypertarget{organizational-project-skill-demand}{%
-\subsubsection{Organizational Project Skill
-Demand}\label{organizational-project-skill-demand}}
+\hypertarget{ux7ec4ux7ec7ux9879ux76eeux6280ux80fdux9700ux6c42}{%
+\subsubsection{组织项目技能需求}\label{ux7ec4ux7ec7ux9879ux76eeux6280ux80fdux9700ux6c42}}
 
-Question: How many organizations are using this project and could hire
-me if I become proficient?
+问题：有多少组织在使用这个项目？如果我精通这个项目，是否可以雇用我？
 
-\hypertarget{description}{%
-\paragraph{Description}\label{description}}
+\hypertarget{ux63cfux8ff0}{%
+\paragraph{描述}\label{ux63cfux8ff0}}
 
-Organizations engage with open source projects through use and
-dependencies. This metric is aimed at determining downstream demand of
-skills related to an open source project. This metric looks at
-organizations that deploy a project as part of an IT infrastructure,
-other open source projects with declared dependencies, and references to
-the project through social media, conference mentions, blog posts, and
-similar activities.
+各组织通过用例和依赖关系来参与开源项目。
+该指标旨在确定与开源项目相关的下游技能需求。 该指标着眼于将项目作为 IT
+基础设施的一部分进行部署的组织、其他具有声明依赖关系的开源项目，以及通过社交媒体、会议提及、博客文章和类似活动对项目的引用。
 
-\hypertarget{objectives}{%
-\paragraph{Objectives}\label{objectives}}
+\hypertarget{ux76eeux6807}{%
+\paragraph{目标}\label{ux76eeux6807}}
 
-As a developer, I'd like to invest my skills and time in a project that
-has a likelihood of getting me a decent paying job in the future. People
-can use the Downstream Organizational Impact of a Project Software
-metric to discover which projects are used by organizations, and they
-may, therefore, be able to pursue job opportunities with, possibly
-requiring IT support services.
+作为一名开发者，我希望把自己的技术和时间投入到有可能让我在未来获得一份体面薪水的项目中。
+人们可以使用项目软件的下游组织影响指标来了解组织使用的项目，由此寻求可能需要
+IT 支持服务的工作机会。
 
-\hypertarget{implementation}{%
-\paragraph{Implementation}\label{implementation}}
+\hypertarget{ux5b9eux73b0}{%
+\paragraph{实现}\label{ux5b9eux73b0}}
 
-Base metrics include:
+基本指标包括：
 
 \begin{itemize}
 \tightlist
 \item
-  Number of organizations that created issues for a project
+  为项目创建问题的组织数量
 \item
-  Number of organizations that created pull requests for a project
+  为项目创建拉取请求的组织数量
 \item
-  Number of organizations that blog or tweet about a project
+  发布项目相关博客或推文的组织数量
 \item
-  Number of organizations that mention a project in open hiring requests
+  在公开招聘信息中提到项目的组织数量
 \item
-  Number of organizations that are represented at meetups about this
-  project
+  派代表参加项目相关会议的组织数量
 \item
-  Number of other projects that are dependent on a project
+  依赖某项目的其他项目数
 \item
-  Number of books about a project
+  项目相关书籍的数量
 \item
-  Google search trends for a project
+  项目的 Google 搜索趋势
 \end{itemize}
 
-\hypertarget{visualizations}{%
-\subparagraph{Visualizations}\label{visualizations}}
+\hypertarget{ux53efux89c6ux5316ux6548ux679c}{%
+\subparagraph{可视化效果}\label{ux53efux89c6ux5316ux6548ux679c}}
 
-The following visualization demonstrates the number of downstream
-projects dependendent on the project in question. While this
-visualization does not capture the entirety of the Downstream
-Organizational Impact of a Project Software metric, it provides a visual
-for a portion.
+以下可视化效果展示了依赖于特定项目的下游项目的数量。
+虽然这种可视化效果未捕捉项目软件下游组织影响指标的整体，但它提供了一部分的可视化效果。
 
 \includegraphics{images/organizational-project-skill-demand_paper.png}
 
-Other visualizations could include Google search trends (React vs.
-Angular vs. Vue.js)
+其他可视化效果可能包括 Google 搜索趋势（React vs. Angular vs. Vue.js）。
 
 \includegraphics{images/organizational-project-skill-demand_google-trends.png}
 
-ThoughtWorks publishes a series called 'Tech Radar' that shows the
-popularity of technologies.
+ThoughtWorks 发布了名为 'Tech Radar' 的系列，展现技术的普及程度。
 
 \includegraphics{images/organizational-project-skill-demand_tech-radar.png}
 
-Tech Radar allows you to drill down on projects to see how the
-assessment has changed over time.
+Tech Radar 让您能够对项目进行深入研究，了解评估随时间的变化。
 
 \includegraphics{images/organizational-project-skill-demand_tech-react.png}
 
-StackOverview publishes an annual developer's survey
+StackOverview 发布了年度开发者调查
 
 \includegraphics{images/organizational-project-skill-demand_stack-overflow.png}
 
-\hypertarget{tools-providing-the-metric}{%
-\subparagraph{Tools Providing the
-Metric}\label{tools-providing-the-metric}}
+\hypertarget{ux63d0ux4f9bux6307ux6807ux7684ux5de5ux5177}{%
+\subparagraph{提供指标的工具}\label{ux63d0ux4f9bux6307ux6807ux7684ux5de5ux5177}}
 
 \begin{itemize}
 \tightlist
 \item
-  Google Trends - for showing search interest over time
+  Google 趋势 - 显示一段时间内的搜索兴趣
 \item
-  ThoughtWorks TechRadar - project assessments from a tech consultancy
+  ThoughtWorks TechRadar - 技术咨询公司的项目评估
 \item
-  StackOverflow Developer's Survey - annual project rankings
+  StackOverflow 开发者调查 - 年度项目排名
 \item
-  Augur; Examples are available for multiple repositories:
+  Augur；示例可用于多个仓库：
 
   \begin{itemize}
   \tightlist
@@ -108,28 +91,25 @@ Metric}\label{tools-providing-the-metric}}
   \end{itemize}
 \end{itemize}
 
-\hypertarget{references}{%
-\paragraph{References}\label{references}}
+\hypertarget{ux53c2ux8003ux8d44ux6599}{%
+\paragraph{参考资料}\label{ux53c2ux8003ux8d44ux6599}}
 
 \begin{itemize}
 \tightlist
 \item
-  \href{https://opensource.org/sponsors}{Open Source Sponsors}
+  \href{https://opensource.org/sponsors}{开源赞助}
 \item
-  \href{https://opensource.com/article/19/1/fiscal-sponsors-open-source}{Fiscal
-  Sponsors and Open Source}
+  \href{https://opensource.com/article/19/1/fiscal-sponsors-open-source}{财政赞助和开源}
 \item
-  \href{https://www.networkworld.com/article/2867020/big-names-like-google-dominate-open-source-funding.html}{Large
-  Corporate OpenSource Sponsors}
+  \href{https://www.networkworld.com/article/2867020/big-names-like-google-dominate-open-source-funding.html}{大型企业开源赞助}
 \item
-  \href{https://www.npmjs.com/package/google-trends-api}{Google Trends
+  \href{https://www.npmjs.com/package/google-trends-api}{Google 趋势
   API}
 \item
-  \href{https://aisel.aisnet.org/cgi/viewcontent.cgi?article=1496\&context=amcis2018}{Measuring
-  Open Source Software Impact}
+  \href{https://aisel.aisnet.org/cgi/viewcontent.cgi?article=1496\&context=amcis2018}{衡量开源软件的影响}
 \item
   \href{https://www.thoughtworks.com/radar}{ThoughtWorks Tech Radar}
 \item
   \href{https://insights.stackoverflow.com/survey/2019\#technology}{Stack
-  Overflow Developer's Survey}
+  Overflow 开发者调查}
 \end{itemize}

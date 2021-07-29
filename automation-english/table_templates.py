@@ -1,5 +1,5 @@
 # This file defines the template for tables of Focus-areas and metrics for each langauge
-# It also contains the pandoc function specific for language
+# It also contains the pandoc function specific to the language
 # In case you need to add another language you've to create a new function with it's name
 # Currently it supports - English, Spanish and Chinese
 

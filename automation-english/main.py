@@ -1,6 +1,4 @@
 import os
-# import shutil
-import sys
 import english_release
 import translations_release
 import helper
@@ -22,12 +20,14 @@ def language_input():
     print()
     print("="*60)
     print('''\nPlease select your language preference for M.A.R.S. :
+
     PRESS 1 for English
     PRESS 2 for other languages
     ''')
 
     choice = input("Your preference (1/2): ")
 
+    # sanity check
     while choice != '1' and choice != '2':
         print("Invalid choice! Please select again...\n")
         choice = input("Your preference (1/2): ")
@@ -70,16 +70,27 @@ def main():
         english_release.english_main(english_yml_filename)
 
     else:
-        print("Translations selected!")
+        print("\nTranslations selected!\n")
+
+        # clone translation repo and auto-detect langauge
         helper.clone_repo(translations["github-link"], translations["repo-name"],translations["github-branch"])
         detected_languages = [dir for dir in sorted(os.listdir(translations["repo-name"])) if os.path.isdir(os.path.join(translations["repo-name"], dir)) and dir[0] != "."]
+        print()
+        print("="*60)
+        print("\nThe following langauges have been autodetected:\n")
 
         for i in range(len(detected_languages)):
-            print(f"PRESS {i} for {detected_languages[i]}")
-        user_inp = int(input("Your preference: "))
+            print(f"PRESS {i+1} for {detected_languages[i]}")
+
+        user_inp = int(input("\nYour preference: ")) - 1
+
+        # sanity check
+        while user_inp < 0 or user_inp >= len(detected_languages):
+            print("Invalid choice! Please select again...\n")
+            user_inp = int(input("\nYour preference: ")) - 1
+
+        # main over - call translation scripts
         translations_release.translations_main(detected_languages[user_inp])
-        print("Work in progress")
-    sys.exit()
 
 if __name__ == "__main__":
     main()

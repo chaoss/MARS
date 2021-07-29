@@ -1,11 +1,9 @@
 # General helping functions used throughout the project
 import os
 import shutil
-import re
 import sys
 import subprocess
 from pprint import pprint
-from datetime import datetime
 import pypandoc
 import yaml
 import validators
