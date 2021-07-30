@@ -1,5 +1,4 @@
 import os
-import pprint
 import shutil
 import main
 import helper
@@ -14,8 +13,8 @@ def check_1(language, yml_filename):
     if os.path.isfile(yml_filename):
         print(f"Found YML file successfully: {yml_filename}\n")
     else:
-        print(f"Error: Unable to detect YML file for {language}.")
-        print(f"Specify/check if the filename is: {yml_filename}")
+        print(helper.color.RED,f"Error: Unable to detect YML file for {language}.")
+        print(f"Specify/check if the filename is: {yml_filename}",helper.color.END)
         sys.exit(1)
 
 def check_2(language, cover_filename):
@@ -24,8 +23,8 @@ def check_2(language, cover_filename):
     if os.path.isfile(cover_filename):
         print(f"Found cover page file successfully: {cover_filename}\n")
     else:
-        print(f"Error: Unable to detect cover page file for {language}.")
-        print(f"Specify/check if the filename is: {cover_filename}")
+        print(helper.color.RED,f"Error: Unable to detect cover page file for {language}.")
+        print(f"Specify/check if the filename is: {cover_filename}",helper.color.END)
         sys.exit(1)
 
 def check_3(language, class_name):
@@ -35,8 +34,8 @@ def check_3(language, class_name):
     if bool(class_name in [class_tuple[0] for class_tuple in inspect.getmembers(table_templates)]):
         print(f"Class found successfully: {class_name}\n")
     else:
-        print(f"Error: Unable to detect language class - '{class_name}' for language {language}")
-        print("Make sure that class for language exists or create one in 'table_templates.py' ")
+        print(helper.color.RED,f"Error: Unable to detect language class - '{class_name}' for language {language}")
+        print("Make sure that class for language exists or create one in 'table_templates.py' ",helper.color.END)
         sys.exit(1)
 
 
@@ -52,7 +51,7 @@ def translations_main(language):
     check_1(language, yml_filename)
     check_2(language, cover_filename)
     check_3(language, class_name)
-    print("Passed all checks successfully")
+    print(helper.color.GREEN,"Passed all checks successfully",helper.color.END)
 
     # Read the yml file
     print("\nReading the YML file:\n")
@@ -161,3 +160,4 @@ def translations_main(language):
     helper.copy_file(pdf_filename, "../output")
 
     helper.print_summary(len(main.included_wgs), focus_area_count, metric_count)
+    helper.print_final_msg(pdf_filename)

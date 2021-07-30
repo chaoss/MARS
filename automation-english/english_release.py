@@ -108,4 +108,4 @@ def english_main(english_yml_filename):
     helper.copy_file(pdf_filename, "../output")
 
     helper.print_summary(len(main.included_wgs), focus_area_count, metric_count)
-
+    helper.print_final_msg(pdf_filename)

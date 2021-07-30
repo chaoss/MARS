@@ -1,12 +1,13 @@
-
-============================================================
+[93m
+============================================================ [96m
 
 Please select your language preference for M.A.R.S. :
 
     PRESS 1 for English
     PRESS 2 for other languages
-    
-Your preference (1/2): 
+[93m
+Your preference (1/2): [0m
+
 Cleaning directory: test_env
 Directory cleaned Successfully
 
@@ -44,17 +45,17 @@ Copied Successfully
 
 Copying: ../passive_user_input/master.tex
 Copied Successfully
-
+[92m
 Translations selected!
-
-
+[0m
+[93m
 ============================================================
-
+[96m
 The following langauges have been autodetected:
 
 PRESS 1 for chinese
 PRESS 2 for spanish
-
+[93m
 Your preference: 
 Check[1/3]: Searching for YML file
 Found YML file successfully: chinese_working-groups-config.yml
@@ -65,7 +66,7 @@ Found cover page file successfully: chinese_cover.tex
 Check[3/3]: Finding language class in templates
 Class found successfully: Chinese
 
-Passed all checks successfully
+[92m Passed all checks successfully [0m
 
 Reading the YML file:
 
@@ -323,9 +324,15 @@ Converting master.tex file to PDF
 Copying: Chinese-Release-2021-07-30.pdf
 Copied Successfully
 
-========== SUMMARY ==========
+[96m
+==========[93m SUMMARY [96m==========[92m
 Total working groups: 2
 Total focus areas: 6
-Total metrics: 14
-=============================
+Total metrics: 14 [96m
+============================= [0m
+[96m
+Created the final PDF -> [92m Chinese-Release-2021-07-30.pdf
+[96m
 
+Logs are saved in [92m logs.txt [96m
+Output PDF is saved in [92m ./output/Chinese-Release-2021-07-30.pdf [0m
