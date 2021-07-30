@@ -9,11 +9,11 @@ DOCKER_IMG_NAME='chaoss-mars'
 DOCKER_CONTAINER_NAME='mars-container'
 
 # Define colors
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-BLUE='\033[0;34m'
-CYAN='\033[0;36m'
-YELLOW='\033[1;33m'
+RED='\033[0;91m'
+GREEN='\033[0;92m'
+BLUE='\033[0;94m'
+CYAN='\033[0;96m'
+YELLOW='\033[1;93m'
 NC='\033[0m' # No Color
 
 greetings(){
@@ -168,11 +168,11 @@ check_exit $?
 
 # Display output
 echo
-echo -e "${YELLOW}Unless you plan to rerun the script in future, you can safetly delete the images by using the commands:${CYAN}"
+echo -e "${NC}Unless you plan to rerun the script in future, you can safetly delete the images by using the commands:${CYAN}"
 echo
 echo -e "$ docker rmi ${DOCKER_IMG_NAME}"
 echo -e "$ docker rmi ${DOCKERHUB_IMG_NAME}"
 echo
 
-echo -e "${GREEN}Logs are saved in ${YELLOW}logs.txt"
-echo -e "${GREEN}Ouput PDF is saved in ${YELLOW}output/${GREEN} directory with format: ${YELLOW}'Output-YYYY-MM-DD.pdf'\n"
+# echo -e "${GREEN}Logs are saved in ${YELLOW}logs.txt"
+# echo -e "${GREEN}Ouput PDF is saved in ${YELLOW}output/${GREEN} directory with format: ${YELLOW}'Output-YYYY-MM-DD.pdf'\n"
