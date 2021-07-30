@@ -1,10 +1,11 @@
 # Official Dockerfile for CHAOSS M.A.R.S.
-# The mars-image is hosted here: https://hub.docker.com/repository/docker/ritikmalik/mars-image
-# pull size = 437 MB
-# size after uncompression = 1.32 GB
+# The mars-image is hosted here: https://hub.docker.com/r/ritikmalik/mars-image
+#
+# pull size = 842.35 MB (compressed)
+# size after uncompression = 2.2 GB (actual image size)
 
-# pull the beta image
-FROM ritikmalik/mars-image:beta
+# pull the latest image
+FROM ritikmalik/mars-image:latest
 
 # add new non-root user with UID and GID same as system
 ARG USER_ID
@@ -24,3 +25,4 @@ COPY . .
 
 # main command to be run
 CMD ["/bin/bash", "-c", "python3 -u main.py | tee logs.txt"]
+
