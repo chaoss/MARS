@@ -1,35 +1,77 @@
 
+============================================================
+
+Please select your language preference for M.A.R.S. :
+
+    PRESS 1 for English
+    PRESS 2 for other languages
+    
+Your preference (1/2): 
 Cleaning directory: test_env
 Directory cleaned Successfully
 
 Switching to test_env
 
-Copying: ../active_user_input/README.md
+Copying: ../active_user_input/spanish_working-groups-config.yml
 Copied Successfully
 
-Copying: ../active_user_input/working-groups-config.yml
+Copying: ../active_user_input/chinese_cover.tex
+Copied Successfully
+
+Copying: ../active_user_input/english_working-groups-config.yml
+Copied Successfully
+
+Copying: ../active_user_input/chinese_working-groups-config.yml
+Copied Successfully
+
+Copying: ../active_user_input/english_cover.tex
+Copied Successfully
+
+Copying: ../active_user_input/spanish_cover.tex
+Copied Successfully
+
+Copying: ../active_user_input/README.md
 Copied Successfully
 
 Copying: ../passive_user_input/header_2.tex
 Copied Successfully
 
-Copying: ../passive_user_input/cover.tex
-Copied Successfully
-
 Copying: ../passive_user_input/header_1.tex
-Copied Successfully
-
-Copying: ../passive_user_input/master.tex
 Copied Successfully
 
 Copying: ../passive_user_input/Chaoss_logo.png
 Copied Successfully
 
+Copying: ../passive_user_input/master.tex
+Copied Successfully
+
+Translations selected!
+
+
+============================================================
+
+The following langauges have been autodetected:
+
+PRESS 1 for chinese
+PRESS 2 for spanish
+
+Your preference: 
+Check[1/3]: Searching for YML file
+Found YML file successfully: chinese_working-groups-config.yml
+
+Check[2/3]: Searching for cover page file
+Found cover page file successfully: chinese_cover.tex
+
+Check[3/3]: Finding language class in templates
+Class found successfully: Chinese
+
+Passed all checks successfully
+
 Reading the YML file:
 
 {'end-matter': ['https://raw.githubusercontent.com/chaoss/website/master/release/release-notes.md',
                 'https://raw.githubusercontent.com/chaoss/website/master/LICENSE'],
- 'front-matter': ['https://raw.githubusercontent.com/chaoss/website/master/release/contributors.md'],
+ 'front-matter': ['https://raw.githubusercontent.com/chaoss/website/master/release/chaoss-contributor-list.md'],
  'wg-common': {'focus-areas': {'what': ['technical-fork.md',
                                         'types-of-contributions.md'],
                                'when': ['activity-dates-and-times.md',
@@ -41,10 +83,30 @@ Reading the YML file:
                                'who': ['contributor-location.md',
                                        'contributors.md',
                                        'organizational-diversity.md']},
-               'github-branch': 'master',
-               'github-link': 'https://github.com/chaoss/wg-common',
-               'include-wg': False,
+               'github-branch': 'None',
+               'github-link': 'None',
+               'include-wg': True,
                'wg-fullname': 'Common Metrics WG'},
+ 'wg-diversity-inclusion': {'focus-areas': {'event-diversity': ['attendee-demographics.md',
+                                                                'diversity-access-tickets.md',
+                                                                'event-code-of-conduct.md',
+                                                                'family-friendly.md',
+                                                                'speaker-demographics.md'],
+                                            'governance': ['board-council-diversity.md',
+                                                           'code-of-conduct.md'],
+                                            'leadership': ['inclusive-leadership.md',
+                                                           'mentorship.md',
+                                                           'sponsorship.md'],
+                                            'project-and-community': ['chat-platform-inclusivity.md',
+                                                                      'documentation-accessibility.md',
+                                                                      'documentation-usability.md',
+                                                                      'issue-label-inclusivity.md',
+                                                                      'project-burnout.md']},
+                            'github-branch': 'None',
+                            'github-link': 'None',
+                            'include-wg': False,
+                            'wg-fullname': 'Diversity, Equity and Inclusion '
+                                           'WG'},
  'wg-evolution': {'focus-areas': {'code-development-activity': ['branch-lifecycle.md',
                                                                 'code-changes-lines.md',
                                                                 'code-changes.md'],
@@ -63,25 +125,37 @@ Reading the YML file:
                                                        'issues-active.md',
                                                        'issues-closed.md',
                                                        'issues-new.md']},
-                  'github-branch': 'master',
-                  'github-link': 'https://github.com/chaoss/wg-evolution',
-                  'include-wg': True,
+                  'github-branch': 'None',
+                  'github-link': 'None',
+                  'include-wg': False,
                   'wg-fullname': 'Evolution WG'},
- 'wg-value': {'focus-areas': {'communal-value': ['project-popularity.md',
-                                                 'project-velocity.md',
-                                                 'social-listening.md'],
+ 'wg-risk': {'focus-areas': {'business-risk': ['bus-factor.md',
+                                               'committers.md',
+                                               'elephant-factor.md'],
+                             'code-quality': ['test-coverage.md'],
+                             'licensing': ['license-coverage.md',
+                                           'license-declared.md',
+                                           'osi-approved-licenses.md',
+                                           'spdx-document.md'],
+                             'security': ['cii-best-practices.md'],
+                             'transparency': None},
+             'github-branch': 'None',
+             'github-link': 'None',
+             'include-wg': False,
+             'wg-fullname': 'Risk WG'},
+ 'wg-value': {'focus-areas': {'communal-value': ['project-velocity.md'],
                               'individual-value': ['job-opportunities.md',
                                                    'organizational-project-skill-demand.md'],
                               'organizational-value': ['labor-investment.md'],
                               'social-value': None},
-              'github-branch': 'master',
-              'github-link': 'https://github.com/ritik-malik/wg-value',
+              'github-branch': 'None',
+              'github-link': 'None',
               'include-wg': True,
               'wg-fullname': 'Value WG'}}
 
-Downloading file: https://raw.githubusercontent.com/chaoss/website/master/release/contributors.md
-Converting contributors.md file to LaTeX
-Created successfully: contributors.tex
+Downloading file: https://raw.githubusercontent.com/chaoss/website/master/release/chaoss-contributor-list.md
+Converting chaoss-contributor-list.md file to LaTeX
+Created successfully: chaoss-contributor-list.tex
 
 Downloading file: https://raw.githubusercontent.com/chaoss/website/master/release/release-notes.md
 Converting release-notes.md file to LaTeX
@@ -90,294 +164,168 @@ Created successfully: release-notes.tex
 Downloading file: https://raw.githubusercontent.com/chaoss/website/master/LICENSE
 Converting LICENSE.md file to LaTeX
 Created successfully: LICENSE.tex
+<class 'table_templates.Chinese'>
+translations
 
-Cloning from URL: https://github.com/ritik-malik/wg-value
-Branch: master
+Decreasing heading levels by 2 in metric: technical-fork.md
+Converting technical-fork.md file to LaTeX
+Created successfully: technical-fork.tex
 
+Decreasing heading levels by 2 in metric: types-of-contributions.md
+Converting types-of-contributions.md file to LaTeX
+Created successfully: types-of-contributions.tex
 
-Copying: wg-value/focus-areas/communal-value/project-popularity.md
+Making images directory
+
+Copying: translations/chinese/wg-common/focus-areas/what/images/technical-fork_grimoirelab-fork.png
 Copied Successfully
 
-Decreasing heading levels by 2 in metric: project-popularity.md
-Converting project-popularity.md file to LaTeX
-Created successfully: project-popularity.tex
-
-Copying: wg-value/focus-areas/communal-value/project-velocity.md
+Copying: translations/chinese/wg-common/focus-areas/what/images/technical-fork_augur-fork.png
 Copied Successfully
+
+Generating focus-area file = wg-common_what.tex
+
+Decreasing heading levels by 2 in metric: activity-dates-and-times.md
+Converting activity-dates-and-times.md file to LaTeX
+Created successfully: activity-dates-and-times.tex
+
+Decreasing heading levels by 2 in metric: burstiness.md
+Converting burstiness.md file to LaTeX
+Created successfully: burstiness.tex
+
+Decreasing heading levels by 2 in metric: review-cycle-duration-within-a-change-request.md
+Converting review-cycle-duration-within-a-change-request.md file to LaTeX
+Created successfully: review-cycle-duration-within-a-change-request.tex
+
+Decreasing heading levels by 2 in metric: time-to-close.md
+Converting time-to-close.md file to LaTeX
+Created successfully: time-to-close.tex
+
+Decreasing heading levels by 2 in metric: time-to-first-response.md
+Converting time-to-first-response.md file to LaTeX
+Created successfully: time-to-first-response.tex
+
+Copying: translations/chinese/wg-common/focus-areas/when/images/time-to-first-response_efficiency-timing-overview.png
+Copied Successfully
+
+Copying: translations/chinese/wg-common/focus-areas/when/images/time-to-first-response_augur-ttc-2.png
+Copied Successfully
+
+Copying: translations/chinese/wg-common/focus-areas/when/images/time-to-close_1.png
+Copied Successfully
+
+Copying: translations/chinese/wg-common/focus-areas/when/images/activity-dates-and-times_4.png
+Copied Successfully
+
+Copying: translations/chinese/wg-common/focus-areas/when/images/time-to-first-response_augur-ttc-1.png
+Copied Successfully
+
+Copying: translations/chinese/wg-common/focus-areas/when/images/burstiness_augur.png
+Copied Successfully
+
+Copying: translations/chinese/wg-common/focus-areas/when/images/activity-dates-and-times_2.png
+Copied Successfully
+
+Copying: translations/chinese/wg-common/focus-areas/when/images/burstiness_gl.png
+Copied Successfully
+
+Copying: translations/chinese/wg-common/focus-areas/when/images/activity-dates-and-times_3.png
+Copied Successfully
+
+Copying: translations/chinese/wg-common/focus-areas/when/images/activity-dates-and-times_1.png
+Copied Successfully
+
+Generating focus-area file = wg-common_when.tex
+
+Decreasing heading levels by 2 in metric: contributor-location.md
+Converting contributor-location.md file to LaTeX
+Created successfully: contributor-location.tex
+
+Decreasing heading levels by 2 in metric: contributors.md
+Converting contributors.md file to LaTeX
+Created successfully: contributors.tex
+
+Decreasing heading levels by 2 in metric: organizational-diversity.md
+Converting organizational-diversity.md file to LaTeX
+Created successfully: organizational-diversity.tex
+
+Copying: translations/chinese/wg-common/focus-areas/who/images/organizational-diversity_piechart.png
+Copied Successfully
+
+Copying: translations/chinese/wg-common/focus-areas/who/images/contributor-location_heatmap.png
+Copied Successfully
+
+Copying: translations/chinese/wg-common/focus-areas/who/images/contributors_growth.png
+Copied Successfully
+
+Copying: translations/chinese/wg-common/focus-areas/who/images/contributors_summary-contributor-number.png
+Copied Successfully
+
+Copying: translations/chinese/wg-common/focus-areas/who/images/contributor-location_dot-density-map.png
+Copied Successfully
+
+Copying: translations/chinese/wg-common/focus-areas/who/images/organizational-diversity_lfanalytics-orgdiversity.png
+Copied Successfully
+
+Copying: translations/chinese/wg-common/focus-areas/who/images/contributors_first-commit-date.png
+Copied Successfully
+
+Copying: translations/chinese/wg-common/focus-areas/who/images/contributors_top-contributor-info.png
+Copied Successfully
+
+Generating focus-area file = wg-common_who.tex
 
 Decreasing heading levels by 2 in metric: project-velocity.md
 Converting project-velocity.md file to LaTeX
 Created successfully: project-velocity.tex
 
-Copying: wg-value/focus-areas/communal-value/social-listening.md
-Copied Successfully
-
-Decreasing heading levels by 2 in metric: social-listening.md
-Converting social-listening.md file to LaTeX
-Created successfully: social-listening.tex
-
-Making images directory
-
-Copying: wg-value/focus-areas/communal-value/images/project-velocity_visualization.png
-Copied Successfully
-
-Copying: wg-value/focus-areas/communal-value/images/project-popularity_issues-and-reviews.png
-Copied Successfully
-
-Copying: wg-value/focus-areas/communal-value/images/social-listening_circle2.png
-Copied Successfully
-
-Copying: wg-value/focus-areas/communal-value/images/social-listening_tool-example.png
-Copied Successfully
-
-Copying: wg-value/focus-areas/communal-value/images/social-listening_expanded-comment.png
-Copied Successfully
-
-Copying: wg-value/focus-areas/communal-value/images/social-listening_dashboard.png
-Copied Successfully
-
-Copying: wg-value/focus-areas/communal-value/images/project-popularity_kubernetes.png
+Copying: translations/chinese/wg-value/focus-areas/communal-value/images/project-velocity_visualization.png
 Copied Successfully
 
 Generating focus-area file = wg-value_communal-value.tex
-
-Copying: wg-value/focus-areas/individual-value/job-opportunities.md
-Copied Successfully
 
 Decreasing heading levels by 2 in metric: job-opportunities.md
 Converting job-opportunities.md file to LaTeX
 Created successfully: job-opportunities.tex
 
-Copying: wg-value/focus-areas/individual-value/organizational-project-skill-demand.md
-Copied Successfully
-
 Decreasing heading levels by 2 in metric: organizational-project-skill-demand.md
 Converting organizational-project-skill-demand.md file to LaTeX
 Created successfully: organizational-project-skill-demand.tex
 
-Copying: wg-value/focus-areas/individual-value/images/organizational-project-skill-demand_tech-react.png
+Copying: translations/chinese/wg-value/focus-areas/individual-value/images/organizational-project-skill-demand_stack-overflow.png
 Copied Successfully
 
-Copying: wg-value/focus-areas/individual-value/images/organizational-project-skill-demand_google-trends.png
+Copying: translations/chinese/wg-value/focus-areas/individual-value/images/organizational-project-skill-demand_google-trends.png
 Copied Successfully
 
-Copying: wg-value/focus-areas/individual-value/images/organizational-project-skill-demand_tech-radar.png
+Copying: translations/chinese/wg-value/focus-areas/individual-value/images/organizational-project-skill-demand_paper.png
 Copied Successfully
 
-Copying: wg-value/focus-areas/individual-value/images/organizational-project-skill-demand_paper.png
+Copying: translations/chinese/wg-value/focus-areas/individual-value/images/organizational-project-skill-demand_tech-radar.png
 Copied Successfully
 
-Copying: wg-value/focus-areas/individual-value/images/organizational-project-skill-demand_stack-overflow.png
+Copying: translations/chinese/wg-value/focus-areas/individual-value/images/organizational-project-skill-demand_tech-react.png
 Copied Successfully
 
 Generating focus-area file = wg-value_individual-value.tex
-
-Copying: wg-value/focus-areas/organizational-value/labor-investment.md
-Copied Successfully
 
 Decreasing heading levels by 2 in metric: labor-investment.md
 Converting labor-investment.md file to LaTeX
 Created successfully: labor-investment.tex
 
-Copying: wg-value/focus-areas/organizational-value/images/labor-investment_csv.png
+Copying: translations/chinese/wg-value/focus-areas/organizational-value/images/labor-investment_csv.png
 Copied Successfully
 
 Generating focus-area file = wg-value_organizational-value.tex
 
-Cloning from URL: https://github.com/chaoss/wg-evolution
-Branch: master
-
-
-Copying: wg-evolution/focus-areas/code-development-activity/branch-lifecycle.md
-Copied Successfully
-
-Decreasing heading levels by 2 in metric: branch-lifecycle.md
-Converting branch-lifecycle.md file to LaTeX
-Created successfully: branch-lifecycle.tex
-
-Copying: wg-evolution/focus-areas/code-development-activity/code-changes-lines.md
-Copied Successfully
-
-Decreasing heading levels by 2 in metric: code-changes-lines.md
-Converting code-changes-lines.md file to LaTeX
-Created successfully: code-changes-lines.tex
-
-Copying: wg-evolution/focus-areas/code-development-activity/code-changes.md
-Copied Successfully
-
-Decreasing heading levels by 2 in metric: code-changes.md
-Converting code-changes.md file to LaTeX
-Created successfully: code-changes.tex
-
-Copying: wg-evolution/focus-areas/code-development-activity/images/code-changes-lines_grimoirelab.png
-Copied Successfully
-
-Copying: wg-evolution/focus-areas/code-development-activity/images/code-changes_grimoirelab.png
-Copied Successfully
-
-Generating focus-area file = wg-evolution_code-development-activity.tex
-
-Copying: wg-evolution/focus-areas/code-development-efficiency/change-request-acceptance-ratio.md
-Copied Successfully
-
-Decreasing heading levels by 2 in metric: change-request-acceptance-ratio.md
-Converting change-request-acceptance-ratio.md file to LaTeX
-Created successfully: change-request-acceptance-ratio.tex
-
-Copying: wg-evolution/focus-areas/code-development-efficiency/change-requests-accepted.md
-Copied Successfully
-
-Decreasing heading levels by 2 in metric: change-requests-accepted.md
-Converting change-requests-accepted.md file to LaTeX
-Created successfully: change-requests-accepted.tex
-
-Copying: wg-evolution/focus-areas/code-development-efficiency/change-requests-declined.md
-Copied Successfully
-
-Decreasing heading levels by 2 in metric: change-requests-declined.md
-Converting change-requests-declined.md file to LaTeX
-Created successfully: change-requests-declined.tex
-
-Copying: wg-evolution/focus-areas/code-development-efficiency/change-requests-duration.md
-Copied Successfully
-
-Decreasing heading levels by 2 in metric: change-requests-duration.md
-Converting change-requests-duration.md file to LaTeX
-Created successfully: change-requests-duration.tex
-
-Copying: wg-evolution/focus-areas/code-development-efficiency/images/change-request-acceptance-ratio_reviews-accepted-week.png
-Copied Successfully
-
-Copying: wg-evolution/focus-areas/code-development-efficiency/images/change-request-acceptance-ratio_review-week.png
-Copied Successfully
-
-Copying: wg-evolution/focus-areas/code-development-efficiency/images/change-request-acceptance-ratio_closed-pr-volume.png
-Copied Successfully
-
-Copying: wg-evolution/focus-areas/code-development-efficiency/images/change-requests-accepted_grimoirelab.png
-Copied Successfully
-
-Generating focus-area file = wg-evolution_code-development-efficiency.tex
-
-Copying: wg-evolution/focus-areas/code-development-process-quality/change-requests.md
-Copied Successfully
-
-Decreasing heading levels by 2 in metric: change-requests.md
-Converting change-requests.md file to LaTeX
-Created successfully: change-requests.tex
-
-Copying: wg-evolution/focus-areas/code-development-process-quality/images/change-requests_grimoirelab.png
-Copied Successfully
-
-Generating focus-area file = wg-evolution_code-development-process-quality.tex
-
-Copying: wg-evolution/focus-areas/community-growth/contribution-attribution.md
-Copied Successfully
-
-Decreasing heading levels by 2 in metric: contribution-attribution.md
-Converting contribution-attribution.md file to LaTeX
-Created successfully: contribution-attribution.tex
-
-Copying: wg-evolution/focus-areas/community-growth/inactive-contributors.md
-Copied Successfully
-
-Decreasing heading levels by 2 in metric: inactive-contributors.md
-Converting inactive-contributors.md file to LaTeX
-Created successfully: inactive-contributors.tex
-
-Copying: wg-evolution/focus-areas/community-growth/new-contributor-closing-issues.md
-Copied Successfully
-
-Decreasing heading levels by 2 in metric: new-contributor-closing-issues.md
-Converting new-contributor-closing-issues.md file to LaTeX
-Created successfully: new-contributor-closing-issues.tex
-
-Copying: wg-evolution/focus-areas/community-growth/new-contributors.md
-Copied Successfully
-
-Decreasing heading levels by 2 in metric: new-contributors.md
-Converting new-contributors.md file to LaTeX
-Created successfully: new-contributors.tex
-
-Copying: wg-evolution/focus-areas/community-growth/images/new-contributors_1.png
-Copied Successfully
-
-Copying: wg-evolution/focus-areas/community-growth/images/contributions-by-gender.png
-Copied Successfully
-
-Copying: wg-evolution/focus-areas/community-growth/images/contributions-by-volunteer-vs-sponsored.png
-Copied Successfully
-
-Generating focus-area file = wg-evolution_community-growth.tex
-
-Copying: wg-evolution/focus-areas/issue-resolution/issue-age.md
-Copied Successfully
-
-Decreasing heading levels by 2 in metric: issue-age.md
-Converting issue-age.md file to LaTeX
-Created successfully: issue-age.tex
-
-Copying: wg-evolution/focus-areas/issue-resolution/issue-resolution-duration.md
-Copied Successfully
-
-Decreasing heading levels by 2 in metric: issue-resolution-duration.md
-Converting issue-resolution-duration.md file to LaTeX
-Created successfully: issue-resolution-duration.tex
-
-Copying: wg-evolution/focus-areas/issue-resolution/issue-response-time.md
-Copied Successfully
-
-Decreasing heading levels by 2 in metric: issue-response-time.md
-Converting issue-response-time.md file to LaTeX
-Created successfully: issue-response-time.tex
-
-Copying: wg-evolution/focus-areas/issue-resolution/issues-active.md
-Copied Successfully
-
-Decreasing heading levels by 2 in metric: issues-active.md
-Converting issues-active.md file to LaTeX
-Created successfully: issues-active.tex
-
-Copying: wg-evolution/focus-areas/issue-resolution/issues-closed.md
-Copied Successfully
-
-Decreasing heading levels by 2 in metric: issues-closed.md
-Converting issues-closed.md file to LaTeX
-Created successfully: issues-closed.tex
-
-Copying: wg-evolution/focus-areas/issue-resolution/issues-new.md
-Copied Successfully
-
-Decreasing heading levels by 2 in metric: issues-new.md
-Converting issues-new.md file to LaTeX
-Created successfully: issues-new.tex
-
-Copying: wg-evolution/focus-areas/issue-resolution/images/issue-response-time_grimoirelab.png
-Copied Successfully
-
-Copying: wg-evolution/focus-areas/issue-resolution/images/issues-active_grimoirelab.png
-Copied Successfully
-
-Copying: wg-evolution/focus-areas/issue-resolution/images/issue-age_open-issue-count-timeseries.png
-Copied Successfully
-
-Copying: wg-evolution/focus-areas/issue-resolution/images/issues-closed_grimoirelab.png
-Copied Successfully
-
-Copying: wg-evolution/focus-areas/issue-resolution/images/issue-age_open-issue-data.png
-Copied Successfully
-
-Generating focus-area file = wg-evolution_issue-resolution.tex
-
 Converting master.tex file to PDF
-Conversion process successful: Output-2021-07-20.pdf
 
-Copying: Output-2021-07-20.pdf
+Copying: Chinese-Release-2021-07-30.pdf
 Copied Successfully
 
 ========== SUMMARY ==========
 Total working groups: 2
-Total focus areas: 8
-Total metrics: 24
+Total focus areas: 6
+Total metrics: 14
 =============================
 
