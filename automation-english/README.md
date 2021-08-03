@@ -96,10 +96,13 @@ Eg. `English-Release-2021-07-28.pdf`
 
 You can refer to the GIF below for a quick demo of this last step:
 
-![MARS English GIF](../assets/MARS_English.gif)
+* For English Release:
 
+<img src="../assets/MARS_English.gif" width="750" height="850" />
 
+* For translations release:
 
+<img src="../assets/MARS_Chinese.gif" width="750" height="850" />
 
 ##### Behind the scenes on Step 5:
 
