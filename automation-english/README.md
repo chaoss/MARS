@@ -68,10 +68,10 @@ You should see your username in the output along with docker.
 
 #### Step 4: Configuring the yml config file & Updating the cover page
 
-The only inputs you are supposed to configure is the `yml` config file and the `cover.tex` file.
+The only inputs you are supposed to configure is the `yml` config file and the cover page file.
 
 * The `yml` config is the most important piece of MARS as it describes the outline of all the working groups and metrics that need to be included and in which order.
-* The `cover.tex` file is used to update the release month and year as well as the copyright year.
+* The cover page file is used to update the release month and year as well as the copyright year.
 
 Both of them can be found in the [`active_user_input`](active_user_input) directory. \
 Both the files have their own separate README to avoid congestion here. Refer to this [README](active_user_input) for configuring them.
@@ -91,12 +91,14 @@ You should run this script from the current directory which is `automation-engli
 After running the script you'll be greeted with a simple language selection menu. \
 Choosing the language is pretty intuitive.
 
+The system will generate the PDF accordingly. You'll find the release PDF in the [`output`](output/) directory with the format - `<Language>-Release-YYYY-MM-DD.pdf` \
+Eg. `English-Release-2021-07-28.pdf`
+
 You can refer to the GIF below for a quick demo of this last step:
 
-<>
+![MARS English GIF](../assets/MARS_English.gif)
 
-You'll find the output PDF in the [`output`](output/) directory with the format - `<Language>-Release-YYYY-MM-DD.pdf` \
-Eg. `English-Release-2021-07-28.pdf`
+
 
 
 ##### Behind the scenes on Step 5:
@@ -122,9 +124,11 @@ A brief overview of what this automation script (`lindocX.sh`) does:
 * Remove the `mars-container`
 * Display success message and paths to log files and output PDF, along with instructions to remove the Docker images
 
+<br />
+
 * The script creates a new user with your userID and groupID so there is no permission issues while accessing the files created inside the container while using bind mount.
 * Appropriate error handling and user input sanitization has been implemented
-* A fresh color scheme has been used to make important things more distinguishable and visually appealing
+* A fresh color scheme has been used to make important text more distinguishable and visually appealing
 * The log file will be stored in current directory as `logs.txt` while the output PDF can be found in the [`output`](output/) directory with the format - `<Language>-Release-YYYY-MM-DD.pdf`.
 
 ### Method 2: The not so easy way - Python virtual env
