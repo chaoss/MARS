@@ -1,29 +1,34 @@
 # Portal to M.A.R.S.
 
-Currently, M.A.R.S. supports Linux (Debian based) and Mac/OS X based systems. It has been tried and tested for the above mentioned platforms.
+* **System Support:** Currently, M.A.R.S. supports Linux (Debian based) and Mac/OS X based systems. It has been tried and tested for the above mentioned platforms.
+
+* **Language Support:** Currently, M.A.R.S. is capable of producing PDF release for English, Spanish and Chinese languages. For adding a new language refer to [this guide](add-language-guide).
 
 All the commands listed below for Linux systems are assuming an installation of debian based system like Ubuntu, Mint, MX, AntiX, etc. However the same commands can used for different package managers and different flavours of linux like `yum`, `pacman` instead of `apt`; just be sure to select the right package name accordingly.
 
-It is assumed that where ever we use the term Linux in the tutorial below, we are referring to a Debain based distro, more specifically **Ubuntu**, which was the actual system used.
+It is assumed that where ever we use the term Linux in the tutorial below, we are referring to a Debain based distro, more specifically **Ubuntu** (20.04), which was the actual system used.
 
 ## Launching to M.A.R.S.
 
 There are 2 ways to run M.A.R.S.
-1. Using Docker image (recommended)
-2. Using Python virtual environment
+1. [Using Docker image](#method-1-the-easy-way-docker-image) (recommended)
+2. [Using Python virtual environment](#method-2-the-not-so-easy-way-python-virtual-env)
 
-Each method has been described below in detail. You can choose according to your needs.
+Each method has been described below in detail for both the platforms (Linux and Mac). You can choose according to your needs.
 
 ### Method 1: The easy way - Docker image
 
 This is an easy and recommended way to run MARS on your system. Some theory: \
-We've already uploaded an image of MARS on docker hub, which contains an installation of all the required packges. We also have an automation script to pull that image, run the container instance and clean it afterwards. You just have to install docker in your system, confirm the structure of `yml` config file and run the automated script.
+We've already uploaded an image of MARS on docker hub, which contains an installation of all the required packges. We also have an automation script to pull that image, run the container instance and clean it afterwards. You just have to install docker on your system, confgure the `yml` file and cover page, and run the automated script.
 
 Our docker image on docker hub can be found [here](https://hub.docker.com/r/ritikmalik/mars-image).
 
+Docker image compressed size: `842.35 MB` (actual download size) \
+Docker image decompressed size: `2.26GB` (actual size on system)
+
 #### Step 1: Cloning MARS
 
-This simple step requires you to ~~colonize~~ clone MARS and move to appropriate directory:
+This simple step requires you to ~~colonize~~ clone MARS and move to the appropriate directory:
 ```bash
 git clone https://github.com/chaoss/MARS
 cd MARS/automation-english
@@ -63,14 +68,13 @@ You should see your username in the output along with docker.
 
 #### Step 4: Configuring the yml config file & Updating the cover page
 
-The only input you are supposed to configure is the [`yml`](active_user_input/working-groups-config.yml) config file and the [`cover.tex`](active_user_input/cover.tex) file.
-Both of them can be found in the [`active_user_input`](active_user_input) directory.
+The only inputs you are supposed to configure is the `yml` config file and the `cover.tex` file.
 
-The `yml` config is the most important piece of MARS as it describes the outline of all the working groups and metrics that need to be included and in which order.
+* The `yml` config is the most important piece of MARS as it describes the outline of all the working groups and metrics that need to be included and in which order.
+* The `cover.tex` file is used to update the release month and year as well as the copyright year.
 
-The `cover.tex` file is used to update the release month and year as well as the copyright year.
-
-Both the files has it own separate README to avoid congestion here. Refer to this [README](active_user_input) for configuring it.
+Both of them can be found in the [`active_user_input`](active_user_input) directory. \
+Both the files have their own separate README to avoid congestion here. Refer to this [README](active_user_input) for configuring them.
 
 Once you have confirmed the above changes you can proceed to the next and the final step.
 
@@ -83,12 +87,22 @@ You should run this script from the current directory which is `automation-engli
 ```bash
 ./lindocX.sh
 ```
-You'll find the output PDF in the [`output`](output/) directory with the format - `Output-YYYY-MM-DD.pdf`
 
-##### Extra stuff on Step 5:
+After running the script you'll be greeted with a simple language selection menu. \
+Choosing the language is pretty intuitive.
 
-A brief overview of what this automation script does:
-* Run 5 sanity checks:
+You can refer to the GIF below for a quick demo of this last step:
+
+<>
+
+You'll find the output PDF in the [`output`](output/) directory with the format - `<Language>-Release-YYYY-MM-DD.pdf` \
+Eg. `English-Release-2021-07-28.pdf`
+
+
+##### Behind the scenes on Step 5:
+
+A brief overview of what this automation script (`lindocX.sh`) does:
+* Runs 5 sanity checks:
     1. Check if Docker is installed
     2. check if user is in Docker group
     3. Check if Docker is running
@@ -97,13 +111,21 @@ A brief overview of what this automation script does:
 * Looks for `Dockerfile` and build the Docker image: `chaoss-mars`
 * Remove dangling images (if any)
 * Remove `mars-container` if already exist
-* Run the Docker image with bind mount. Container name: `mars-container`
+* Run the Docker image with bind mount in current diretory
+* Spin up a container with the name: `mars-container`
+* Display a langauge selection menu:
+    * If user chooses English:
+        * Generate English release PDF as per the config in `yml` file and cover page
+    * If user chooses other languages:
+        * Clone translations repository and auto-detect the languages
+        * Take user input for language and auto-select the `yml` file and generate PDF
 * Remove the `mars-container`
-* Display success message and paths to log files and output PDF
+* Display success message and paths to log files and output PDF, along with instructions to remove the Docker images
 
-The script creates a new user with your userID and groupID so there is no permission issues while accessing the files created inside the container while using bind mount.
-
-The log file will be stored in current directory as `logs.txt` while the output PDF can be found in the [`output`](output/) directory with the format - `Output-YYYY-MM-DD.pdf`.
+* The script creates a new user with your userID and groupID so there is no permission issues while accessing the files created inside the container while using bind mount.
+* Appropriate error handling and user input sanitization has been implemented
+* A fresh color scheme has been used to make important things more distinguishable and visually appealing
+* The log file will be stored in current directory as `logs.txt` while the output PDF can be found in the [`output`](output/) directory with the format - `<Language>-Release-YYYY-MM-DD.pdf`.
 
 ### Method 2: The not so easy way - Python virtual env
 
@@ -115,7 +137,7 @@ We'll be using the `xelatex` engine and `pandoc` for converting the markdowns to
 
 * For Linux:
     ```bash
-    sudo apt install -y git wget texlive-xetex pandoc python3-pip python3-venv ttf-mscorefonts-installer
+    sudo apt install -y git wget texlive-xetex pandoc python3-pip python3-venv texlive-lang-chinese ttf-mscorefonts-installer 
     ```
 * For Mac:
     ```bash
@@ -125,6 +147,8 @@ We'll be using the `xelatex` engine and `pandoc` for converting the markdowns to
     * Install `xelatex`:
         * Refer to https://tug.org/mactex/
         * Alternatively, you can install [Miketex](https://miktex.org/download) to download only the required packages during PDF generation
+    * Install Chinese langauge pack:
+        * Refer to [_this link_](https://ports.macports.org/port/texlive-lang-cjk/)
     * Install fonts:
         * Refer to [_this link_](https://www.linickx.com/osx-how-to-install-the-microsoft-fonts)
 
@@ -164,7 +188,7 @@ The following command is used to generate the output PDF:
 ```bash
 python3 main.py | tee logs.txt
 ```
-The log file will be stored in current directory as `logs.txt` while the output PDF can be found in the [`output`](output/) directory with the format - `Output-YYYY-MM-DD.pdf`.
+The log file will be stored in current directory as `logs.txt` while the output PDF can be found in the [`output`](output/) directory with the format - `<Language>-Release-YYYY-MM-DD.pdf`.
 
 To deactivate the virtual env you can use the deactivate command:
 ```bash
