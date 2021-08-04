@@ -6,7 +6,10 @@ These 2 are the only input files you'll need to configure before launching to MA
 
 ## YML configuration file
 
-This section serves as a guide for the dynamic [yml config file](working-groups-config.yml) located in this directory. It defines the repository structure for various Working Groups that are to be included in the metrics release report. The working groups would be cloned and parsed for relative links according to the structure defined here.
+This section serves as a guide for the dynamic yml config file located in this directory. Each language has its own separate yml file, with the same internal structure.
+
+
+ It defines the repository structure for various Working Groups that are to be included in the metrics release report. The working groups would be cloned and parsed for relative links according to the structure defined here.
 
 ### File Structure
 
@@ -40,7 +43,7 @@ wg-name:
 * `focus-area1`: focus-area name should be same as the focus-area dir name in the WG
 * `metric1-name.md`: the name of metric markdown file as in the repo (should include .md extension as well)
 
-Note: Empty focus-areas (focus-areas with no metrics) will work as well.
+Note: _Empty focus-areas (focus-areas with no metrics) will work as well_
 
 * A sample structure for [wg-common](https://github.com/chaoss/wg-common) would look like this:
 
@@ -69,13 +72,16 @@ wg-common:
     - organizational-diversity.md
 ```
 
+Note: _You may skip configuring `github-link` and `github-branch` parameters for the languages that exist in the translation repository (like Spanish and Chinese), since all working groups for them are at fixed location._
+
 Apart from this you might also find `front-matter` and `end-matter` in the beginning of the file. It corresponds to the static input of contributors, release-notes and the LICENSE - to be pulled from the website repository. You might not need to change it since any modification in these files in the website repo would be anyways reflected here. So you can safetly ignore those terms.
 
 ### Usage
 
 Now that you are familiar with the structure of the file, it is important to note that this file also determines in which order the working groups, focus-areas and metrics would be displayed in the release report. The order is from top to bottom, and is applicable for WG, focus-areas and their respective metrics. (this doesn't apply to front and end matter since they have fixed position at the beginning and the end of the PDF respectively)
 
-This file is expected to be altered during each metrics release process.
+This file is expected to be altered during each metrics release process. \
+An optional step would be to save these files as a part of release history.
 
 A series of steps to be performed during the release process:
 * Update this file - perform the following operations, if applicable:
@@ -83,10 +89,12 @@ A series of steps to be performed during the release process:
     * Remove outdated/retired metrics
     * Reorder the WG, focus-areas or metrics as per convenience
 * Save changes to the new finalized file
-* Refer to main [README](../README.md), to continue with the release process
+* Refer to the main [README](../README.md), to continue with the release process
 
 ## `cover.tex` file
 
-This tex file acts as the standard cover page for the PDF release. Here, you need to set 2 parameters in this file:
+This tex file acts as the standard cover page for the PDF release. Each language has it's own coverpage with appropriate translation.
+
+Here, you need to set 2 parameters in this file:
 1. Release year and month - at line 13
 2. Copyright year - at line 24

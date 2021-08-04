@@ -11,8 +11,8 @@ It is assumed that where ever we use the term Linux in the tutorial below, we ar
 ## Launching to M.A.R.S.
 
 There are 2 ways to run M.A.R.S.
-1. [Using Docker image](#method-1-the-easy-way-docker-image) (recommended)
-2. [Using Python virtual environment](#method-2-the-not-so-easy-way-python-virtual-env)
+1. [Using Docker image](#method-1-the-easy-way---docker-image) (recommended)
+2. [Using Python virtual environment](#method-2-the-not-so-easy-way---python-virtual-env)
 
 Each method has been described below in detail for both the platforms (Linux and Mac). You can choose according to your needs.
 
@@ -126,13 +126,12 @@ A brief overview of what this automation script (`lindocX.sh`) does:
         * Take user input for language and auto-select the `yml` file and generate PDF
 * Remove the `mars-container`
 * Display success message and paths to log files and output PDF, along with instructions to remove the Docker images
-
-<br />
-
-* The script creates a new user with your userID and groupID so there is no permission issues while accessing the files created inside the container while using bind mount.
 * Appropriate error handling and user input sanitization has been implemented
 * A fresh color scheme has been used to make important text more distinguishable and visually appealing
 * The log file will be stored in current directory as `logs.txt` while the output PDF can be found in the [`output`](output/) directory with the format - `<Language>-Release-YYYY-MM-DD.pdf`.
+
+How we bypass the root permissions in Docker:
+* The script creates a new user - `user`, with the userID and groupID of your current logged in user, so there is no permission issues while accessing the files created inside the container while using bind mount (without this, the PDF owner will be the root user by default)
 
 ### Method 2: The not so easy way - Python virtual env
 
