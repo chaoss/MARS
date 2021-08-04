@@ -2,7 +2,7 @@
 
 * **System Support:** Currently, M.A.R.S. supports Linux (Debian based) and Mac/OS X based systems. It has been tried and tested for the above mentioned platforms.
 
-* **Language Support:** Currently, M.A.R.S. is capable of producing PDF release for English, Spanish and Chinese languages. For adding a new language refer to [this guide](add-language-guide).
+* **Language Support:** Currently, M.A.R.S. is capable of producing PDF release for English, Spanish and Chinese languages. For adding a new language refer to [this guide](./add-language_README.md).
 
 All the commands listed below for Linux systems are assuming an installation of debian based system like Ubuntu, Mint, MX, AntiX, etc. However the same commands can used for different package managers and different flavours of linux like `yum`, `pacman` instead of `apt`; just be sure to select the right package name accordingly.
 
