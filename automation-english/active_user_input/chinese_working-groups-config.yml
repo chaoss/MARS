@@ -5,10 +5,11 @@
 ## Front and end matter
 
 front-matter:
-- https://raw.githubusercontent.com/chaoss/website/master/release/chaoss-contributor-list.md
+
 
 end-matter:
 - https://raw.githubusercontent.com/chaoss/website/master/release/release-notes.md
+- https://raw.githubusercontent.com/chaoss/website/master/release/chaoss-contributor-list.md
 - https://raw.githubusercontent.com/chaoss/website/master/LICENSE
 
 ## Working Groups
@@ -21,17 +22,17 @@ wg-common:
   github-link: None
   github-branch: None
   focus-areas:
-    what:
+    contributions:
     - technical-fork.md
     - types-of-contributions.md
-    when:
+    time:
     - activity-dates-and-times.md
     - burstiness.md
     - review-cycle-duration-within-a-change-request.md
     - time-to-close.md
     - time-to-first-response.md
-    where:
-    who:
+    place:
+    people:
     - contributor-location.md
     - contributors.md
     - organizational-diversity.md
