@@ -19,7 +19,7 @@ Each method has been described below in detail for both the platforms (Linux and
 ### Method 1: The easy way - Docker image
 
 This is an easy and recommended way to run MARS on your system. Some theory: \
-We've already uploaded an image of MARS on docker hub, which contains an installation of all the required packges. We also have an automation script to pull that image, run the container instance and clean it afterwards. You just have to install docker on your system, confgure the `yml` file and cover page, and run the automated script.
+We've already uploaded an image of MARS on docker hub, which contains an installation of all the required packages. We also have an automation script to pull that image, run the container instance and clean it afterwards. You just have to install docker on your system, configure the `yml` file and cover page, and run the automated script.
 
 Our docker image on docker hub can be found [here](https://hub.docker.com/r/ritikmalik/mars-image).
 
