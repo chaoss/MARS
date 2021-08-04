@@ -45,7 +45,7 @@ def translations_main(language):
     metric_count = 0
     yml_filename = language + "_working-groups-config.yml"
     cover_filename = language + "_cover.tex"
-    class_name = language.capitalize()
+    class_name = language.title()
 
     print()
     check_1(language, yml_filename)

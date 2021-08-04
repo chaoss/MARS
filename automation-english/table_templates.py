@@ -48,6 +48,7 @@ class english:
                                                                                                     '-V', 'mathfont:texgyredejavu-math.otf',
                                                                                                     '-V', 'geometry:a4paper',
                                                                                                     '-V', 'colorlinks=true',
+                                                                                                    '-V', 'toc-title:Contents',
                                                                                                     '-V', 'linkcolour:blue',
                                                                                                     '-V', 'fontsize=12pt',
                                                                                                     '--toc', '--toc-depth= 3',
