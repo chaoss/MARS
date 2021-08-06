@@ -1,8 +1,9 @@
 <div align="center">
     <img src="assets/chaoss_mars_logo.png" width="400" alt="MARS logo"><br>
-    <h2>
+    <h1>
         Metrics Automated Release System
-    </h2>
+    </h1>
+    <img src="assets/gsoc_logo.png" width="400" alt="GSoC logo"><br>
 </div>
 
 ## Why M.A.R.S.
@@ -17,7 +18,7 @@ The final outcome is generation of reports for the metrics and their translation
 
 M.A.R.S. supports Linux (Debian based) and MacOS based systems only. 
 
-Currently, it can be used to generate the report of English version of metrics that exist in the working group repositories. 
+Currently, it can be used to generate the reports of English, Spanish and Chinese version of the metrics that exist in the working groups and translations repositories.
 
 There are two ways to run M.A.R.S:
 
@@ -26,22 +27,21 @@ There are two ways to run M.A.R.S:
 
 Refer to this [README](automation-english/README.md) to know more details about its usage.
 
-**_Note: - M.A.R.S for translations is still under development_**
-
 ## Workflow
 
 The following image gives a high level overview of the workflow of M.A.R.S.
 
-![MARS workflow](assets/MARS_workflow.png)
+![MARS workflow](assets/MARS_Blueprint.png)
 
 ## Walkthrough
 
 A rough walkthrough of the automation process:
- 
-* Load the yml conf file
-* Load the side scripts
+
+* Select language through user input
+* Load the corresponding yml config file
+* Load the corresponding cover page and side scripts
 * Cleanup test_env directory
-* Clone the WG repositories
+* Clone the WG and/or translations repositories
 * Generate relative paths to metric markdown files in various WGs
 * Pull all the metrics in base folder
 * Make a common images directory
@@ -52,26 +52,27 @@ A rough walkthrough of the automation process:
 * Add front and end matter
 * Call pandoc to generate the final PDF
 * Move the final PDF to the output directory
+* Display success message and paths to log file and release PDF
 
 ## Contributing
 
 The M.A.R.S project welcomes all kinds of contributions and suggestions. See [CONTRIBUTING.md](CONTRIBUTING.md) for more information.  
 
-## Mentors
+## Maintainers
+
+This project has been made under Google Summer of Code '21
+
+### Mentors
 
 * [Georg Link](https://github.com/georgLink)
 * [Jaskirat Singh](https://github.com/jaskiratsingh2000)
 * [Kevin Lumbard](https://github.com/klumb)
 * [Matt Germonprez](https://github.com/germonprez)
 
-## Students
+### Students
 
 * [Ritik Malik](https://github.com/ritik-malik)
 * [Yash Prakash](https://github.com/yash2002109)
-
-<div align="center">
-    <img src="assets/gsoc_logo.png" width="400" alt="GSoC logo"><br>
-</div>
 
 ## License
 
