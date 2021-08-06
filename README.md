@@ -1,8 +1,8 @@
 <div align="center">
     <img src="assets/chaoss_mars_logo.png" width="400" alt="MARS logo"><br>
-    <h2>
+    <h1>
         Metrics Automated Release System
-    </h2>
+    </h1>
     <img src="assets/gsoc_logo.png" width="400" alt="GSoC logo"><br>
 </div>
 
