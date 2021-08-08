@@ -43,7 +43,7 @@ def copy_file(source_filepath, dest_path):
 
 def copy_dir_files(source_folder_path, dest_folder_path):
     """Copies all files from source directory to destination directory
-    Replaces the files it they already exist
+    Replaces the files if they already exist
     """
 
     try:
