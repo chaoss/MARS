@@ -23,6 +23,9 @@ class color:
 
 
 def copy_file(source_filepath, dest_path):
+    """Copies file from source path to destination.
+    Replaces the file it already exists
+    """
 
     if os.path.isfile(dest_path):
         print(color.RED,f"Warning: File with same name already exists at destination: {source_filepath}",color.END)
@@ -39,6 +42,9 @@ def copy_file(source_filepath, dest_path):
             sys.exit(1)
 
 def copy_dir_files(source_folder_path, dest_folder_path):
+    """Copies all files from source directory to destination directory
+    Replaces the files it they already exist
+    """
 
     try:
         if os.path.isdir(source_folder_path):
@@ -58,6 +64,7 @@ def copy_dir_files(source_folder_path, dest_folder_path):
         sys.exit(1)
 
 def convert_md2tex(md_filename, latex_filename):
+    """Converts specified markdown file to LaTeX"""
 
     print(f"Converting {md_filename} file to LaTeX")
     output = pypandoc.convert_file(md_filename, 'latex', outputfile=latex_filename, extra_args=['-f', 'gfm'])
@@ -65,6 +72,8 @@ def convert_md2tex(md_filename, latex_filename):
     print(f"Created successfully: {latex_filename}")
 
 def clean_directory(folder_path):
+    """Deletes the specified directory"""
+
     try:
         if os.path.isdir(folder_path):
             print(f"\nCleaning directory: {folder_path}")
@@ -74,6 +83,7 @@ def clean_directory(folder_path):
         print(color.RED,f"\nWarning: Unable to clean directory: {folder_path}",color.END)
 
 def load_yaml(file_path):
+    """Loads data from given YAML file in the form of dictionary"""
 
     try:
         with open(file_path) as stream:
@@ -86,6 +96,7 @@ def load_yaml(file_path):
         sys.exit(1)
 
 def decrease_level(metric_path):
+    """Replaces '# ' with '### ' anywhere in the file"""
 
     try:
         print(f"\nDecreasing heading levels by 2 in metric: {metric_path}")
@@ -96,6 +107,7 @@ def decrease_level(metric_path):
         sys.exit(1)
 
 def delete_dictkey(key, dictionary):
+    """Deletes given key from given dictionary"""
 
     if key in dictionary:
         del dictionary[key]
@@ -103,6 +115,7 @@ def delete_dictkey(key, dictionary):
         print(color.RED,f"Warning: Key- {key} not found in {dictionary}",color.RED)
 
 def is_url(string):
+    """Checks if the given string is a valid URL"""
 
     if validators.url(string):
         return True
@@ -110,6 +123,7 @@ def is_url(string):
         return False
 
 def clone_repo(url, name, branch):
+    """Clones repository and checkout the given branch"""
 
     try:
         subprocess.check_call(['git', 'clone', '-b', branch, url, name])
@@ -119,6 +133,9 @@ def clone_repo(url, name, branch):
         sys.exit(1)
 
 def add_front_matter(yaml_data):
+    """Creates the latex file to add content just after
+    the table of contents in PDF
+    """
 
     # Create and include front matter files
     with open("front-matter.tex", "w") as front_matter:
@@ -152,6 +169,7 @@ def add_front_matter(yaml_data):
         master_file.write("\n\include{front-matter}")
 
 def add_end_matter(yaml_data):
+    """Creates latex file to add content at the end of PDF"""
 
     # Create and include end matter files
     with open("end-matter.tex", "w") as end_matter:
@@ -185,7 +203,8 @@ def add_end_matter(yaml_data):
                     convert_md2tex("LICENSE.md", "LICENSE.tex")
                     end_matter.write("\clearpage\n\section{LICENSE}\n\input{LICENSE}\n")
                 else:
-                    print(color.RED,f"Error: Could not incorporate {page} in end matter.\nPlease make sure that the filename is valid. Only Markdown/LaTeX file format is supported.",color.END)
+                    print(color.RED,f"Error: Could not incorporate {page} in end matter.")
+                    print(f"Please make sure that the filename is valid. Only Markdown/LaTeX file format is supported.",color.END)
                     sys.exit(1)
 
         else:
@@ -193,8 +212,11 @@ def add_end_matter(yaml_data):
 
 
 def spilt_by_colon(string):
+    """Splits the string in two using priority list of colon delimiters.
+    Returns only the latter half
+    """
 
-    colon_list = [":**", ":","：", "ː", "˸", "᠄", "⍠", "꞉", "︓", " "]
+    colon_list = [":**", "：**", ":", "：", "ː", "˸", "᠄", "⍠", "꞉", "︓", " "]
     i=0
     while (i<len(colon_list)):
         try:
@@ -209,6 +231,7 @@ def spilt_by_colon(string):
     sys.exit(1)
 
 def extract_question(metric):
+    """Extracts the name and question from the given metric"""
 
     with open(metric) as f:
         data = f.readlines()
@@ -226,6 +249,7 @@ def extract_question(metric):
     return metric_name, metric_question
 
 def extract_goal(focus_area_README):
+    """Extracts the name and goal from given focus area README"""
 
     with open(focus_area_README) as f:
         data = f.readlines()
@@ -240,13 +264,13 @@ def extract_goal(focus_area_README):
     return focus_area_name, focus_area_goal
 
 def generate_focus_areas(focus_area_filename, focus_area_README, metrics, english_template):
+    """Dynamically creates the table of metrics"""
 
     table_head = english_template.template_focus_areas
     table_tail = english_template.template_end
 
     focus_area_name, focus_area_goal = extract_goal(focus_area_README)
 
-    # table_head = table_head.replace("$FOCUS_AREA_NAME$", focus_area_name.title().replace('-', ' '))
     table_head = table_head.replace("$FOCUS_AREA_NAME$", focus_area_name)
     table_head = table_head.replace("$FOCUS_AREA_GOAL$", focus_area_goal)
 
@@ -266,10 +290,11 @@ def generate_focus_areas(focus_area_filename, focus_area_README, metrics, englis
 
     print(f"\nGenerating focus-area file = {focus_area_filename}")
 
-def focus_areas_table(wg_tex_file, section_name, focus_areas_list, english_template):
+def focus_areas_table(wg_tex_file, section_name, focus_areas_list, language_template):
+    """Dynamically creates tables of focus areas in a working group"""
 
-    table_head = english_template.template_working_group
-    table_tail = english_template.template_end
+    table_head = language_template.template_working_group
+    table_tail = language_template.template_end
 
     table_head = table_head.replace("$SECTION_NAME$", section_name)
 
@@ -294,14 +319,12 @@ def print_summary(wg_count, focus_area_count, metric_count):
     print("="*29,color.END)
 
 def print_final_msg(pdf_filename):
+
     print(color.CYAN)
     print("Created the final PDF ->",color.GREEN,pdf_filename)
     print(color.CYAN)
 
     final_path = "./output/" + pdf_filename
-    print("\nLogs are saved in",color.GREEN,"logs.txt",color.CYAN)
-    print("Output PDF is saved in",color.GREEN,final_path,color.END)
+    print("\nLogs are saved in", color.GREEN, "logs.txt", color.CYAN)
+    print("Output PDF is saved in", color.GREEN, final_path, color.END)
 
-# if __name__ == "__main__":
-#
-#     print(spilt_by_colon("**目标:** 了解组织和个人正在做出哪些贡献。"))
