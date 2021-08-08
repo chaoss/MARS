@@ -3,7 +3,7 @@
 
 # GLOBAL VARS
 MARS_LINK='https://github.com/chaoss/MARS'
-CUR_DIR='automation-english'
+CUR_DIR='automation'
 DOCKERHUB_IMG_NAME='ritikmalik/mars-image:latest'
 DOCKER_IMG_NAME='chaoss-mars'
 DOCKER_CONTAINER_NAME='mars-container'
