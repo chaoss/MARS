@@ -21,6 +21,7 @@ wg-common:
   wg-fullname: Common Metrics WG
   repo-link: None
   repo-branch: None
+  focus-areas-location: translations/chinese/wg-common/focus-areas
   focus-areas:
     contributions:
     - technical-fork.md
@@ -45,6 +46,7 @@ wg-diversity-inclusion:
   wg-fullname: Diversity, Equity and Inclusion WG
   repo-link: None
   repo-branch: None
+  focus-areas-location: translations/chinese/wg-diversity-inclusion/focus-areas
   focus-areas:
 #    communication-inclusivity:
 #    - alternatives.md
@@ -98,6 +100,7 @@ wg-evolution:
   wg-fullname: Evolution WG
   repo-link: None
   repo-branch: None
+  focus-areas-location: translations/chinese/wg-evolution/focus-areas
   focus-areas:
     code-development-activity:
     - branch-lifecycle.md
@@ -131,6 +134,7 @@ wg-risk:
   wg-fullname: Risk WG
   repo-link: None
   repo-branch: None
+  focus-areas-location: translations/chinese/wg-risk/focus-areas
   focus-areas:
     business-risk:
 #    - average-issue-resolution-time.md
@@ -165,6 +169,7 @@ wg-value:
   wg-fullname: Value WG
   repo-link: None
   repo-branch: None
+  focus-areas-location: translations/chinese/wg-value/focus-areas
   focus-areas:
     communal-value:
 #    - project-popularity.md
