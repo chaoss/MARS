@@ -24,7 +24,7 @@ class color:
 
 def copy_file(source_filepath, dest_path):
     """Copies file from source path to destination.
-    Replaces the file it already exists
+    Replaces the file if it already exists
     """
 
     if os.path.isfile(dest_path):
@@ -327,4 +327,3 @@ def print_final_msg(pdf_filename):
     final_path = "./output/" + pdf_filename
     print("\nLogs are saved in", color.GREEN, "logs.txt", color.CYAN)
     print("Output PDF is saved in", color.GREEN, final_path, color.END)
-
