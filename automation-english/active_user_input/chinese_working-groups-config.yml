@@ -19,8 +19,8 @@ end-matter:
 wg-common:
   include-wg: True
   wg-fullname: Common Metrics WG
-  github-link: None
-  github-branch: None
+  repo-link: None
+  repo-branch: None
   focus-areas:
     contributions:
     - technical-fork.md
@@ -43,8 +43,8 @@ wg-common:
 wg-diversity-inclusion:
   include-wg: False
   wg-fullname: Diversity, Equity and Inclusion WG
-  github-link: None
-  github-branch: None
+  repo-link: None
+  repo-branch: None
   focus-areas:
 #    communication-inclusivity:
 #    - alternatives.md
@@ -96,8 +96,8 @@ wg-diversity-inclusion:
 wg-evolution:
   include-wg: False
   wg-fullname: Evolution WG
-  github-link: None
-  github-branch: None
+  repo-link: None
+  repo-branch: None
   focus-areas:
     code-development-activity:
     - branch-lifecycle.md
@@ -129,8 +129,8 @@ wg-evolution:
 wg-risk:
   include-wg: False
   wg-fullname: Risk WG
-  github-link: None
-  github-branch: None
+  repo-link: None
+  repo-branch: None
   focus-areas:
     business-risk:
 #    - average-issue-resolution-time.md
@@ -163,8 +163,8 @@ wg-risk:
 wg-value:
   include-wg: True
   wg-fullname: Value WG
-  github-link: None
-  github-branch: None
+  repo-link: None
+  repo-branch: None
   focus-areas:
     communal-value:
 #    - project-popularity.md

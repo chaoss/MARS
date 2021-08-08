@@ -8,7 +8,7 @@ import helper
 english_yml_filename = "english_working-groups-config.yml"
 spanish_yml_filename = "spanish_working-groups-config.yml"
 chinese_yml_filename = "chinese_working-groups-config.yml"
-translations = {"github-link": "https://github.com/chaoss/translations", "github-branch": "main", "repo-name": "translations" }
+translations = {"repo-link": "https://github.com/chaoss/translations", "repo-branch": "main", "repo-name": "translations" }
 master_file_path = "master.tex"
 test_dir = "test_env"
 current_dir = "./"
@@ -79,7 +79,7 @@ def main():
         print(helper.color.END)
 
         # clone translation repo and auto-detect langauge
-        helper.clone_repo(translations["github-link"], translations["repo-name"],translations["github-branch"])
+        helper.clone_repo(translations["repo-link"], translations["repo-name"],translations["repo-branch"])
         detected_languages = [dir for dir in sorted(os.listdir(translations["repo-name"])) if os.path.isdir(os.path.join(translations["repo-name"], dir)) and dir[0] != "."]
         print(helper.color.YELLOW)
         print("="*60)
