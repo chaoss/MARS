@@ -32,8 +32,8 @@ def english_main(english_yml_filename):
         if yaml_data[wg_name]['include-wg']:
 
             # clone repo with specified branch in yaml data
-            print(f"\nCloning from URL: {yaml_data[wg_name]['github-link']}\nBranch: {yaml_data[wg_name]['github-branch']}\n")
-            helper.clone_repo(yaml_data[wg_name]['github-link'], wg_name, yaml_data[wg_name]['github-branch'])
+            print(f"\nCloning from URL: {yaml_data[wg_name]['repo-link']}\nBranch: {yaml_data[wg_name]['repo-branch']}\n")
+            helper.clone_repo(yaml_data[wg_name]['repo-link'], wg_name, yaml_data[wg_name]['repo-branch'])
 
             main.included_wgs.append(wg_name)
             included_focus_areas = []
