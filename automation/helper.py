@@ -127,6 +127,10 @@ def clone_repo(url, name, branch):
 
     try:
         subprocess.check_call(['git', 'clone', '-b', branch, url, name])
+    except subprocess.CalledProcessError:
+        print(color.RED,f"Error: Repository with name: {name} already exists")
+        print("Please ensure only one link is present in the YAML file")
+
     except:
         print(color.RED,f"Error: Unable to clone/checkout repository from {url}")
         print("Verify the repository details specified in YAML file.",color.END)
