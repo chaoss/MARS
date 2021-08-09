@@ -71,7 +71,7 @@ check_platform(){
   fi
 
   # return the machine type as param - OS_type
-  eval $1=${machine}
+  eval $1='${machine}'
 }
 
 check_docker_installed(){
