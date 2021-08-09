@@ -6,7 +6,7 @@
 import pypandoc
 from datetime import datetime
 
-class english:
+class English:
 
     template_working_group = r'''
 \section{$SECTION_NAME$}

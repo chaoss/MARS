@@ -1,18 +1,13 @@
 import os
-import english_release
-import translations_release
 import helper
+import metrics_release
 
 ##### Global Vars #####
 
-english_yml_filename = "english_working-groups-config.yml"
-spanish_yml_filename = "spanish_working-groups-config.yml"
-chinese_yml_filename = "chinese_working-groups-config.yml"
 translations = {"repo-link": "https://github.com/chaoss/translations", "repo-branch": "main", "repo-name": "translations" }
 master_file_path = "master.tex"
 test_dir = "test_env"
-current_dir = "./"
-included_wgs = []
+
 
 
 def language_input():
@@ -38,11 +33,8 @@ def language_input():
 
 def main():
 
-    global included_wgs
-    global english_yml_filename
     global master_file_path
     global test_dir
-    global current_dir
 
     # select language
     language = language_input()
@@ -61,8 +53,8 @@ def main():
 
 
     # Copy the scripts
-    helper.copy_dir_files("../active_user_input", current_dir)
-    helper.copy_dir_files("../passive_user_input", current_dir)
+    helper.copy_dir_files("../active_user_input", "./")
+    helper.copy_dir_files("../passive_user_input", "./")
 
     if language == '1':
         print(helper.color.GREEN)
@@ -71,7 +63,8 @@ def main():
         print(helper.color.END)
 
         # main over - switch to new script
-        english_release.english_main(english_yml_filename)
+        # english_release.english_main(english_yml_filename)
+        metrics_release.release_main("english")
 
     else:
         print(helper.color.GREEN)
@@ -101,7 +94,8 @@ def main():
         helper.color.END
 
         # main over - call translation scripts
-        translations_release.translations_main(detected_languages[user_inp])
+        # translations_release.translations_main(detected_languages[user_inp])
+        metrics_release.release_main(detected_languages[user_inp])
 
 if __name__ == "__main__":
     main()
