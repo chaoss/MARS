@@ -7,28 +7,77 @@ CUR_DIR='automation'
 DOCKERHUB_IMG_NAME='ritikmalik/mars-image:latest'
 DOCKER_IMG_NAME='chaoss-mars'
 DOCKER_CONTAINER_NAME='mars-container'
+OS_type=''
 
 # Define colors
 RED='\033[0;91m'
 GREEN='\033[0;92m'
 BLUE='\033[0;94m'
 CYAN='\033[0;96m'
-YELLOW='\033[1;93m'
+YELLOW='\033[0;93m'
 NC='\033[0m' # No Color
 
+### function definations begins
+
 greetings(){
-  echo -e "${YELLOW}"
-  echo -e "------------------------------"
-  echo -e "CHAOSS M.A.R.S. on Linux/Mac"
-  echo -e "${MARS_LINK}" 
-  echo -e "------------------------------"
-  echo
+
+  echo -e "${RED}"
+  echo -e '              ___---___          '
+  echo -e '           .--         --.       '
+  echo -e '         ./   ()   *  .-. \.     '
+  echo -e '        /   o    .   (   )  \    '
+  echo -e '       / .            "-"    \   '
+  echo -e '      | () .    °   o   .   * |  '
+  echo -e '     |    ╔╦╗  ╔═╗  ╦═╗  ╔═╗   | '
+  echo -e '     |  o ║║║  ╠═╣  ╠╦╝  ╚═╗  .| '
+  echo -e '     |    ╩ ╩  ╩ ╩  ╩╚═  ╚═╝   | '
+  echo -e '      | .    .--.   O      °  |  '
+  echo -e '       \  ° |    |    o   .  /   '
+  echo -e '        \   `.__.`     .    /    '
+  echo -e '         `\  o    ()      /`     '
+  echo -e '           `--___   ___--`       '
+  echo -e '                 ---             '
+  echo -e '   Metrics Automated Release System'
+  echo -e "${YELLOW}======================================"
+  echo -e "${CYAN}"
+  echo -e "Latest Release: <DATE>"
+  echo -e "Current Version: v1.0"
+  echo -e "GitHub: https://github.com/chaoss/MARS\n"
+  echo -e "${YELLOW}======================================"
+  echo -e
 }
 
-check_1(){
+# set -x
+check_platform(){
+
+  # OS detections step
+  platform="$(uname -s)"
+
+  case "${platform}" in
+    Linux*)     machine='Linux';;
+    Darwin*)    machine='Mac OS/X';;
+    CYGWIN*)    machine='Cygwin';;
+    MINGW*)     machine='MinGw';;
+    *)          machine="UNKNOWN:${platform}"
+  esac
+
+  if [ "${machine}" = "Linux" ]; then
+    echo -e "${CYAN}[Check 0/5]: Checking user platform...${GREEN}${machine}"
+  elif [ "${machine}" = "Mac OS/X" ]; then
+    echo -e "${CYAN}[Check 0/4]: Checking user platform...${GREEN}${machine}"
+  else
+    echo -e "${RED}[Error]: ${machine} is not yet supported on M.A.R.S."
+    exit 1
+  fi
+
+  # return the machine type as param - OS_type
+  eval $1=${machine}
+}
+
+check_docker_installed(){
   # check if Docker is installed
   if [[ $(which docker) && $(docker --version) ]]; then
-    echo -e "${CYAN}[Check 1/5]: Checking if Docker is installed...${GREEN}Yes"
+    echo -e "${CYAN}[Check ${1}/${2}]: Checking if Docker is installed...${GREEN}Yes"
   else
     echo -e "${RED}[Error]: Docker not found, please install Docker."
     echo
@@ -38,10 +87,10 @@ check_1(){
   fi
 }
 
-check_2(){
+check_user_docker_grp(){
   # check if user is in Docker group
   if [ $(grep /etc/group -e "docker" | awk -F ':' '{ print $4 }') = $USER ]; then
-    echo -e "${CYAN}[Check 2/5]: Checking if ${USER} is in Docker group...${GREEN}Yes"
+    echo -e "${CYAN}[Check ${1}/${2}]: Checking if ${USER} is in Docker group...${GREEN}Yes"
   else
     echo -e "${RED}[Error]: Please add your user to Docker group${NC}"
     echo
@@ -53,10 +102,10 @@ check_2(){
   fi
 }
 
-check_3(){
+check_docker_running(){
   # check if docker is running
 if docker info >/dev/null 2>&1; then
-    echo -e "${CYAN}[Check 3/5]: Checking if Docker is running...${GREEN}Yes"
+    echo -e "${CYAN}[Check ${1}/${2}]: Checking if Docker is running...${GREEN}Yes"
 else
     echo -e "${RED}[Error]: Docker does not seem to be running, run it first and retry${NC}"
     echo
@@ -64,10 +113,10 @@ else
 fi
 }
 
-check_4(){
+check_cur_dir(){
   # check if current directory == ${CUR_DIR}
   if [ "$(pwd | awk -F '/' '{ print $NF }')" = "${CUR_DIR}" ]; then
-    echo -e "${CYAN}[Check 4/5]: Checking for correct directory...${GREEN}Yes"
+    echo -e "${CYAN}[Check ${1}/${2}]: Checking for correct directory...${GREEN}Yes"
   else
     echo -e "${RED}[Error]: Please run this script in '${CUR_DIR}' directory${NC}"
     echo
@@ -75,11 +124,11 @@ check_4(){
   fi
 }
 
-check_5(){
+check_dockerfile(){
   # check if Dockerfile exist
   FILE=Dockerfile
   if [[ -f "$FILE" ]]; then
-    echo -e "${CYAN}[Check 5/5]: Checking for Dockerfile...${GREEN}Yes"
+    echo -e "${CYAN}[Check ${1}/${2}]: Checking for Dockerfile...${GREEN}Yes"
   else
     echo -e "${RED}[Error]: $FILE not found in $(pwd)${NC}"
     echo
@@ -99,15 +148,27 @@ check_exit(){
   fi
 }
 
-### function definations over
+### function definations ends
 
 # main()
 greetings
-check_1
-check_2
-check_3
-check_4
-check_5
+check_platform "OS_type"
+
+# The number of checks are dynamic to OS type,
+# 1 extra check for linux - "user should be in Docker grp"
+# Pass the current check number and total checks as params
+if [ "${OS_type}" = "Linux" ]; then
+  check_docker_installed "1" "5"
+  check_user_docker_grp "2" "5"
+  check_docker_running "3" "5"
+  check_cur_dir "4" "5"
+  check_dockerfile "5" "5"
+else
+  check_docker_installed "1" "4"
+  check_docker_running "2" "4"
+  check_cur_dir "3" "4"
+  check_dockerfile "4" "4"
+fi
 
 echo
 echo -e "${GREEN}Passed all checks successfully..."
@@ -115,13 +176,12 @@ echo
 
 # Checks over, start main stuff
 
-# build the docker image -> ${DOCKER_IMG_NAME}, pass the UID and GID of system
+# build the docker image -> ${DOCKER_IMG_NAME}
 echo -e "${CYAN}Building the '${DOCKER_IMG_NAME}' image"
 echo -e "--------------------------------${NC}"
 echo
 
-docker build -t ${DOCKER_IMG_NAME} \
---build-arg USER_ID=$(id -u) --build-arg GROUP_ID=$(id -g) .
+docker build -t ${DOCKER_IMG_NAME} .
 
 check_exit $?
 
