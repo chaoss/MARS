@@ -4,6 +4,7 @@ import shutil
 import sys
 import subprocess
 from pprint import pprint
+from datetime import datetime
 import pypandoc
 import yaml
 import validators
@@ -71,6 +72,7 @@ def convert_md2tex(md_filename, latex_filename):
     assert output == ""
     print(f"Created successfully: {latex_filename}")
 
+    
 def clean_directory(folder_path):
     """Deletes the specified directory"""
 
@@ -267,42 +269,65 @@ def extract_goal(focus_area_README):
 
     return focus_area_name, focus_area_goal
 
-def generate_focus_areas(focus_area_filename, focus_area_README, metrics, english_template):
-    """Dynamically creates the table of metrics"""
+def read_file(filename):
+    """Returns data from given file in the form of a string"""
 
-    table_head = english_template.template_focus_areas
-    table_tail = english_template.template_end
+    with open(filename, "r") as f:
+        return f.read()
+
+
+def replace_metric_table_keywords(table_head, focus_area_README, word_translation_yaml_data, language):
+    """Replaces specific keywords from the metric table templates.
+     Also adds focus area name and goal to the file
+     """
 
     focus_area_name, focus_area_goal = extract_goal(focus_area_README)
 
-    table_head = table_head.replace("$FOCUS_AREA_NAME$", focus_area_name)
-    table_head = table_head.replace("$FOCUS_AREA_GOAL$", focus_area_goal)
+    keywords_dict = {
+        "$FOCUS_AREA_NAME$" : focus_area_name,
+        "$FOCUS_AREA_GOAL$" : focus_area_goal,
+        "$FOCUS_AREA$" : word_translation_yaml_data[language]["focus-area"],
+        "$GOAL$" : word_translation_yaml_data[language]["goal"],
+        "$METRIC$" : word_translation_yaml_data[language]["metric"],
+        "$QUESTION$" : word_translation_yaml_data[language]["question"]
+    }
 
-    for metric in metrics:
+    for k, v in keywords_dict.items():
+        table_head = table_head.replace(k, v)
+
+    return table_head
+
+
+def generate_metric_table(table_head, table_tail, focus_area_filename, metric_list):
+    """Creates the metric tables for a particular focus area """
+
+    for metric in metric_list:
         metric_name, metric_question = extract_question(metric)
         table_head += '\t\t' + metric_name + ' & ' + metric_question + ' \\\\ \n\t\t\hline\n'
 
     table_head += table_tail
 
-    ## TODO: add the name of metrics files
-    # \input{techical-fork} 
-    # .... metrics...
-
-    # file_name = focus_area_name + '.tex'
     with open(focus_area_filename, 'w') as f:
         f.write(table_head)
 
     print(f"\nGenerating focus-area file = {focus_area_filename}")
 
-def focus_areas_table(wg_tex_file, section_name, focus_areas_list, language_template):
-    """Dynamically creates tables of focus areas in a working group"""
-
-    table_head = language_template.template_working_group
-    table_tail = language_template.template_end
+def replace_fa_table_keywords(table_head, section_name, word_translation_yaml_data, language):
+    """Replaces specific keywords from the focus area table templates.
+     Also adds WG heading as section_name
+     """
 
     table_head = table_head.replace("$SECTION_NAME$", section_name)
+    table_head = table_head.replace("$FOCUS_AREA$", word_translation_yaml_data[language]["focus-area"])
+    table_head = table_head.replace("$GOAL$", word_translation_yaml_data[language]["goal"])
 
-    for FA in focus_areas_list:
+    return table_head
+
+
+def generate_fa_table(table_head, table_tail, wg_filename, focus_area_README_list):
+    """Creates the table of focus areas starting from a blank WG.tex file"""
+
+    for FA in focus_area_README_list:
 
         # FA[0] = focus_area_name
         # FA[1] = focus_area_README.md
@@ -311,7 +336,40 @@ def focus_areas_table(wg_tex_file, section_name, focus_areas_list, language_temp
         table_head += '\t\t' + focus_area_name + ' & ' + focus_area_goal + ' \\\\ \n\t\t\hline\n'
 
     table_head += table_tail
-    wg_tex_file.write(table_head)
+
+    with open(wg_filename, 'w') as f:
+        f.write(table_head)
+
+
+def convert_tex2pdf(tex_filename, word_translation_yaml_data, language, cover_filename):
+    """Converts master latex file to PDF. Adds the toc headings and
+    cover page depending on language
+    """
+
+    toc_heading = word_translation_yaml_data[language]["toc-heading"]
+
+
+    pdf_filename = f"{language.title()}-Release-" + datetime.today().strftime('%Y-%m-%d') + ".pdf"
+
+    print(f"\nConverting {tex_filename} file to PDF")
+    output = pypandoc.convert_file(tex_filename, 'pdf', outputfile=pdf_filename, extra_args=['-f', 'latex',
+                                                                                                '--pdf-engine=xelatex',
+                                                                                                '--include-in-header', 'header_1.tex',
+                                                                                                '--highlight-style', 'zenburn',
+                                                                                                '-V', 'geometry:margin=0.8in',
+                                                                                                '-V', 'monofont:DejaVuSansMono.ttf',
+                                                                                                '-V', 'mathfont:texgyredejavu-math.otf',
+                                                                                                '-V', 'geometry:a4paper',
+                                                                                                '-V', 'colorlinks=true',
+                                                                                                '-V', f'toc-title:{toc_heading}',
+                                                                                                '-V', 'linkcolour:blue',
+                                                                                                '-V', 'fontsize=12pt',
+                                                                                                '--toc', '--toc-depth= 3',
+                                                                                                '--include-before-body', cover_filename,
+                                                                                                '--include-after-body', 'end-matter.tex'])
+
+    return pdf_filename
+
 
 def print_summary(wg_count, focus_area_count, metric_count):
 
