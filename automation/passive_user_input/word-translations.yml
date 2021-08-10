@@ -1,0 +1,24 @@
+# This file contains the translations of specific keywords used to dynamically create tables
+
+english:
+  focus-area: Focus Area
+  goal: Goal
+  metric: Metric
+  question: Question
+  toc-heading: Contents
+
+chinese:
+  focus-area: 关注领域
+  goal: 目标
+  metric: 度量指标
+  question: 问题
+  toc-heading: 内容
+
+spanish:
+  focus-area: Area de enfoque
+  goal: Meta
+  metric: Métrica
+  question: Pregunta
+  toc-heading: Contenido
+
+
