@@ -34,10 +34,28 @@ Copied Successfully
 Copying: ../active_user_input/README.md
 Copied Successfully
 
+Copying: ../passive_user_input/word-translations.yml
+Copied Successfully
+
 Copying: ../passive_user_input/header_2.tex
 Copied Successfully
 
+Copying: ../passive_user_input/table-focus-areas-top.tex
+Copied Successfully
+
 Copying: ../passive_user_input/header_1.tex
+Copied Successfully
+
+Copying: ../passive_user_input/table-metrics-top.tex
+Copied Successfully
+
+Copying: ../passive_user_input/Dockerfile_Mac
+Copied Successfully
+
+Copying: ../passive_user_input/Dockerfile_Linux
+Copied Successfully
+
+Copying: ../passive_user_input/table-end.tex
 Copied Successfully
 
 Copying: ../passive_user_input/Chaoss_logo.png
@@ -62,9 +80,6 @@ Found YML file successfully: chinese_working-groups-config.yml
 
 Check: Searching for cover page file
 Found cover page file successfully: chinese_cover.tex
-
-Check: Finding language class in templates
-Class found successfully: Chinese
 
 [92m Passed all checks successfully [0m
 
@@ -159,6 +174,21 @@ Reading the YML file:
               'repo-branch': 'None',
               'repo-link': 'None',
               'wg-fullname': 'Value WG'}}
+{'chinese': {'focus-area': '关注领域',
+             'goal': '目标',
+             'metric': '度量指标',
+             'question': '问题',
+             'toc-heading': '内容'},
+ 'english': {'focus-area': 'Focus Area',
+             'goal': 'Goal',
+             'metric': 'Metric',
+             'question': 'Question',
+             'toc-heading': 'Contents'},
+ 'spanish': {'focus-area': 'Área de trabajo',
+             'goal': 'Objetivo',
+             'metric': 'Métrica',
+             'question': 'Pregunta',
+             'toc-heading': 'Índice'}}
 [91m Warning: No documents detected for the front-matter [0m
 
 Downloading file: https://raw.githubusercontent.com/chaoss/website/master/release/release-notes.md
@@ -336,7 +366,7 @@ Generating focus-area file = wg-value_organizational-value.tex
 
 Converting master.tex file to PDF
 
-Copying: Chinese-Release-2021-08-09.pdf
+Copying: Chinese-Release-2021-08-10.pdf
 Copied Successfully
 
 [96m
@@ -346,8 +376,8 @@ Total focus areas: 6
 Total metrics: 14 [96m
 ============================= [0m
 [96m
-Created the final PDF -> [92m Chinese-Release-2021-08-09.pdf
+Created the final PDF -> [92m Chinese-Release-2021-08-10.pdf
 [96m
 
 Logs are saved in [92m logs.txt [96m
-Output PDF is saved in [92m ./output/Chinese-Release-2021-08-09.pdf [0m
+Output PDF is saved in [92m ./output/Chinese-Release-2021-08-10.pdf [0m

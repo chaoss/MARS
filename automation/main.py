@@ -7,6 +7,7 @@ import metrics_release
 translations = {"repo-link": "https://github.com/chaoss/translations", "repo-branch": "main", "repo-name": "translations" }
 master_file_path = "master.tex"
 test_dir = "test_env"
+output_dir = "output"
 
 
 
@@ -43,11 +44,16 @@ def main():
     # Clean the test_dir for residual files
     helper.clean_directory(test_dir)
 
+    # Make test_env dir if not already, and switch to it
     if not os.path.isdir(test_dir):
         os.makedirs(test_dir)
         os.chdir(test_dir)
     else:
         os.chdir(test_dir)
+
+    # Make output directory if not already
+    if not os.path.isdir(output_dir):
+        os.makedirs(output_dir)
     
     print(f"\nSwitching to {test_dir}")
 
