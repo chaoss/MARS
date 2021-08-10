@@ -1,4 +1,4 @@
-# Official Dockerfile for CHAOSS M.A.R.S.
+# Official Dockerfile for CHAOSS M.A.R.S. on Mac OS/X
 # The mars-image is hosted here: https://hub.docker.com/r/ritikmalik/mars-image
 #
 # pull size = 842.35 MB (compressed)
