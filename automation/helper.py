@@ -72,29 +72,7 @@ def convert_md2tex(md_filename, latex_filename):
     assert output == ""
     print(f"Created successfully: {latex_filename}")
 
-def convert_tex2pdf(tex_filename):
-
-    pdf_filename = "English-Release-" + datetime.today().strftime('%Y-%m-%d') + ".pdf"
-
-    print(f"\nConverting {tex_filename} file to PDF")
-    output = pypandoc.convert_file(tex_filename, 'pdf', outputfile=pdf_filename, extra_args=['-f', 'latex',
-                                                                                                '--pdf-engine=xelatex',
-                                                                                                '--include-in-header', 'header_1.tex',
-                                                                                                '--highlight-style', 'zenburn',
-                                                                                                '-V', 'geometry:margin=0.8in',
-                                                                                                '-V', 'monofont:DejaVuSansMono.ttf',
-                                                                                                '-V', 'mathfont:texgyredejavu-math.otf',
-                                                                                                '-V', 'geometry:a4paper',
-                                                                                                '-V', 'colorlinks=true',
-                                                                                                '-V', 'toc-title:Contents',
-                                                                                                '-V', 'linkcolour:blue',
-                                                                                                '-V', 'fontsize=12pt',
-                                                                                                '--toc', '--toc-depth= 3',
-                                                                                                '--include-before-body', 'english_cover.tex',
-                                                                                                '--include-after-body', 'end-matter.tex'])
-
-    return pdf_filename
-
+    
 def clean_directory(folder_path):
     """Deletes the specified directory"""
 
