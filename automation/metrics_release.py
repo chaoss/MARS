@@ -2,8 +2,6 @@ import os
 import shutil
 import main
 import helper
-import table_templates
-import inspect
 import sys
 
 def check_is_yml_file(language, yml_filename):
