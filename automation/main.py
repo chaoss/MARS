@@ -41,6 +41,10 @@ def main():
     language = language_input()
     print(helper.color.END)
     
+    # Make output directory if not already
+    if not os.path.isdir(output_dir):
+        os.mkdir(output_dir)
+
     # Clean the test_dir for residual files
     helper.clean_directory(test_dir)
 
@@ -51,10 +55,6 @@ def main():
     else:
         os.chdir(test_dir)
 
-    # Make output directory if not already
-    if not os.path.isdir(output_dir):
-        os.makedirs(output_dir)
-    
     print(f"\nSwitching to {test_dir}")
 
 

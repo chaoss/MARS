@@ -187,7 +187,7 @@ else
   check_docker_installed "1" "4"
   check_docker_running "2" "4"
   check_cur_dir "3" "4"
-  check_dockerfile "4" "4" "Mac"
+  check_dockerfile "4" "4" "Mac OS/X"
 fi
 
 echo
