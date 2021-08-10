@@ -62,9 +62,9 @@ check_platform(){
   esac
 
   if [ "${machine}" = "Linux" ]; then
-    echo -e "${CYAN}[Check 0/5]: Checking user platform...${GREEN}${machine}"
+    echo -e "${BLUE}[Check 0/5]:${CYAN} Checking user platform...${GREEN}${machine}"
   elif [ "${machine}" = "Mac OS/X" ]; then
-    echo -e "${CYAN}[Check 0/4]: Checking user platform...${GREEN}${machine}"
+    echo -e "${BLUE}[Check 0/4]:${CYAN} Checking user platform...${GREEN}${machine}"
   else
     echo -e "${RED}[Error]: ${machine} is not yet supported on M.A.R.S."
     exit 1
@@ -77,7 +77,7 @@ check_platform(){
 check_docker_installed(){
   # check if Docker is installed
   if [[ $(which docker) && $(docker --version) ]]; then
-    echo -e "${CYAN}[Check ${1}/${2}]: Checking if Docker is installed...${GREEN}Yes"
+    echo -e "${BLUE}[Check ${1}/${2}]:${CYAN} Checking if Docker is installed...${GREEN}Yes"
   else
     echo -e "${RED}[Error]: Docker not found, please install Docker."
     echo
@@ -90,7 +90,7 @@ check_docker_installed(){
 check_user_docker_grp(){
   # check if user is in Docker group
   if [ $(grep /etc/group -e "docker" | awk -F ':' '{ print $4 }') = $USER ]; then
-    echo -e "${CYAN}[Check ${1}/${2}]: Checking if ${USER} is in Docker group...${GREEN}Yes"
+    echo -e "${BLUE}[Check ${1}/${2}]:${CYAN} Checking if ${USER} is in Docker group...${GREEN}Yes"
   else
     echo -e "${RED}[Error]: Please add your user to Docker group${NC}"
     echo
@@ -105,7 +105,7 @@ check_user_docker_grp(){
 check_docker_running(){
   # check if docker is running
 if docker info >/dev/null 2>&1; then
-    echo -e "${CYAN}[Check ${1}/${2}]: Checking if Docker is running...${GREEN}Yes"
+    echo -e "${BLUE}[Check ${1}/${2}]:${CYAN} Checking if Docker is running...${GREEN}Yes"
 else
     echo -e "${RED}[Error]: Docker does not seem to be running, run it first and retry${NC}"
     echo
@@ -116,7 +116,7 @@ fi
 check_cur_dir(){
   # check if current directory == ${CUR_DIR}
   if [ "$(pwd | awk -F '/' '{ print $NF }')" = "${CUR_DIR}" ]; then
-    echo -e "${CYAN}[Check ${1}/${2}]: Checking for correct directory...${GREEN}Yes"
+    echo -e "${BLUE}[Check ${1}/${2}]:${CYAN} Checking for correct directory...${GREEN}Yes"
   else
     echo -e "${RED}[Error]: Please run this script in '${CUR_DIR}' directory${NC}"
     echo
@@ -125,15 +125,35 @@ check_cur_dir(){
 }
 
 check_dockerfile(){
-  # check if Dockerfile exist
-  FILE=Dockerfile
-  if [[ -f "$FILE" ]]; then
-    echo -e "${CYAN}[Check ${1}/${2}]: Checking for Dockerfile...${GREEN}Yes"
+
+  # check if Dockerfile exist for user platform in passive_user_input
+  if [ "${3}" = "Linux" ]; then
+    FILE='passive_user_input/Dockerfile_Linux'
+    
+    if [[ -f "$FILE" ]]; then
+      echo -e "${BLUE}[Check ${1}/${2}]:${CYAN} Checking for Dockerfile...${GREEN}Yes"
+      cp ${FILE} Dockerfile
+    else
+      echo -e "${RED}[Error]: $FILE not found in 'passive_user_input' for ${3}${NC}"
+      echo
+      exit 1
+    fi
+  
   else
-    echo -e "${RED}[Error]: $FILE not found in $(pwd)${NC}"
-    echo
-    exit 1
+    FILE='passive_user_input/Dockerfile_Mac'
+    
+    if [[ -f "$FILE" ]]; then
+      echo -e "${BLUE}[Check ${1}/${2}]:${CYAN} Checking for Dockerfile...${GREEN}Yes"
+      cp ${FILE} Dockerfile
+    else
+      echo -e "${RED}[Error]: $FILE not found in 'passive_user_input' for ${3}${NC}"
+      echo
+      exit 1
+    fi
+
   fi
+
+  echo -e "\n${CYAN}Selecting Dockerfile for ${GREEN}${3}${CYAN} platform${NC}"
 }
 
 check_exit(){
@@ -162,12 +182,12 @@ if [ "${OS_type}" = "Linux" ]; then
   check_user_docker_grp "2" "5"
   check_docker_running "3" "5"
   check_cur_dir "4" "5"
-  check_dockerfile "5" "5"
+  check_dockerfile "5" "5" "Linux"
 else
   check_docker_installed "1" "4"
   check_docker_running "2" "4"
   check_cur_dir "3" "4"
-  check_dockerfile "4" "4"
+  check_dockerfile "4" "4" "Mac"
 fi
 
 echo
@@ -181,9 +201,15 @@ echo -e "${CYAN}Building the '${DOCKER_IMG_NAME}' image"
 echo -e "--------------------------------${NC}"
 echo
 
-docker build -t ${DOCKER_IMG_NAME} .
-
-check_exit $?
+# build Docker image according to user platform
+if [ "${OS_type}" = "Linux" ]; then
+  docker build -t ${DOCKER_IMG_NAME} \
+--build-arg USER_ID=$(id -u) --build-arg GROUP_ID=$(id -g) .
+  check_exit $?
+else
+  docker build -t ${DOCKER_IMG_NAME} .
+  check_exit $?
+fi
 
 # remove dangling images (if any)
 echo
@@ -208,7 +234,6 @@ echo
 echo
 echo -e "${CYAN}Running the ${DOCKER_CONTAINER_NAME}"
 echo -e "--------------------------${NC}"
-echo
 
 docker run --name ${DOCKER_CONTAINER_NAME} -it \
 --mount type=bind,source=`pwd`,target=/MARS ${DOCKER_IMG_NAME}
@@ -223,15 +248,19 @@ docker rm ${DOCKER_CONTAINER_NAME}
 
 check_exit $?
 
+# remove Dockerfile
+echo
+echo -e "${NC}Removing redundant Dockerfile"
+rm Dockerfile
+
 # echo -e "\n${CYAN}Changing permissions from root user to ${YELLOW}${SUDO_USER}"
 # chown -R ${SUDO_USER}:${SUDO_USER} .
 
 # Display output
 echo
-echo -e "${NC}Unless you plan to rerun the script in future, you can safetly delete the images by using the commands:${CYAN}"
+echo -e "${NC}Unless you plan to rerun the script in future, you can safetly delete the image:${CYAN}"
 echo
 echo -e "$ docker rmi ${DOCKER_IMG_NAME}"
-echo -e "$ docker rmi ${DOCKERHUB_IMG_NAME}"
 echo
 
 # echo -e "${GREEN}Logs are saved in ${YELLOW}logs.txt"
