@@ -4,6 +4,9 @@ output/
 # Add test environment
 test_env/
 
+# DS Store for Mac
+.DS_Store
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
