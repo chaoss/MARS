@@ -11,8 +11,8 @@ def check_is_yml_file(language, yml_filename):
         print(f"Found YML file successfully: {yml_filename}\n")
         return True
     else:
-        print(helper.color.RED,f"Error: Unable to detect YML file for {language}.")
-        print(f"Specify/check if the filename is: {yml_filename}",helper.color.END)
+        print(helper.Color.RED,f"Error: Unable to detect YML file for {language}.")
+        print(f"Specify/check if the filename is: {yml_filename}",helper.Color.END)
         return False
         sys.exit(1)
 
@@ -22,8 +22,8 @@ def check_is_cover_file(language, cover_filename):
     if os.path.isfile(cover_filename):
         print(f"Found cover page file successfully: {cover_filename}\n")
     else:
-        print(helper.color.RED,f"Error: Unable to detect cover page file for {language}.")
-        print(f"Specify/check if the filename is: {cover_filename}",helper.color.END)
+        print(helper.Color.RED,f"Error: Unable to detect cover page file for {language}.")
+        print(f"Specify/check if the filename is: {cover_filename}",helper.Color.END)
         sys.exit(1)
 
 def release_main(language):
@@ -42,7 +42,7 @@ def release_main(language):
     check_is_yml_file(language, wg_config_yml_filename)
     check_is_cover_file(language, cover_filename)
     # check_is_class_exist(language, class_name)
-    print(helper.color.GREEN, "Passed all checks successfully", helper.color.END)
+    print(helper.Color.GREEN, "Passed all checks successfully", helper.Color.END)
 
 
     # Read the yml file
@@ -68,8 +68,8 @@ def release_main(language):
                 helper.clone_repo(wg_config_yaml_data[wg_name]['repo-link'], wg_name, wg_config_yaml_data[wg_name]['repo-branch'])
 
             else:
-                print(helper.color.RED, f"Warning: In {wg_config_yaml_data[wg_name]['wg-fullname']}, {wg_config_yaml_data[wg_name]['repo-link']} is not a valid URL ")
-                print("Check the repository details in the YAML file", helper.color.END)
+                print(helper.Color.RED, f"Warning: In {wg_config_yaml_data[wg_name]['wg-fullname']}, {wg_config_yaml_data[wg_name]['repo-link']} is not a valid URL ")
+                print("Check the repository details in the YAML file", helper.Color.END)
 
             included_wgs.append(wg_name)
             included_focus_areas = []

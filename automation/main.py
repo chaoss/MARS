@@ -13,20 +13,20 @@ output_dir = "output"
 
 def language_input():
 
-    print(helper.color.YELLOW)
-    print("="*60,helper.color.CYAN)
+    print(helper.Color.YELLOW)
+    print("="*60,helper.Color.CYAN)
     print('''\nPlease select your language preference for M.A.R.S. :
 
     PRESS 1 for English
     PRESS 2 for other languages''')
 
-    print(helper.color.YELLOW)
+    print(helper.Color.YELLOW)
     choice = input("Your preference (1/2): ")
 
     # sanity check
     while choice != '1' and choice != '2':
-        print(helper.color.RED,"Invalid choice! Please select again...")
-        print(helper.color.YELLOW)
+        print(helper.Color.RED,"Invalid choice! Please select again...")
+        print(helper.Color.YELLOW)
         choice = input("Your preference (1/2): ")
 
     return choice
@@ -39,7 +39,7 @@ def main():
 
     # select language
     language = language_input()
-    print(helper.color.END)
+    print(helper.Color.END)
     
     # Make output directory if not already
     if not os.path.isdir(output_dir):
@@ -63,41 +63,41 @@ def main():
     helper.copy_dir_files("../passive_user_input", "./")
 
     if language == '1':
-        print(helper.color.GREEN)
+        print(helper.Color.GREEN)
         print("English selected!")
         print("Moving on to the next phase...")
-        print(helper.color.END)
+        print(helper.Color.END)
 
         # main over - switch to new script
         # english_release.english_main(english_yml_filename)
         metrics_release.release_main("english")
 
     else:
-        print(helper.color.GREEN)
+        print(helper.Color.GREEN)
         print("Translations selected!")
-        print(helper.color.END)
+        print(helper.Color.END)
 
         # clone translation repo and auto-detect langauge
         helper.clone_repo(translations["repo-link"], translations["repo-name"],translations["repo-branch"])
         detected_languages = [dir for dir in sorted(os.listdir(translations["repo-name"])) if os.path.isdir(os.path.join(translations["repo-name"], dir)) and dir[0] != "."]
-        print(helper.color.YELLOW)
+        print(helper.Color.YELLOW)
         print("="*60)
-        print(helper.color.CYAN)
+        print(helper.Color.CYAN)
         print("The following langauges have been autodetected:\n")
 
         for i in range(len(detected_languages)):
             print(f"PRESS {i+1} for {detected_languages[i]}")
 
-        print(helper.color.YELLOW)
+        print(helper.Color.YELLOW)
         user_inp = int(input("Your preference: ")) - 1
 
         # sanity check
         while user_inp < 0 or user_inp >= len(detected_languages):
-            print(helper.color.RED,"Invalid choice! Please select again...")
-            print(helper.color.YELLOW)
+            print(helper.Color.RED,"Invalid choice! Please select again...")
+            print(helper.Color.YELLOW)
             user_inp = int(input("Your preference: ")) - 1
 
-        helper.color.END
+        helper.Color.END
 
         # main over - call translation scripts
         # translations_release.translations_main(detected_languages[user_inp])
