@@ -230,8 +230,8 @@ def add_end_matter(yaml_data):
                     end_matter.write("\clearpage\n\section{LICENSE}\n\input{LICENSE}\n")
                 else:
                     print(Color.RED, f"Error: Could not incorporate {page} in end matter.")
-                    print(f"Please make sure that the filename is valid. Only Markdown/LaTeX file format is supported.",
-                          Color.END)
+                    print(f"Please make sure that the filename is valid. Only Markdown/LaTeX file format is supported.", Color.END)
+
                     sys.exit(1)
 
         else:
@@ -379,27 +379,19 @@ def convert_tex2pdf(tex_filename, word_translation_yaml_data, language, cover_fi
     print(f"\nConverting {tex_filename} file to PDF")
     output = pypandoc.convert_file(tex_filename, 'pdf', outputfile=pdf_filename, extra_args=['-f', 'latex',
                                                                                              '--pdf-engine=xelatex',
-                                                                                             '--include-in-header',
-                                                                                             'header_1.tex',
-                                                                                             '--highlight-style',
-                                                                                             'zenburn',
-                                                                                             '-V',
-                                                                                             'geometry:margin=0.8in',
-                                                                                             '-V',
-                                                                                             'monofont:DejaVuSansMono.ttf',
-                                                                                             '-V',
-                                                                                             'mathfont:texgyredejavu-math.otf',
+                                                                                             '--include-in-header', 'header_1.tex',
+                                                                                             '--highlight-style', 'zenburn',
+                                                                                             '-V', 'geometry:margin=0.8in',
+                                                                                             '-V', 'monofont:DejaVuSansMono.ttf',
+                                                                                             '-V', 'mathfont:texgyredejavu-math.otf',
                                                                                              '-V', 'geometry:a4paper',
                                                                                              '-V', 'colorlinks=true',
-                                                                                             '-V',
-                                                                                             f'toc-title:{toc_heading}',
+                                                                                             '-V', f'toc-title:{toc_heading}',
                                                                                              '-V', 'linkcolour:blue',
                                                                                              '-V', 'fontsize=12pt',
                                                                                              '--toc', '--toc-depth= 3',
-                                                                                             '--include-before-body',
-                                                                                             cover_filename,
-                                                                                             '--include-after-body',
-                                                                                             'end-matter.tex'
+                                                                                             '--include-before-body', cover_filename,
+                                                                                             '--include-after-body', 'end-matter.tex'
                                                                                              ]
                                    )
 

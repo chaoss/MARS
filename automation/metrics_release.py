@@ -66,10 +66,8 @@ def release_main(language):
 
             if helper.is_url(wg_config_yaml_data[wg_name]['repo-link']):
                 # clone repo with specified branch in yaml data
-                print(
-                    f"\nCloning from URL: {wg_config_yaml_data[wg_name]['repo-link']}\nBranch: {wg_config_yaml_data[wg_name]['repo-branch']}\n")
-                helper.clone_repo(wg_config_yaml_data[wg_name]['repo-link'], wg_name,
-                                  wg_config_yaml_data[wg_name]['repo-branch'])
+                print(f"\nCloning from URL: {wg_config_yaml_data[wg_name]['repo-link']}\nBranch: {wg_config_yaml_data[wg_name]['repo-branch']}\n")
+                helper.clone_repo(wg_config_yaml_data[wg_name]['repo-link'], wg_name, wg_config_yaml_data[wg_name]['repo-branch'])
 
             else:
                 print(helper.Color.RED,
@@ -87,8 +85,7 @@ def release_main(language):
 
                     # LOOP #3: For Metrics
                     for metric in metrics:
-                        metric_path = os.path.join(wg_config_yaml_data[wg_name]["focus-areas-location"], focus_area,
-                                                   metric)
+                        metric_path = os.path.join(wg_config_yaml_data[wg_name]["focus-areas-location"], focus_area, metric)
 
                         shutil.copy2(metric_path, "./")
                         # helper.copy_file(metric_path, "./")
@@ -114,8 +111,7 @@ def release_main(language):
 
                     # Read the metric table template and replace keywords requiring translations
                     table_metric_head = helper.read_file(table_metric_top_filename)
-                    table_metric_head = helper.replace_metric_table_keywords(table_metric_head, focus_area_README,
-                                                                             word_translation_yaml_data, language)
+                    table_metric_head = helper.replace_metric_table_keywords(table_metric_head, focus_area_README, word_translation_yaml_data, language)
 
                     # Create focus area latex file to include metric table
                     focus_area_filename = wg_name + "_" + focus_area + ".tex"
@@ -134,8 +130,7 @@ def release_main(language):
 
             # Read the focus area table template and replace keywords requiring translations
             table_fa_head = helper.read_file(table_fa_top_filename)
-            table_fa_head = helper.replace_fa_table_keywords(table_fa_head, wg_config_yaml_data[wg_name]['wg-fullname'],
-                                                             word_translation_yaml_data, language)
+            table_fa_head = helper.replace_fa_table_keywords(table_fa_head, wg_config_yaml_data[wg_name]['wg-fullname'], word_translation_yaml_data, language)
 
             # Create working group latex file to include focus area table
             wg_filename = wg_name + ".tex"
