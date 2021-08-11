@@ -1,4 +1,3 @@
-
 \usepackage{graphicx}
 \usepackage{url}
 \usepackage{sectsty, fancyhdr}
@@ -52,7 +51,7 @@
 
 \let\oldtexttt\texttt
 \renewcommand{\texttt}[1]{
-  \colorbox{Light}{\oldtexttt{#1}}
+    \colorbox{Light}{\oldtexttt{#1}}
 }
 
 
@@ -72,10 +71,10 @@
 \renewlist{itemize}{itemize}{9}
 
 \hypersetup{
-	pdftitle={Automated Metrics Release},
-	pdfauthor={CHAOSS},
-	pdfsubject={Metrics Release MM-YY},
-	pdfkeywords={CHAOSS, pandoc,automation,metrics}
+    pdftitle={Automated Metrics Release},
+    pdfauthor={CHAOSS},
+    pdfsubject={Metrics Release MM-YY},
+    pdfkeywords={CHAOSS, pandoc,automation,metrics}
 }
 
 \pagestyle{fancy}
@@ -83,7 +82,7 @@
 % to remove UPPERCASE from header
 \makeatletter
 \renewcommand{\sectionmark}[1]{%
-  \markboth{\ifnum \c@secnumdepth>\z@
-      \thesection\hskip 1em\relax
+    \markboth{\ifnum \c@secnumdepth>\z@
+    \thesection\hskip 1em\relax
     \fi #1}{}}
 \makeatother
