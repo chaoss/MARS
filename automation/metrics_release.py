@@ -1,33 +1,34 @@
 import os
 import shutil
-import main
-import helper
 import sys
 
-def check_is_yml_file(language, yml_filename):
+import helper
+import main
 
+
+def check_is_yml_file(language, yml_filename):
     print("Check: Searching for YML file")
     if os.path.isfile(yml_filename):
         print(f"Found YML file successfully: {yml_filename}\n")
         return True
     else:
-        print(helper.Color.RED,f"Error: Unable to detect YML file for {language}.")
-        print(f"Specify/check if the filename is: {yml_filename}",helper.Color.END)
+        print(helper.Color.RED, f"Error: Unable to detect YML file for {language}.")
+        print(f"Specify/check if the filename is: {yml_filename}", helper.Color.END)
         return False
         sys.exit(1)
 
-def check_is_cover_file(language, cover_filename):
 
+def check_is_cover_file(language, cover_filename):
     print("Check: Searching for cover page file")
     if os.path.isfile(cover_filename):
         print(f"Found cover page file successfully: {cover_filename}\n")
     else:
-        print(helper.Color.RED,f"Error: Unable to detect cover page file for {language}.")
-        print(f"Specify/check if the filename is: {cover_filename}",helper.Color.END)
+        print(helper.Color.RED, f"Error: Unable to detect cover page file for {language}.")
+        print(f"Specify/check if the filename is: {cover_filename}", helper.Color.END)
         sys.exit(1)
 
-def release_main(language):
 
+def release_main(language):
     included_wgs = []
     focus_area_count = 0
     metric_count = 0
@@ -43,7 +44,6 @@ def release_main(language):
     check_is_cover_file(language, cover_filename)
     # check_is_class_exist(language, class_name)
     print(helper.Color.GREEN, "Passed all checks successfully", helper.Color.END)
-
 
     # Read the yml file
     print("\nReading the YML files:\n")
@@ -66,11 +66,14 @@ def release_main(language):
 
             if helper.is_url(wg_config_yaml_data[wg_name]['repo-link']):
                 # clone repo with specified branch in yaml data
-                print(f"\nCloning from URL: {wg_config_yaml_data[wg_name]['repo-link']}\nBranch: {wg_config_yaml_data[wg_name]['repo-branch']}\n")
-                helper.clone_repo(wg_config_yaml_data[wg_name]['repo-link'], wg_name, wg_config_yaml_data[wg_name]['repo-branch'])
+                print(
+                    f"\nCloning from URL: {wg_config_yaml_data[wg_name]['repo-link']}\nBranch: {wg_config_yaml_data[wg_name]['repo-branch']}\n")
+                helper.clone_repo(wg_config_yaml_data[wg_name]['repo-link'], wg_name,
+                                  wg_config_yaml_data[wg_name]['repo-branch'])
 
             else:
-                print(helper.Color.RED, f"Warning: In {wg_config_yaml_data[wg_name]['wg-fullname']}, {wg_config_yaml_data[wg_name]['repo-link']} is not a valid URL ")
+                print(helper.Color.RED,
+                      f"Warning: In {wg_config_yaml_data[wg_name]['wg-fullname']}, {wg_config_yaml_data[wg_name]['repo-link']} is not a valid URL ")
                 print("Check the repository details in the YAML file", helper.Color.END)
 
             included_wgs.append(wg_name)
@@ -84,7 +87,8 @@ def release_main(language):
 
                     # LOOP #3: For Metrics
                     for metric in metrics:
-                        metric_path = os.path.join(wg_config_yaml_data[wg_name]["focus-areas-location"], focus_area, metric)
+                        metric_path = os.path.join(wg_config_yaml_data[wg_name]["focus-areas-location"], focus_area,
+                                                   metric)
 
                         shutil.copy2(metric_path, "./")
                         # helper.copy_file(metric_path, "./")
@@ -102,14 +106,16 @@ def release_main(language):
                         os.path.join(wg_config_yaml_data[wg_name]["focus-areas-location"], focus_area, "images"),
                         os.path.join("./", "images"))
 
-                    focus_area_README = os.path.join(wg_config_yaml_data[wg_name]["focus-areas-location"], focus_area, "README.md")
+                    focus_area_README = os.path.join(wg_config_yaml_data[wg_name]["focus-areas-location"], focus_area,
+                                                     "README.md")
 
                     # to be used in focus-areas table for WG.tex
                     focus_area_README_list.append([focus_area, focus_area_README])
 
                     # Read the metric table template and replace keywords requiring translations
                     table_metric_head = helper.read_file(table_metric_top_filename)
-                    table_metric_head = helper.replace_metric_table_keywords(table_metric_head, focus_area_README, word_translation_yaml_data, language)
+                    table_metric_head = helper.replace_metric_table_keywords(table_metric_head, focus_area_README,
+                                                                             word_translation_yaml_data, language)
 
                     # Create focus area latex file to include metric table
                     focus_area_filename = wg_name + "_" + focus_area + ".tex"
@@ -128,7 +134,8 @@ def release_main(language):
 
             # Read the focus area table template and replace keywords requiring translations
             table_fa_head = helper.read_file(table_fa_top_filename)
-            table_fa_head = helper.replace_fa_table_keywords(table_fa_head, wg_config_yaml_data[wg_name]['wg-fullname'], word_translation_yaml_data, language)
+            table_fa_head = helper.replace_fa_table_keywords(table_fa_head, wg_config_yaml_data[wg_name]['wg-fullname'],
+                                                             word_translation_yaml_data, language)
 
             # Create working group latex file to include focus area table
             wg_filename = wg_name + ".tex"
@@ -159,4 +166,3 @@ def release_main(language):
 
     helper.print_summary(len(included_wgs), focus_area_count, metric_count)
     helper.print_final_msg(pdf_filename)
-

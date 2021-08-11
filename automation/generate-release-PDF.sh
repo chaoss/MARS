@@ -19,7 +19,7 @@ NC='\033[0m' # No Color
 
 ### function definations begins
 
-greetings(){
+greetings() {
 
   echo -e "${RED}"
   echo -e '              ___---___          '
@@ -48,17 +48,17 @@ greetings(){
 }
 
 # set -x
-check_platform(){
+check_platform() {
 
   # OS detections step
   platform="$(uname -s)"
 
   case "${platform}" in
-    Linux*)     machine='Linux';;
-    Darwin*)    machine='Mac OS/X';;
-    CYGWIN*)    machine='Cygwin';;
-    MINGW*)     machine='MinGw';;
-    *)          machine="UNKNOWN:${platform}"
+  Linux*) machine='Linux' ;;
+  Darwin*) machine='Mac OS/X' ;;
+  CYGWIN*) machine='Cygwin' ;;
+  MINGW*) machine='MinGw' ;;
+  *) machine="UNKNOWN:${platform}" ;;
   esac
 
   if [ "${machine}" = "Linux" ]; then
@@ -74,7 +74,7 @@ check_platform(){
   eval $1='${machine}'
 }
 
-check_docker_installed(){
+check_docker_installed() {
   # check if Docker is installed
   if [[ $(which docker) && $(docker --version) ]]; then
     echo -e "${BLUE}[Check ${1}/${2}]:${CYAN} Checking if Docker is installed...${GREEN}Yes"
@@ -87,7 +87,7 @@ check_docker_installed(){
   fi
 }
 
-check_user_docker_grp(){
+check_user_docker_grp() {
   # check if user is in Docker group
   if [ $(grep /etc/group -e "docker" | awk -F ':' '{ print $4 }') = $USER ]; then
     echo -e "${BLUE}[Check ${1}/${2}]:${CYAN} Checking if ${USER} is in Docker group...${GREEN}Yes"
@@ -102,18 +102,18 @@ check_user_docker_grp(){
   fi
 }
 
-check_docker_running(){
+check_docker_running() {
   # check if docker is running
-if docker info >/dev/null 2>&1; then
+  if docker info >/dev/null 2>&1; then
     echo -e "${BLUE}[Check ${1}/${2}]:${CYAN} Checking if Docker is running...${GREEN}Yes"
-else
+  else
     echo -e "${RED}[Error]: Docker does not seem to be running, run it first and retry${NC}"
     echo
     exit 1
-fi
+  fi
 }
 
-check_cur_dir(){
+check_cur_dir() {
   # check if current directory == ${CUR_DIR}
   if [ "$(pwd | awk -F '/' '{ print $NF }')" = "${CUR_DIR}" ]; then
     echo -e "${BLUE}[Check ${1}/${2}]:${CYAN} Checking for correct directory...${GREEN}Yes"
@@ -124,12 +124,12 @@ check_cur_dir(){
   fi
 }
 
-check_dockerfile(){
+check_dockerfile() {
 
   # check if Dockerfile exist for user platform in passive_user_input
   if [ "${3}" = "Linux" ]; then
     FILE='passive_user_input/Dockerfile_Linux'
-    
+
     if [[ -f "$FILE" ]]; then
       echo -e "${BLUE}[Check ${1}/${2}]:${CYAN} Checking for Dockerfile...${GREEN}Yes"
       cp ${FILE} Dockerfile
@@ -138,10 +138,10 @@ check_dockerfile(){
       echo
       exit 1
     fi
-  
+
   else
     FILE='passive_user_input/Dockerfile_Mac'
-    
+
     if [[ -f "$FILE" ]]; then
       echo -e "${BLUE}[Check ${1}/${2}]:${CYAN} Checking for Dockerfile...${GREEN}Yes"
       cp ${FILE} Dockerfile
@@ -156,7 +156,7 @@ check_dockerfile(){
   echo -e "\n${CYAN}Selecting Dockerfile for ${GREEN}${3}${CYAN} platform${NC}"
 }
 
-check_exit(){
+check_exit() {
   # check exit code of command, exit if non 0
   echo
   if [ $1 -eq 0 ]; then
@@ -204,7 +204,7 @@ echo
 # build Docker image according to user platform
 if [ "${OS_type}" = "Linux" ]; then
   docker build -t ${DOCKER_IMG_NAME} \
---build-arg USER_ID=$(id -u) --build-arg GROUP_ID=$(id -g) .
+    --build-arg USER_ID=$(id -u) --build-arg GROUP_ID=$(id -g) .
   check_exit $?
 else
   docker build -t ${DOCKER_IMG_NAME} .
@@ -216,7 +216,7 @@ echo
 echo -e "${CYAN}Removing dangling images (if any)"
 echo -e "---------------------------------${NC}"
 echo
-docker rmi $(docker images | grep none | awk '{  print $3 }') 2> /dev/null
+docker rmi $(docker images | grep none | awk '{  print $3 }') 2>/dev/null
 
 echo
 echo -e "${GREEN}Done"
@@ -236,7 +236,7 @@ echo -e "${CYAN}Running the ${DOCKER_CONTAINER_NAME}"
 echo -e "--------------------------${NC}"
 
 docker run --name ${DOCKER_CONTAINER_NAME} -it \
---mount type=bind,source=`pwd`,target=/MARS ${DOCKER_IMG_NAME}
+  --mount type=bind,source=$(pwd),target=/MARS ${DOCKER_IMG_NAME}
 
 # remove container
 echo
