@@ -90,7 +90,7 @@ def load_yaml(file_path):
     try:
         with open(file_path) as stream:
             data = yaml.safe_load(stream)
-            pprint(data)
+            pprint(data, sort_dicts=False)
             return data
     except yaml.YAMLError as exc:
         print(exc)

@@ -46,8 +46,10 @@ def release_main(language):
 
 
     # Read the yml file
-    print("\nReading the YML file:\n")
+    print("\nReading the YML files:\n")
+    print(f"Reading: {wg_config_yml_filename}\n")
     wg_config_yaml_data = helper.load_yaml(wg_config_yml_filename)
+    print(f"\nReading: {word_translation_yml_filename}\n")
     word_translation_yaml_data = helper.load_yaml(word_translation_yml_filename)
 
     # add front and end matter
