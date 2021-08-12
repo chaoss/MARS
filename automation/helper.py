@@ -1,26 +1,29 @@
 # General helping functions used throughout the project
 import os
 import shutil
-import sys
 import subprocess
-from pprint import pprint
+import sys
 from datetime import datetime
+from pprint import pprint
+
 import pypandoc
-import yaml
 import validators
+import yaml
+
 import main
 
-class color:
-   PURPLE = '\033[95m'
-   CYAN = '\033[96m'
-   DARKCYAN = '\033[36m'
-   BLUE = '\033[94m'
-   GREEN = '\033[92m'
-   YELLOW = '\033[93m'
-   RED = '\033[91m'
-   BOLD = '\033[1m'
-   UNDERLINE = '\033[4m'
-   END = '\033[0m'
+
+class Color:
+    PURPLE = '\033[95m'
+    CYAN = '\033[96m'
+    DARKCYAN = '\033[36m'
+    BLUE = '\033[94m'
+    GREEN = '\033[92m'
+    YELLOW = '\033[93m'
+    RED = '\033[91m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+    END = '\033[0m'
 
 
 def copy_file(source_filepath, dest_path):
@@ -29,18 +32,19 @@ def copy_file(source_filepath, dest_path):
     """
 
     if os.path.isfile(dest_path):
-        print(color.RED,f"Warning: File with same name already exists at destination: {source_filepath}",color.END)
+        print(Color.RED, f"Warning: File with same name already exists at destination: {source_filepath}", Color.END)
     else:
         try:
             print(f"\nCopying: {source_filepath}")
             shutil.copy2(source_filepath, dest_path)
             print(f"Copied Successfully")
         except PermissionError:
-            print(color.RED,"Error: Permission denied.",color.END)
+            print(Color.RED, "Error: Permission denied.", Color.END)
             sys.exit(1)
         except:
-            print(color.RED,"Error: Unable to copy file.",color.END)
+            print(Color.RED, "Error: Unable to copy file.", Color.END)
             sys.exit(1)
+
 
 def copy_dir_files(source_folder_path, dest_folder_path):
     """Copies all files from source directory to destination directory
@@ -52,17 +56,20 @@ def copy_dir_files(source_folder_path, dest_folder_path):
             files = os.listdir(source_folder_path)
             for fname in files:
                 if os.path.isfile(os.path.join(dest_folder_path, fname)):
-                    print(color.RED,f"File with same name already exists at destination: {os.path.join(source_folder_path, fname)}",color.END)
+                    print(Color.RED,
+                          f"File with same name already exists at destination: {os.path.join(source_folder_path, fname)}",
+                          Color.END)
                 else:
                     copy_file(os.path.join(source_folder_path, fname), dest_folder_path)
         else:
-            print(color.RED,f"Warning: Source directory does not exist: {source_folder_path}",color.END)
+            print(Color.RED, f"Warning: Source directory does not exist: {source_folder_path}", Color.END)
     except NotADirectoryError:
-        print(color.RED,f"Error: Source path is not a directory :{source_folder_path}",color.END)
+        print(Color.RED, f"Error: Source path is not a directory :{source_folder_path}", Color.END)
         sys.exit(1)
     except:
-        print(color.RED,f"Error: Unable to list files in :{source_folder_path}",color.END)
+        print(Color.RED, f"Error: Unable to list files in :{source_folder_path}", Color.END)
         sys.exit(1)
+
 
 def convert_md2tex(md_filename, latex_filename):
     """Converts specified markdown file to LaTeX"""
@@ -72,7 +79,7 @@ def convert_md2tex(md_filename, latex_filename):
     assert output == ""
     print(f"Created successfully: {latex_filename}")
 
-    
+
 def clean_directory(folder_path):
     """Deletes the specified directory"""
 
@@ -82,7 +89,8 @@ def clean_directory(folder_path):
             shutil.rmtree(folder_path)
             print("Directory cleaned Successfully")
     except:
-        print(color.RED,f"\nWarning: Unable to clean directory: {folder_path}",color.END)
+        print(Color.RED, f"\nWarning: Unable to clean directory: {folder_path}", Color.END)
+
 
 def load_yaml(file_path):
     """Loads data from given YAML file in the form of dictionary"""
@@ -90,12 +98,13 @@ def load_yaml(file_path):
     try:
         with open(file_path) as stream:
             data = yaml.safe_load(stream)
-            pprint(data)
+            pprint(data, sort_dicts=False)
             return data
     except yaml.YAMLError as exc:
         print(exc)
-        print(color.RED,"Error: Unable to load data from YAML file.",color.RED)
+        print(Color.RED, "Error: Unable to load data from YAML file.", Color.RED)
         sys.exit(1)
+
 
 def decrease_level(metric_path):
     """Replaces '# ' with '### ' anywhere in the file"""
@@ -105,8 +114,10 @@ def decrease_level(metric_path):
         cmd = 'sed -i "s/^\#/###/g" ' + metric_path
         os.system(cmd)
     except:
-        print(color.RED,f"Error: Unable to decrease heading levels in metric: {metric_path}.\nMake sure the metric follows the template.",color.END)
+        print(Color.RED, f"Error: Unable to decrease heading levels in metric: {metric_path}.")
+        print("Make sure the metric follows the template.", Color.END)
         sys.exit(1)
+
 
 def delete_dictkey(key, dictionary):
     """Deletes given key from given dictionary"""
@@ -114,7 +125,8 @@ def delete_dictkey(key, dictionary):
     if key in dictionary:
         del dictionary[key]
     else:
-        print(color.RED,f"Warning: Key- {key} not found in {dictionary}",color.RED)
+        print(Color.RED, f"Warning: Key- {key} not found in {dictionary}", Color.RED)
+
 
 def is_url(string):
     """Checks if the given string is a valid URL"""
@@ -124,19 +136,21 @@ def is_url(string):
     else:
         return False
 
+
 def clone_repo(url, name, branch):
     """Clones repository and checkout the given branch"""
 
     try:
         subprocess.check_call(['git', 'clone', '-b', branch, url, name])
     except subprocess.CalledProcessError:
-        print(color.RED,f"Error: Repository with name: {name} already exists")
+        print(Color.RED, f"Error: Repository with name: {name} already exists")
         print("Please ensure only one link is present in the YAML file")
 
     except:
-        print(color.RED,f"Error: Unable to clone/checkout repository from {url}")
-        print("Verify the repository details specified in YAML file.",color.END)
+        print(Color.RED, f"Error: Unable to clone/checkout repository from {url}")
+        print("Verify the repository details specified in YAML file.", Color.END)
         sys.exit(1)
+
 
 def add_front_matter(yaml_data):
     """Creates the latex file to add content just after
@@ -153,26 +167,29 @@ def add_front_matter(yaml_data):
                     filename = os.path.basename(page)
                     name, extension = os.path.splitext(filename)
                     if extension == ".md":
-                        convert_md2tex(filename, name+".tex")
+                        convert_md2tex(filename, name + ".tex")
                         front_matter.write(f"\input{{{name}}} \n")
                     elif extension == ".tex":
                         front_matter.write(f"\input{{{name}}} \n")
                     else:
-                        print(color.RED,f"Error: Could not incorporate {page} in front-matter.\nPlease make sure that the URL is valid. Only Markdown/LaTeX file format is supported.",color.END)
+                        print(Color.RED, f"Error: Could not incorporate {page} in front-matter.")
+                        print("Please make sure that the URL is valid. Only Markdown/LaTeX file format is supported.", Color.END)
                         sys.exit(1)
                 elif os.path.splitext(page)[1] == ".md":
-                    convert_md2tex(page, os.path.splitext(page)[0]+".tex")
+                    convert_md2tex(page, os.path.splitext(page)[0] + ".tex")
                     front_matter.write(f"\input{{{os.path.splitext(page)[0]}}} \n")
                 elif os.path.splitext(page)[1] == ".tex":
-                    front_matter.write(f"\input{{{os.path.splitext(page)[0]}}}"+"\n")
+                    front_matter.write(f"\input{{{os.path.splitext(page)[0]}}}" + "\n")
                 else:
-                    print(color.RED,f"Error: Could not incorporate {page} in front-matter.\nPlease make sure that the filename is valid. Only Markdown/LaTeX file format is supported.",color.END)
+                    print(Color.RED, f"Error: Could not incorporate {page} in front-matter.")
+                    print("Please make sure that the filename is valid. Only Markdown/LaTeX file format is supported.",Color.END)
                     sys.exit(1)
         else:
-            print(color.RED,"Warning: No documents detected for the front-matter",color.END)
+            print(Color.RED, "Warning: No documents detected for the front-matter", Color.END)
 
     with open(main.master_file_path, "a") as master_file:
         master_file.write("\n\include{front-matter}")
+
 
 def add_end_matter(yaml_data):
     """Creates latex file to add content at the end of PDF"""
@@ -191,30 +208,34 @@ def add_end_matter(yaml_data):
                         convert_md2tex("LICENSE.md", "LICENSE.tex")
                         end_matter.write("\clearpage\n\section{LICENSE}\n\input{LICENSE}\n")
                     elif extension == ".md":
-                        convert_md2tex(filename, name+".tex")
+                        convert_md2tex(filename, name + ".tex")
                         end_matter.write(f"\input{{{name}}} \n")
                     elif extension == ".tex":
                         end_matter.write(f"\input{{{name}}} \n")
                     else:
-                        print(color.RED,f"Error: Could not incorporate {page} in end matter.\nPlease make sure that the URL is valid. Only Markdown/LaTeX file format is supported.",color.END)
+                        print(Color.RED,
+                              f"Error: Could not incorporate {page} in end matter.")
+                        print("Please make sure that the URL is valid. Only Markdown/LaTeX file format is supported.",
+                              Color.END)
                         sys.exit(1)
 
                 elif os.path.splitext(page)[1] == ".md":
-                    convert_md2tex(page, os.path.splitext(page)[0]+".tex")
+                    convert_md2tex(page, os.path.splitext(page)[0] + ".tex")
                     end_matter.write(f"\input{{{os.path.splitext(page)[0]}}} \n")
                 elif os.path.splitext(page)[1] == ".tex":
-                    end_matter.write(f"\input{{{os.path.splitext(page)[0]}}}"+"\n")
+                    end_matter.write(f"\input{{{os.path.splitext(page)[0]}}}" + "\n")
                 elif os.path.splitext(page)[0] == "LICENSE" and os.path.splitext(page)[1] == "":
                     os.rename("LICENSE", "LICENSE.md")
                     convert_md2tex("LICENSE.md", "LICENSE.tex")
                     end_matter.write("\clearpage\n\section{LICENSE}\n\input{LICENSE}\n")
                 else:
-                    print(color.RED,f"Error: Could not incorporate {page} in end matter.")
-                    print(f"Please make sure that the filename is valid. Only Markdown/LaTeX file format is supported.",color.END)
+                    print(Color.RED, f"Error: Could not incorporate {page} in end matter.")
+                    print(f"Please make sure that the filename is valid. Only Markdown/LaTeX file format is supported.", Color.END)
+
                     sys.exit(1)
 
         else:
-            print(color.RED,"Warning: No documents detected for the end-matter",color.END)
+            print(Color.RED, "Warning: No documents detected for the end-matter", Color.END)
 
 
 def spilt_by_colon(string):
@@ -223,18 +244,21 @@ def spilt_by_colon(string):
     """
 
     colon_list = [":**", "：**", ":", "：", "ː", "˸", "᠄", "⍠", "꞉", "︓", " "]
-    i=0
-    while (i<len(colon_list)):
+    i = 0
+    while (i < len(colon_list)):
         try:
             a, b = string.split(colon_list[i], maxsplit=1)
             return b.strip()
         except ValueError:
-            i+=1
+            i += 1
         except:
-            print(color.RED,f"Error: Unexpected error while extracting data from string - {string}",color.END)
+            print(Color.RED, f"Error: Unexpected error while extracting data from string - {string}", Color.END)
             break
-    print(color.RED,"Error: No colon delimiter found. Please make sure that metric/focus_area README follow the template.",color.END)
+    print(Color.RED,
+          "Error: No colon delimiter found. Please make sure that metric/focus_area README follow the template.",
+          Color.END)
     sys.exit(1)
+
 
 def extract_question(metric):
     """Extracts the name and question from the given metric"""
@@ -254,6 +278,7 @@ def extract_question(metric):
 
     return metric_name, metric_question
 
+
 def extract_goal(focus_area_README):
     """Extracts the name and goal from given focus area README"""
 
@@ -268,6 +293,7 @@ def extract_goal(focus_area_README):
     focus_area_goal = spilt_by_colon(data[1])
 
     return focus_area_name, focus_area_goal
+
 
 def read_file(filename):
     """Returns data from given file in the form of a string"""
@@ -284,12 +310,12 @@ def replace_metric_table_keywords(table_head, focus_area_README, word_translatio
     focus_area_name, focus_area_goal = extract_goal(focus_area_README)
 
     keywords_dict = {
-        "$FOCUS_AREA_NAME$" : focus_area_name,
-        "$FOCUS_AREA_GOAL$" : focus_area_goal,
-        "$FOCUS_AREA$" : word_translation_yaml_data[language]["focus-area"],
-        "$GOAL$" : word_translation_yaml_data[language]["goal"],
-        "$METRIC$" : word_translation_yaml_data[language]["metric"],
-        "$QUESTION$" : word_translation_yaml_data[language]["question"]
+        "$FOCUS_AREA_NAME$": focus_area_name,
+        "$FOCUS_AREA_GOAL$": focus_area_goal,
+        "$FOCUS_AREA$": word_translation_yaml_data[language]["focus-area"],
+        "$GOAL$": word_translation_yaml_data[language]["goal"],
+        "$METRIC$": word_translation_yaml_data[language]["metric"],
+        "$QUESTION$": word_translation_yaml_data[language]["question"]
     }
 
     for k, v in keywords_dict.items():
@@ -312,6 +338,7 @@ def generate_metric_table(table_head, table_tail, focus_area_filename, metric_li
 
     print(f"\nGenerating focus-area file = {focus_area_filename}")
 
+
 def replace_fa_table_keywords(table_head, section_name, word_translation_yaml_data, language):
     """Replaces specific keywords from the focus area table templates.
      Also adds WG heading as section_name
@@ -328,7 +355,6 @@ def generate_fa_table(table_head, table_tail, wg_filename, focus_area_README_lis
     """Creates the table of focus areas starting from a blank WG.tex file"""
 
     for FA in focus_area_README_list:
-
         # FA[0] = focus_area_name
         # FA[1] = focus_area_README.md
 
@@ -348,44 +374,44 @@ def convert_tex2pdf(tex_filename, word_translation_yaml_data, language, cover_fi
 
     toc_heading = word_translation_yaml_data[language]["toc-heading"]
 
-
     pdf_filename = f"{language.title()}-Release-" + datetime.today().strftime('%Y-%m-%d') + ".pdf"
 
     print(f"\nConverting {tex_filename} file to PDF")
     output = pypandoc.convert_file(tex_filename, 'pdf', outputfile=pdf_filename, extra_args=['-f', 'latex',
-                                                                                                '--pdf-engine=xelatex',
-                                                                                                '--include-in-header', 'header_1.tex',
-                                                                                                '--highlight-style', 'zenburn',
-                                                                                                '-V', 'geometry:margin=0.8in',
-                                                                                                '-V', 'monofont:DejaVuSansMono.ttf',
-                                                                                                '-V', 'mathfont:texgyredejavu-math.otf',
-                                                                                                '-V', 'geometry:a4paper',
-                                                                                                '-V', 'colorlinks=true',
-                                                                                                '-V', f'toc-title:{toc_heading}',
-                                                                                                '-V', 'linkcolour:blue',
-                                                                                                '-V', 'fontsize=12pt',
-                                                                                                '--toc', '--toc-depth= 3',
-                                                                                                '--include-before-body', cover_filename,
-                                                                                                '--include-after-body', 'end-matter.tex'])
+                                                                                             '--pdf-engine=xelatex',
+                                                                                             '--include-in-header', 'header_1.tex',
+                                                                                             '--highlight-style', 'zenburn',
+                                                                                             '-V', 'geometry:margin=0.8in',
+                                                                                             '-V', 'monofont:DejaVuSansMono.ttf',
+                                                                                             '-V', 'mathfont:texgyredejavu-math.otf',
+                                                                                             '-V', 'geometry:a4paper',
+                                                                                             '-V', 'colorlinks=true',
+                                                                                             '-V', f'toc-title:{toc_heading}',
+                                                                                             '-V', 'linkcolour:blue',
+                                                                                             '-V', 'fontsize=12pt',
+                                                                                             '--toc', '--toc-depth= 3',
+                                                                                             '--include-before-body', cover_filename,
+                                                                                             '--include-after-body', 'end-matter.tex'
+                                                                                             ]
+                                   )
 
     return pdf_filename
 
 
 def print_summary(wg_count, focus_area_count, metric_count):
-
     print()
-    print(color.CYAN + "\n" + "="*10 + color.YELLOW + " SUMMARY " + color.CYAN + "="*10 + color.GREEN)
+    print(Color.CYAN + "\n" + "=" * 10 + Color.YELLOW + " SUMMARY " + Color.CYAN + "=" * 10 + Color.GREEN)
     print(f"Total working groups: {wg_count}")
     print(f"Total focus areas: {focus_area_count}")
-    print(f"Total metrics: {metric_count}",color.CYAN)
-    print("="*29,color.END)
+    print(f"Total metrics: {metric_count}", Color.CYAN)
+    print("=" * 29, Color.END)
+
 
 def print_final_msg(pdf_filename):
-
-    print(color.CYAN)
-    print("Created the final PDF ->",color.GREEN,pdf_filename)
-    print(color.CYAN)
+    print(Color.CYAN)
+    print("Created the final PDF ->", Color.GREEN, pdf_filename)
+    print(Color.CYAN)
 
     final_path = "./output/" + pdf_filename
-    print("\nLogs are saved in", color.GREEN, "logs.txt", color.CYAN)
-    print("Output PDF is saved in", color.GREEN, final_path, color.END)
+    print("\nLogs are saved in", Color.GREEN, "logs.txt", Color.CYAN)
+    print("Output PDF is saved in", Color.GREEN, final_path, Color.END)

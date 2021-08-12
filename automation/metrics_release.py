@@ -1,33 +1,34 @@
 import os
 import shutil
-import main
-import helper
 import sys
 
-def check_is_yml_file(language, yml_filename):
+import helper
+import main
 
+
+def check_is_yml_file(language, yml_filename):
     print("Check: Searching for YML file")
     if os.path.isfile(yml_filename):
         print(f"Found YML file successfully: {yml_filename}\n")
         return True
     else:
-        print(helper.color.RED,f"Error: Unable to detect YML file for {language}.")
-        print(f"Specify/check if the filename is: {yml_filename}",helper.color.END)
+        print(helper.Color.RED, f"Error: Unable to detect YML file for {language}.")
+        print(f"Specify/check if the filename is: {yml_filename}", helper.Color.END)
         return False
         sys.exit(1)
 
-def check_is_cover_file(language, cover_filename):
 
+def check_is_cover_file(language, cover_filename):
     print("Check: Searching for cover page file")
     if os.path.isfile(cover_filename):
         print(f"Found cover page file successfully: {cover_filename}\n")
     else:
-        print(helper.color.RED,f"Error: Unable to detect cover page file for {language}.")
-        print(f"Specify/check if the filename is: {cover_filename}",helper.color.END)
+        print(helper.Color.RED, f"Error: Unable to detect cover page file for {language}.")
+        print(f"Specify/check if the filename is: {cover_filename}", helper.Color.END)
         sys.exit(1)
 
-def release_main(language):
 
+def release_main(language):
     included_wgs = []
     focus_area_count = 0
     metric_count = 0
@@ -42,12 +43,13 @@ def release_main(language):
     check_is_yml_file(language, wg_config_yml_filename)
     check_is_cover_file(language, cover_filename)
     # check_is_class_exist(language, class_name)
-    print(helper.color.GREEN, "Passed all checks successfully", helper.color.END)
-
+    print(helper.Color.GREEN, "Passed all checks successfully", helper.Color.END)
 
     # Read the yml file
-    print("\nReading the YML file:\n")
+    print("\nReading the YML files:\n")
+    print(f"Reading: {wg_config_yml_filename}\n")
     wg_config_yaml_data = helper.load_yaml(wg_config_yml_filename)
+    print(f"\nReading: {word_translation_yml_filename}\n")
     word_translation_yaml_data = helper.load_yaml(word_translation_yml_filename)
 
     # add front and end matter
@@ -68,8 +70,9 @@ def release_main(language):
                 helper.clone_repo(wg_config_yaml_data[wg_name]['repo-link'], wg_name, wg_config_yaml_data[wg_name]['repo-branch'])
 
             else:
-                print(helper.color.RED, f"Warning: In {wg_config_yaml_data[wg_name]['wg-fullname']}, {wg_config_yaml_data[wg_name]['repo-link']} is not a valid URL ")
-                print("Check the repository details in the YAML file", helper.color.END)
+                print(helper.Color.RED,
+                      f"Warning: In {wg_config_yaml_data[wg_name]['wg-fullname']}, {wg_config_yaml_data[wg_name]['repo-link']} is not a valid URL ")
+                print("Check the repository details in the YAML file", helper.Color.END)
 
             included_wgs.append(wg_name)
             included_focus_areas = []
@@ -100,7 +103,8 @@ def release_main(language):
                         os.path.join(wg_config_yaml_data[wg_name]["focus-areas-location"], focus_area, "images"),
                         os.path.join("./", "images"))
 
-                    focus_area_README = os.path.join(wg_config_yaml_data[wg_name]["focus-areas-location"], focus_area, "README.md")
+                    focus_area_README = os.path.join(wg_config_yaml_data[wg_name]["focus-areas-location"], focus_area,
+                                                     "README.md")
 
                     # to be used in focus-areas table for WG.tex
                     focus_area_README_list.append([focus_area, focus_area_README])
@@ -157,4 +161,3 @@ def release_main(language):
 
     helper.print_summary(len(included_wgs), focus_area_count, metric_count)
     helper.print_final_msg(pdf_filename)
-
