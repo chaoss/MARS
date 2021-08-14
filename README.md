@@ -38,9 +38,9 @@ The following image gives a high level overview of the workflow of M.A.R.S.
 A rough walkthrough of the automation process:
 
 * Select language through user input
-* Load the corresponding yml config file
+* Load the corresponding `yml` config file
 * Load the corresponding cover page and side scripts
-* Cleanup test_env directory
+* Create and/or cleanup the `test_env` directory
 * Clone the WG and/or translations repositories
 * Generate relative paths to metric markdown files in various WGs
 * Pull all the metrics in base folder
