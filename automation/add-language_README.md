@@ -23,19 +23,13 @@ The MARS project automatically detects the language directories present in the t
 
 Refer to this [README](active_user_input/README.md) for more info. 
 
-## Step 2: Add new language class to [`table_templates.py`](table_templates.py)
+## Step 2: Add new language dictionary to [`word-translations.yml`](passive_user_input/word-translations.yml)
 
-Create a new language class in the format `<language-dir-name>` in [`table_templates.py`](table_templates.py)
+Create a new language dictionary in the format `<language-dir-name>` in [`word-translations.yml`](passive_user_input/word-translations.yml)
 
-Copy the variables defined in the `English` class and add them to the newly created class.
+Copy the keys defined in the `English` dictionary and add them to the newly created dictionary.
 
-In the variables `template_working_group` and `template_focus_areas`, replace `Focus Area`, `Goal`, `Metric` and `Question` with appropriate translations. These variables are used to dynamically generate focus area tables.
-
-In the function `convert_tex2pdf`
-
-- Change the PDF filename depending on the language
-- Replace `english_cover.tex` with cover filename made in the previous step
-- Change table of contents title as given in the `toc-title:` parameter with appropriate translation 
+Replace the values `Focus Area`, `Goal`, `Metric` and `Question` and `Contents` with appropriate translations. These variables are used to dynamically generate focus area tables.
   
 ## Step 3: Add language package to the header file
 
@@ -45,7 +39,7 @@ The MARS project uses LaTeX format as the intermediate between markdown and PDF.
 
 It is necessary to include the correct LaTeX language package to make sure the characters are displayed correctly in the PDF.
 
-Add the required LaTeX package to the [`header_1.tex`](passive_user_input/header_1.tex) file. Optionally, you can specify a new header file and edit the `convert_tex2pdf` function accordingly.
+Add the required LaTeX package to the [`header_1.tex`](passive_user_input/header_1.tex) file. Optionally, you can specify a new header file and edit the `convert_tex2pdf` function in [`helper.py`](helper.py) accordingly.
 
 You are now ready to run MARS in the desired language!
 
