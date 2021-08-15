@@ -6,7 +6,7 @@ The steps to configure MARS for a new language are given below:
 
 ## Step 0: Prerequisite
 
-The obvious prerequisite is having the transations of the metrics in desired language in the [`translations`](https://github.com/chaoss/translations) repository. They should be oraganized in the structure followed by other translated languages.
+The obvious prerequisite is having the translations of the metrics in desired language in the [`translations`](https://github.com/chaoss/translations) repository. They should be oraganized in the structure followed by other translated languages.
 
 ## Step 1: Create YAML and cover file
 
