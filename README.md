@@ -10,7 +10,7 @@
 
 CHAOSS metrics have been defined to provide an in-depth view into the various features of an open-source project. The metrics are also a key input to help organizations strategically invest their resources.
 
-M.A.R.S. (Metrics Automated Release System) aim is to automate & improve the metric release process. Keeping in mind the ever evolving CHAOSS, the system is scalable and flexible enough for easy tweaking in future.
+M.A.R.S. (Metrics Automated Release System) aim is to automate & improve the metric release process. Keeping in mind the ever evolving CHAOSS, the system is scalable and flexible enough for easy tweaking in the future.
 
 The final outcome is generation of reports for the metrics and their translations counterparts respectively.
 
@@ -25,7 +25,7 @@ There are two ways to run M.A.R.S:
 - Using Docker
 - Using Python virtual environment
 
-Refer to this [README](automation-english/README.md) to know more details about its usage.
+Refer to this [README](automation/README.md) to know more details about its usage.
 
 ## Workflow
 
@@ -38,9 +38,9 @@ The following image gives a high level overview of the workflow of M.A.R.S.
 A rough walkthrough of the automation process:
 
 * Select language through user input
-* Load the corresponding yml config file
+* Load the corresponding `yml` config file
 * Load the corresponding cover page and side scripts
-* Cleanup test_env directory
+* Create and/or cleanup the `test_env` directory
 * Clone the WG and/or translations repositories
 * Generate relative paths to metric markdown files in various WGs
 * Pull all the metrics in base folder
