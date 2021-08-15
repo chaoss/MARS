@@ -4,7 +4,7 @@
 
 * **Language Support:** Currently, M.A.R.S. is capable of producing PDF release for English, Spanish and Chinese languages. For adding a new language refer to [this guide](./add-language_README.md).
 
-All the commands listed below for Linux systems are assuming an installation of debian based system like Ubuntu, Mint, MX, AntiX, etc. However the same commands can used for different package managers and different flavours of linux like `yum`, `pacman` instead of `apt`; just be sure to select the right package name accordingly.
+All the commands listed below for Linux systems are assuming an installation of Debian based system like Ubuntu, Mint, MX, AntiX, etc. However the same commands can used for different package managers and different flavors of linux like `yum`, `pacman` instead of `apt`; just be sure to select the right package name accordingly.
 
 It is assumed that where ever we use the term Linux in the tutorial below, we are referring to a Debain based distro, more specifically **Ubuntu** (20.04), which was the actual system used.
 
@@ -28,7 +28,7 @@ Our docker image on docker hub can be found [here](https://hub.docker.com/r/riti
 
 Some stats:
 * Docker image compressed size: `842.35 MB` (actual download size)
-* Docker image decompressed size: `2.26GB` (actual size on system)
+* Docker image decompressed size: `2.26 GB` (actual size on system)
 
 #### Step 1: Cloning MARS
 
@@ -117,16 +117,16 @@ You can refer to the GIF below for a quick demo of this last step:
 * Perform OS detection: i.e. Linux or Mac OS/X
 * Runs 5 sanity checks:
     1. Check if Docker is installed
-    2. check if user is in Docker group (only for Linux)
+    2. Check if user is in Docker group (only for Linux)
     3. Check if Docker is running
-    4. check if current directory is correct
-    5. check if Dockerfile for detected platform exist
+    4. Check if current directory is correct
+    5. Check if Dockerfile for detected platform exist
 * Brings in the correct `Dockerfile` and build the Docker image: `chaoss-mars`
 * Remove dangling images (if any)
 * Remove `mars-container` if already exist
-* Run the Docker image with bind mount in current diretory
+* Run the Docker image with bind mount in current directory
 * Spin up a container with the name: `mars-container`
-* Display a langauge selection menu:
+* Display a language selection menu:
     * If user chooses English:
         * Generate English release PDF as per the config in English `yml` file and cover page
     * If user chooses other languages:
@@ -142,12 +142,12 @@ You can refer to the GIF below for a quick demo of this last step:
 * Here we are using 2 Dockerfiles, 1 for Linux and 1 for Mac. The idea of 2 Dockerfile is being used because in Linux the files created inside the Docker container are owned by root. So the normal user will face permission issue on the PDF and log files. However, in Mac, no such problem is encountered and the files are owned by the logged in user. This forced us to create a separate Dockerfile which is platform dependent. The automation script detects the platform and proceeds with the correct Dockerfile accordingly.
 
 **How we bypass the root permissions in Docker (in Linux)**
-* The Dockerfile for Linux creates a new user - `user`, with the userID and groupID of your current logged in user, so now the user inside Docker container has same previlages as your current user. Now there will not be any permission issues while accessing the files created inside the container while using bind mount (without this, the PDF owner will be the root user by default)
+* The Dockerfile for Linux creates a new user - `user`, with the userID and groupID of your current logged in user, so now the user inside Docker container has same previleges as your current user. Now there will not be any permission issues while accessing the files created inside the container while using bind mount (without this, the PDF owner will be the root user by default)
 
 Both the Dockerfiles can be found in the [`passive_user_input`](passive_user_input) directory
 
 **Resolving the multiple language issue**
-* For Enlgish, the WGs have separate repositories while for the Spanish and Chinese, both of them have all the WGs in a single `transtions` repository. Still you might notice that the `yml` file structure for every language is the same. This is because we are treating English as just any other language. We are more interested in the paths to the focus-areas and metric markdowns in the WG rather than the location of the WGs itself, be it embedded in a single repository or across multiple. This gives us much flexibilty to add a new language or pull from some different repositories.
+* For English, the WGs have separate repositories while for the Spanish and Chinese, both of them have all the WGs in a single `translations` repository. Still you might notice that the `yml` file structure for every language is the same. This is because we are treating English as just any other language. We are more interested in the paths to the focus-areas and metric markdowns in the WG rather than the location of the WGs itself, be it embedded in a single repository or across multiple. This gives us much flexibility to add a new language or pull from some different repositories.
 
 
 ### Method 2: The not so easy way - Python virtual env
@@ -170,7 +170,7 @@ We'll be using the `xelatex` engine and `pandoc` for converting the markdowns to
     * Install `xelatex`:
         * Refer to https://tug.org/mactex/
         * Alternatively, you can install [Miketex](https://miktex.org/download) to download only the required packages during PDF generation
-    * Install Chinese langauge pack:
+    * Install Chinese language pack:
         * Refer to [_this link_](https://ports.macports.org/port/texlive-lang-cjk/)
     * Install fonts:
         * Refer to [_this link_](https://www.linickx.com/osx-how-to-install-the-microsoft-fonts)
