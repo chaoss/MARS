@@ -40,7 +40,7 @@ greetings() {
   echo -e '   Metrics Automated Release System'
   echo -e "${YELLOW}======================================"
   echo -e "${CYAN}"
-  echo -e "Latest Release: <DATE>"
+  echo -e "Latest Release: 17th Aug, 2021"
   echo -e "Current Version: v1.0"
   echo -e "GitHub: https://github.com/chaoss/MARS\n"
   echo -e "${YELLOW}======================================"
