@@ -276,6 +276,10 @@ def extract_question(metric):
     # data[1] = 'Question: question part of the metric'
     metric_question = spilt_by_colon(data[1])
 
+    # Replace '&' to 'and' to prevent breaking of tables in pandoc
+    metric_name = metric_name.replace('&', 'and')
+    metric_question = metric_question.replace('&', 'and')
+
     return metric_name, metric_question
 
 
@@ -291,6 +295,10 @@ def extract_goal(focus_area_README):
 
     focus_area_name = data[0].split(maxsplit=1)[1]
     focus_area_goal = spilt_by_colon(data[1])
+
+    # Replace '&' to 'and'
+    focus_area_name = focus_area_name.replace('&', 'and')
+    focus_area_goal = focus_area_goal.replace('&', 'and')
 
     return focus_area_name, focus_area_goal
 
