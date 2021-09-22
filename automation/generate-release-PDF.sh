@@ -260,7 +260,7 @@ rm Dockerfile
 echo
 echo -e "${NC}Unless you plan to rerun the script in future, you can safetly delete the image:${CYAN}"
 echo
-echo -e "$ docker rmi ${DOCKER_IMG_NAME}"
+echo -e "$ docker rmi ${DOCKER_IMG_NAME}${NC}"
 echo
 
 # echo -e "${GREEN}Logs are saved in ${YELLOW}logs.txt"
