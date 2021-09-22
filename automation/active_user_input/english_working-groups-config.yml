@@ -19,7 +19,7 @@ wg-common:
   include-wg: True
   wg-fullname: Common Metrics WG
   repo-link: https://github.com/chaoss/wg-common
-  repo-branch: master
+  repo-branch: main
   focus-areas-location: wg-common/focus-areas
   focus-areas:
     contributions:
