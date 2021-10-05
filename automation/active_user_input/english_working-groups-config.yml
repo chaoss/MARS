@@ -104,7 +104,7 @@ wg-evolution:
   include-wg: True
   wg-fullname: Evolution WG
   repo-link: https://github.com/chaoss/wg-evolution
-  repo-branch: master
+  repo-branch: main
   focus-areas-location: wg-evolution/focus-areas
   focus-areas:
     code-development-activity:
@@ -176,7 +176,7 @@ wg-value:
   include-wg: True
   wg-fullname: Value WG
   repo-link: https://github.com/chaoss/wg-value
-  repo-branch: master
+  repo-branch: main
   focus-areas-location: wg-value/focus-areas
   focus-areas:
     academic-value:
