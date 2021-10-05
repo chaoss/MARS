@@ -127,3 +127,12 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# .DS_Store
+*.DS_Store
+
+# Automation Log
+automation/logs.txt
+
+# Automation Outputs
+output/*
