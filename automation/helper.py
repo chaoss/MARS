@@ -118,6 +118,16 @@ def decrease_level(metric_path):
         print("Make sure the metric follows the template.", Color.END)
         sys.exit(1)
 
+    """Convert absolute to relative links for every image (if any) in the metric"""
+    try:
+        print(f"\nConverting absolute to relative links in metric: {metric_path}")
+        subprocess.check_call(["sed",r"s|\(!\[[^]]\+](\)[^)]\+/\([^)]\+/[^)]\+)\)|\1\2|",metric_path])
+    except:
+        pprint(Color.RED, f"Error: Unable to convert abs to relative in metric: {metric_path}.")
+        print("Make sure the metric follows the template.", Color.END)
+        sys.exit(1)
+
+
 
 def delete_dictkey(key, dictionary):
     """Deletes given key from given dictionary"""
