@@ -90,6 +90,7 @@ def release_main(language):
                         shutil.copy2(metric_path, "./")
                         # helper.copy_file(metric_path, "./")
                         helper.decrease_level(metric)
+                        helper.convert_imageurls_abs2rel(metric)
                         tex_filename = os.path.splitext((metric))[0] + ".tex"
 
                         helper.convert_md2tex(metric, tex_filename)
