@@ -24,7 +24,7 @@ wg-common:
   focus-areas:
     contributions:
     - clones.md
-    - language-distribution.md
+    - programming-language-distribution.md
     - technical-fork.md
     - types-of-contributions.md
     time:
