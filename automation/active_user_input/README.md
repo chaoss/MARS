@@ -72,7 +72,7 @@ wg-common:
     - organizational-diversity.md
 ```
 
-Note: _You may skip configuring `github-link` and `github-branch` parameters for the languages that exist in the translation repository (like Spanish and Chinese), since all working groups for them are at fixed location._
+**Note: _You may skip configuring `github-link` and `github-branch` parameters for the languages that exist in the translation repository (like Spanish and Chinese), since all working groups for them are at fixed location._**
 
 Apart from this you might also find `front-matter` and `end-matter` in the beginning of the file. It corresponds to the static input of contributors, release-notes and the LICENSE - to be pulled from the website repository. You might not need to change it since any modification in these files in the website repo would be anyways reflected here. So you can safetly ignore those terms.
 
