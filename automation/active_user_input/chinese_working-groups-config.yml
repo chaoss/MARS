@@ -19,167 +19,141 @@ end-matter:
 wg-common:
   include-wg: True
   wg-fullname: Common Metrics WG
-  repo-link: None
-  repo-branch: None
-  focus-areas-location: translations/chinese/wg-common/focus-areas
+  repo-link: https://github.com/chaoss/wg-common
+  repo-branch: main
+  focus-areas-location: wg-common/focus-areas
   focus-areas:
     contributions:
+    - clones.md
+    - programming-language-distribution.md
     - technical-fork.md
     - types-of-contributions.md
     time:
     - activity-dates-and-times.md
     - burstiness.md
     - review-cycle-duration-within-a-change-request.md
-    - time-to-close.md
     - time-to-first-response.md
-    place:
+    - time-to-close.md
     people:
-    - contributor-location.md
+    - bot-activity.md
     - contributors.md
+    - contributor-location.md
     - organizational-diversity.md
+    place:
+    - collaboration-platform-activity.md
+    - event-locations.md
 
 
 # WG-DEI
 
-wg-diversity-inclusion:
-  include-wg: False
+wg-dei:
+  include-wg: True
   wg-fullname: Diversity, Equity and Inclusion WG
-  repo-link: None
-  repo-branch: None
-  focus-areas-location: translations/chinese/wg-diversity-inclusion/focus-areas
+  repo-link: https://github.com/chaoss/wg-dei
+  repo-branch: main
+  focus-areas-location: wg-dei/focus-areas
   focus-areas:
-#    communication-inclusivity:
-#    - alternatives.md
-#    - captioning.md
-#    - listening.md
-#    - mode-alternatives.md
-#    - speaking.md
-#    - technical-jargon.md
-#    contributor-community-diversity:
-#    - collaboration-style.md
-#    - contribution-sentiment.md
-#    - contribution-type.md
-#    - perceived-value.md
     event-diversity:
-    - attendee-demographics.md
-    - diversity-access-tickets.md
     - event-code-of-conduct.md
+    - diversity-access-tickets.md
     - family-friendly.md
-#    - quick-links.md
-    - speaker-demographics.md
+    - event-demographics.md
+    - inclusive-experience.md
+    - time-inclusion.md
     governance:
     - board-council-diversity.md
-#    - code-of-conduct-enforcement.md
     - code-of-conduct.md
-#    - foundation-staff-diversity.md
-#    - team-module-ownership-diversity.md
     leadership:
     - inclusive-leadership.md
     - mentorship.md
     - sponsorship.md
     project-and-community:
-#    - channels.md
     - chat-platform-inclusivity.md
     - documentation-accessibility.md
-#    - documentation_discoverability.md
+    - documentation-discoverability.md
     - documentation-usability.md
     - issue-label-inclusivity.md
     - project-burnout.md
-#    - response-time-quality.md
-#    - sentiment.md
-#    recognition-of-good-work:
-#    - contribution-type.md
-#    - contribution-volume.md
-#    - recognition-type.md
-#    - recognition-value.md
+    - psychological-safety.md
 
 # WG-Evolution
 
 wg-evolution:
-  include-wg: False
+  include-wg: True
   wg-fullname: Evolution WG
-  repo-link: None
-  repo-branch: None
-  focus-areas-location: translations/chinese/wg-evolution/focus-areas
+  repo-link: https://github.com/chaoss/wg-evolution
+  repo-branch: main
+  focus-areas-location: wg-evolution/focus-areas
   focus-areas:
     code-development-activity:
     - branch-lifecycle.md
-    - code-changes-lines.md
     - code-changes.md
+    - code-changes-lines.md
     code-development-efficiency:
-    - change-request-acceptance-ratio.md
     - change-requests-accepted.md
     - change-requests-declined.md
     - change-requests-duration.md
+    - change-request-acceptance-ratio.md
     code-development-process-quality:
     - change-requests.md
+    issue-resolution:
+    - issues-new.md
+    - issues-active.md
+    - issues-closed.md
+    - issue-age.md
+    - issue-response-time.md
+    - issue-resolution-duration.md
     community-growth:
     - contribution-attribution.md
     - inactive-contributors.md
-    - new-contributor-closing-issues.md
     - new-contributors.md
-    issue-resolution:
-    - issue-age.md
-    - issue-resolution-duration.md
-    - issue-response-time.md
-    - issues-active.md
-    - issues-closed.md
-    - issues-new.md
-
-
+    - new-contributor-closing-issues.md
+    
 # WG-Risk
 
 wg-risk:
-  include-wg: False
+  include-wg: True
   wg-fullname: Risk WG
-  repo-link: None
-  repo-branch: None
-  focus-areas-location: translations/chinese/wg-risk/focus-areas
+  repo-link: https://github.com/chaoss/wg-risk
+  repo-branch: main
+  focus-areas-location: wg-risk/focus-areas
   focus-areas:
     business-risk:
 #    - average-issue-resolution-time.md
     - bus-factor.md
     - committers.md
     - elephant-factor.md
-#    - issues-open-age.md
-#    - issues-volume.md
-#    - lines-of-code.md
+
     code-quality:
-#    - code-complexity.md
-#    - pull-request-process.md
     - test-coverage.md
+    dependency-risk-assessment:
+    - libyear.md
+    - upstream-code-dependencies.md
     licensing:
-#    - license-count.md
     - license-coverage.md
     - license-declared.md
     - osi-approved-licenses.md
     - spdx-document.md
     security:
     - cii-best-practices.md
-#    - language-declaration-readme.md
-#    - language-source-proportion.md
-    transparency:
-#    - software-bill-of-materials.md
-
-
 # WG-Value
 
 wg-value:
   include-wg: True
   wg-fullname: Value WG
-  repo-link: None
-  repo-branch: None
-  focus-areas-location: translations/chinese/wg-value/focus-areas
+  repo-link: https://github.com/chaoss/wg-value
+  repo-branch: main
+  focus-areas-location: wg-value/focus-areas
   focus-areas:
+    academic-value:
+    - academic-open-source-project-impact.md
     communal-value:
-#    - project-popularity.md
+    - project-popularity.md
     - project-velocity.md
-#    - social-listening.md
+    - social-listening.md
     individual-value:
-    - job-opportunities.md
     - organizational-project-skill-demand.md
+    - job-opportunities.md
     organizational-value:
+    - organizational-influence.md
     - labor-investment.md
-    social-value:
-
-
