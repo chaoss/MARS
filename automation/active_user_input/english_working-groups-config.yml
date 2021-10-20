@@ -66,7 +66,7 @@ wg-dei:
 #    - perceived-value.md
     event-diversity:
     - event-code-of-conduct.md
-    - diversity-access-tickets.md    
+    - diversity-access-tickets.md
     - family-friendly.md
     - event-demographics.md
     - inclusive-experience.md
@@ -96,8 +96,8 @@ wg-dei:
 #    - contribution-type.md
 #    - contribution-volume.md
 #    - recognition-type.md
-#    - recognition-value.md 
-    
+#    - recognition-value.md
+
 # WG-Evolution
 
 wg-evolution:
@@ -109,7 +109,7 @@ wg-evolution:
   focus-areas:
     code-development-activity:
     - branch-lifecycle.md
-    - code-changes.md
+    - code-changes-commits.md
     - code-changes-lines.md
     code-development-efficiency:
     - change-requests-accepted.md
@@ -130,7 +130,7 @@ wg-evolution:
     - inactive-contributors.md
     - new-contributors.md
     - new-contributor-closing-issues.md
-    
+
 
 # WG-Risk
 
@@ -151,7 +151,7 @@ wg-risk:
 #    - lines-of-code.md
     code-quality:
 #    - code-complexity.md
-#    - pull-request-process.md    
+#    - pull-request-process.md
     - test-coverage.md
     dependency-risk-assessment:
     - libyear.md
@@ -168,7 +168,7 @@ wg-risk:
 #    - language-source-proportion.md
 #    transparency:
 #    - software-bill-of-materials.md
-    
+
 
 # WG-Value
 
@@ -192,5 +192,3 @@ wg-value:
     - organizational-influence.md
     - labor-investment.md
 #    social-value:
-    
- 
