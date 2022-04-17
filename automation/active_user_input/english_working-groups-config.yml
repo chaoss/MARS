@@ -24,6 +24,7 @@ wg-common:
   focus-areas:
     contributions:
     - clones.md
+    - occassional-contributors.md
     - programming-language-distribution.md
     - technical-fork.md
     - types-of-contributions.md
@@ -52,51 +53,32 @@ wg-dei:
   repo-branch: main
   focus-areas-location: wg-dei/focus-areas
   focus-areas:
-#    communication-inclusivity:
-#    - alternatives.md
-#    - captioning.md
-#    - listening.md
-#    - mode-alternatives.md
-#    - speaking.md
-#    - technical-jargon.md
-#    contributor-community-diversity:
-#    - collaboration-style.md
-#    - contribution-sentiment.md
-#    - contribution-type.md
-#    - perceived-value.md
+
     event-diversity:
     - event-code-of-conduct.md
     - diversity-access-tickets.md
-    - family-friendly.md
+    - event-accessibility.md
     - event-demographics.md
+    - family-friendly.md
     - inclusive-experience.md
     - time-inclusion.md
     governance:
     - board-council-diversity.md
-#    - code-of-conduct-enforcement.md
     - code-of-conduct.md
-#    - foundation-staff-diversity.md
-#    - team-module-ownership-diversity.md
+
     leadership:
     - inclusive-leadership.md
     - mentorship.md
     - sponsorship.md
     project-and-community:
-#    - channels.md
     - chat-platform-inclusivity.md
     - documentation-accessibility.md
     - documentation-discoverability.md
     - documentation-usability.md
     - issue-label-inclusivity.md
     - project-burnout.md
+    - project-demographics.md
     - psychological-safety.md
-#    - response-time-quality.md
-#    - sentiment.md
-#    recognition-of-good-work:
-#    - contribution-type.md
-#    - contribution-volume.md
-#    - recognition-type.md
-#    - recognition-value.md
 
 # WG-Evolution
 
@@ -109,6 +91,7 @@ wg-evolution:
   focus-areas:
     code-development-activity:
     - branch-lifecycle.md
+    - change-request-commits.md
     - code-changes-commits.md
     - code-changes-lines.md
     code-development-efficiency:
@@ -118,6 +101,7 @@ wg-evolution:
     - change-request-acceptance-ratio.md
     code-development-process-quality:
     - change-requests.md
+    - change-request-reviews.md
     issue-resolution:
     - issues-new.md
     - issues-active.md
@@ -127,6 +111,7 @@ wg-evolution:
     - issue-resolution-duration.md
     community-growth:
     - contribution-attribution.md
+    - conversion-rate.md
     - inactive-contributors.md
     - new-contributors.md
     - new-contributor-closing-issues.md
@@ -142,32 +127,24 @@ wg-risk:
   focus-areas-location: wg-risk/focus-areas
   focus-areas:
     business-risk:
-#    - average-issue-resolution-time.md
     - bus-factor.md
     - committers.md
     - elephant-factor.md
-#    - issues-open-age.md
-#    - issues-volume.md
-#    - lines-of-code.md
+
     code-quality:
-#    - code-complexity.md
-#    - pull-request-process.md
+    - defect-resolution-time.md
     - test-coverage.md
     dependency-risk-assessment:
     - libyear.md
     - upstream-code-dependencies.md
     licensing:
-#    - license-count.md
     - license-coverage.md
     - license-declared.md
     - osi-approved-licenses.md
     - spdx-document.md
     security:
-    - cii-best-practices.md
-#    - language-declaration-readme.md
-#    - language-source-proportion.md
-#    transparency:
-#    - software-bill-of-materials.md
+    - openssf-best-practices.md
+
 
 
 # WG-Value
@@ -182,13 +159,11 @@ wg-value:
     academic-value:
     - academic-open-source-project-impact.md
     communal-value:
-    - project-popularity.md
+    - project-recommendability.md
     - project-velocity.md
-    - social-listening.md
     individual-value:
     - organizational-project-skill-demand.md
     - job-opportunities.md
     organizational-value:
     - organizational-influence.md
     - labor-investment.md
-#    social-value:
