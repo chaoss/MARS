@@ -111,7 +111,6 @@ wg-evolution:
     - issue-resolution-duration.md
     community-growth:
     - contribution-attribution.md
-    - conversion-rate.md
     - inactive-contributors.md
     - new-contributors.md
     - new-contributor-closing-issues.md
@@ -127,6 +126,7 @@ wg-risk:
   focus-areas-location: wg-risk/focus-areas
   focus-areas:
     business-risk:
+#    - average-issue-resolution-time.md
     - bus-factor.md
     - committers.md
     - elephant-factor.md
@@ -144,7 +144,6 @@ wg-risk:
     - spdx-document.md
     security:
     - openssf-best-practices.md
-
 
 
 # WG-Value
