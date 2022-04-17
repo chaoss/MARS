@@ -24,7 +24,6 @@ wg-common:
   focus-areas:
     contributions:
     - clones.md
-    - occassional-contributors.md
     - programming-language-distribution.md
     - technical-fork.md
     - types-of-contributions.md
@@ -38,6 +37,7 @@ wg-common:
     - bot-activity.md
     - contributors.md
     - contributor-location.md
+    - occasional-contributors.md
     - organizational-diversity.md
     place:
     - collaboration-platform-activity.md
@@ -60,7 +60,7 @@ wg-dei:
     - event-accessibility.md
     - event-demographics.md
     - family-friendly.md
-    - inclusive-experience.md
+    - inclusive-experience-at-event.md
     - time-inclusion.md
     governance:
     - board-council-diversity.md
