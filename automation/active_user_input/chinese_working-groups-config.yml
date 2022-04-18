@@ -19,9 +19,9 @@ end-matter:
 wg-common:
   include-wg: True
   wg-fullname: Common Metrics WG
-  repo-link: https://github.com/chaoss/wg-common
-  repo-branch: main
-  focus-areas-location: wg-common/focus-areas
+  repo-link: none
+  repo-branch: none
+  focus-areas-location: translations/chinese/wg-common/focus-areas
   focus-areas:
     contributions:
     - clones.md
@@ -47,12 +47,12 @@ wg-common:
 
 # WG-DEI
 
-wg-dei:
+wg-diversity-inclusion:
   include-wg: True
   wg-fullname: Diversity, Equity and Inclusion WG
-  repo-link: https://github.com/chaoss/wg-dei
-  repo-branch: main
-  focus-areas-location: wg-dei/focus-areas
+  repo-link: None
+  repo-branch: None
+  focus-areas-location: translations/chinese/wg-diversity-inclusion/focus-areas
   focus-areas:
 
     event-diversity:
@@ -86,9 +86,9 @@ wg-dei:
 wg-evolution:
   include-wg: True
   wg-fullname: Evolution WG
-  repo-link: https://github.com/chaoss/wg-evolution
-  repo-branch: main
-  focus-areas-location: wg-evolution/focus-areas
+  repo-link: None
+  repo-branch: None
+  focus-areas-location: translations/chinese/wg-evolution/focus-areas
   focus-areas:
     code-development-activity:
     - branch-lifecycle.md
@@ -122,9 +122,9 @@ wg-evolution:
 wg-risk:
   include-wg: True
   wg-fullname: Risk WG
-  repo-link: https://github.com/chaoss/wg-risk
-  repo-branch: main
-  focus-areas-location: wg-risk/focus-areas
+  repo-link: None
+  repo-branch: None
+  focus-areas-location: translations/chinese/wg-risk/focus-areas
   focus-areas:
     business-risk:
 #    - average-issue-resolution-time.md
@@ -152,9 +152,9 @@ wg-risk:
 wg-value:
   include-wg: True
   wg-fullname: Value WG
-  repo-link: https://github.com/chaoss/wg-value
-  repo-branch: main
-  focus-areas-location: wg-value/focus-areas
+  repo-link: None
+  repo-branch: None
+  focus-areas-location: translations/chinese/wg-value/focus-areas
   focus-areas:
     academic-value:
     - academic-open-source-project-impact.md
